@@ -4,7 +4,7 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
-class Scene_LoginAndRegister : public Scene
+class SceneLoginAndRegister : public Scene
 {
 public:
 	static Scene* createScene();
@@ -15,7 +15,7 @@ public:
 	void menuCloseCallback(cocos2d::Ref* pSender);
 
 	// implement the "static create()" method manually
-	CREATE_FUNC(Scene_LoginAndRegister);
+	CREATE_FUNC(SceneLoginAndRegister);
 };
 
 #endif // __SCENE_LOGIN_AND_REGISTER_H__

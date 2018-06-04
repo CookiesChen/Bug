@@ -10,8 +10,11 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Scene">
+    <Filter Include="src\Scenes">
       <UniqueIdentifier>{0ecd9738-1b76-4615-a6d2-98ab5ebab679}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Layers">
+      <UniqueIdentifier>{70f58003-6ba5-470c-a7bf-869cb62857d1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -21,8 +24,8 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Scene\Scene_LoginAndRegister.cpp">
-      <Filter>src\Scene</Filter>
+    <ClCompile Include="..\Classes\Scenes\SceneLoginAndRegister.cpp">
+      <Filter>src\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -32,8 +35,8 @@
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Scene\Scene_LoginAndRegister.h">
-      <Filter>src\Scene</Filter>
+    <ClInclude Include="..\Classes\Scenes\SceneLoginAndRegister.h">
+      <Filter>src\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

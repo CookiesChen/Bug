@@ -1,11 +1,11 @@
-#include "Scene_LoginAndRegister.h"
+#include "SceneLoginAndRegister.h"
 #include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
-Scene* Scene_LoginAndRegister::createScene()
+Scene* SceneLoginAndRegister::createScene()
 {
-    return Scene_LoginAndRegister::create();
+    return SceneLoginAndRegister::create();
 }
 
 // Print useful error message instead of segfaulting when files are not there.
@@ -16,7 +16,7 @@ static void problemLoading(const char* filename)
 }
 
 // on "init" you need to initialize your instance
-bool Scene_LoginAndRegister::init()
+bool SceneLoginAndRegister::init()
 {
     //////////////////////////////
     // 1. super init first
@@ -36,7 +36,7 @@ bool Scene_LoginAndRegister::init()
     auto closeItem = MenuItemImage::create(
                                            "CloseNormal.png",
                                            "CloseSelected.png",
-                                           CC_CALLBACK_1(Scene_LoginAndRegister::menuCloseCallback, this));
+                                           CC_CALLBACK_1(SceneLoginAndRegister::menuCloseCallback, this));
 
     if (closeItem == nullptr ||
         closeItem->getContentSize().width <= 0 ||
@@ -95,7 +95,7 @@ bool Scene_LoginAndRegister::init()
 }
 
 
-void Scene_LoginAndRegister::menuCloseCallback(Ref* pSender)
+void SceneLoginAndRegister::menuCloseCallback(Ref* pSender)
 {
     //Close the cocos2d-x game scene and quit the application
     Director::getInstance()->end();

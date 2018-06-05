@@ -28,20 +28,29 @@ bool LayerRegister::init()
 
     // ÖØ¸´ÃÜÂë¿ò
     auto confirm = EditBox::create(Size(250, 30), Scale9Sprite::create("input.png"));
-    confirm->setPlaceHolder("confirm");
+    confirm->setPlaceHolder("confirm password");
     confirm->setMaxLength(8);
     confirm->setFontColor(Color3B::BLACK);
     confirm->setFont("fonts/arial.ttf", 18);
     confirm->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
 
-    // µÇÂ½°´Å¥
-    auto loginButton = MenuItemLabel::create(Label::createWithTTF("Login", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerRegister::turnToLogin, this));
+    // ÓÊÏäÊäÈë¿ò
+    auto email = EditBox::create(Size(250, 30), Scale9Sprite::create("input.png"));
+    email->setPlaceHolder("email");
+    email->setMaxLength(8);
+    email->setFontColor(Color3B::BLACK);
+    email->setFont("fonts/arial.ttf", 18);
+    email->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
+
+    // ·µ»ØµÇÂ½°´Å¥
+    auto loginButton = MenuItemLabel::create(Label::createWithTTF("back", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerRegister::turnToLogin, this));
     //×¢²á°´Å¥
     auto registerButton = MenuItemLabel::create(Label::createWithTTF("Register", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerRegister::Register, this));
 
-	account->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
-	password->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
-    confirm->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	account->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 150));
+	password->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
+    confirm->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
+    email->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
     loginButton->setPosition(Vec2(visibleSize.width / 2 - 70, visibleSize.height / 2 - 50));
     registerButton->setPosition(Vec2(visibleSize.width / 2 + 70, visibleSize.height / 2 - 50));
 
@@ -54,14 +63,13 @@ bool LayerRegister::init()
 	this->addChild(account);
 	this->addChild(password);
     this->addChild(confirm);
+    this->addChild(email);
 	return true;
 }
 
 void LayerRegister::turnToLogin(Ref* pSender) {
-    auto fade = FadeIn::create(0.5f);
     (this->getParent())->getChildByName("Login")->setVisible(true);
-    (this->getParent())->getChildByName("Login")->runAction(fade);
-    auto rotate = RotateBy::create(1.0f, 180.0f);
+    auto rotate = RotateBy::create(0.5f, -180.0f);
     (this->getParent())->getChildByName("Background")->getChildByName("compass")->runAction(rotate);
     this->setVisible(false);
 }

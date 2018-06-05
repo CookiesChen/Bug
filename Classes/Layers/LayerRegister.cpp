@@ -1,12 +1,12 @@
-#include "LayerLogin.h"
+#include "LayerRegister.h"
 #include "SceneLoginAndRegister.h"
 
-Layer * LayerLogin::createLayer()
+Layer * LayerRegister::createLayer()
 {
-	return LayerLogin::create();
+	return LayerRegister::create();
 }
 
-bool LayerLogin::init()
+bool LayerRegister::init()
 {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	auto origin = Director::getInstance()->getVisibleOrigin();
@@ -26,13 +26,22 @@ bool LayerLogin::init()
     password->setFont("fonts/arial.ttf", 18);
     password->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
 
-    // µÇÂ½°´Å¥
-    auto loginButton = MenuItemLabel::create(Label::createWithTTF("Login", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerLogin::LogIn, this));
-    //×¢²á°´Å¥
-    auto registerButton = MenuItemLabel::create(Label::createWithTTF("Register", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerLogin::turnToRegister, this));
+    // ÖØ¸´ÃÜÂë¿ò
+    auto confirm = EditBox::create(Size(250, 30), Scale9Sprite::create("input.png"));
+    confirm->setPlaceHolder("confirm");
+    confirm->setMaxLength(8);
+    confirm->setFontColor(Color3B::BLACK);
+    confirm->setFont("fonts/arial.ttf", 18);
+    confirm->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
 
-	account->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
-	password->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+    // µÇÂ½°´Å¥
+    auto loginButton = MenuItemLabel::create(Label::createWithTTF("Login", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerRegister::turnToLogin, this));
+    //×¢²á°´Å¥
+    auto registerButton = MenuItemLabel::create(Label::createWithTTF("Register", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerRegister::Register, this));
+
+	account->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
+	password->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
+    confirm->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
     loginButton->setPosition(Vec2(visibleSize.width / 2 - 70, visibleSize.height / 2 - 50));
     registerButton->setPosition(Vec2(visibleSize.width / 2 + 70, visibleSize.height / 2 - 50));
 
@@ -47,10 +56,10 @@ bool LayerLogin::init()
 	return true;
 }
 
-void LayerLogin::LogIn(Ref* pSender) {
-    
+void LayerRegister::turnToLogin(Ref* pSender) {
+
 }
 
-void LayerLogin::turnToRegister(Ref* pSender) {
-    
+void LayerRegister::Register(Ref* pSender) {
+
 }

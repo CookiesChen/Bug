@@ -1,8 +1,11 @@
 #include "SceneLoginAndRegister.h"
 #include "SimpleAudioEngine.h"
 #include "LayerLogin.h"
+#include "LayerRegister.h"
+#include "LayerBackground.h"
 
 USING_NS_CC;
+
 
 Scene* SceneLoginAndRegister::createScene()
 {
@@ -27,8 +30,16 @@ bool SceneLoginAndRegister::init()
 	}
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-	auto LoginAndRegister = LayerLogin::createLayer();
-	this->addChild(LoginAndRegister);
+    
+    // Ìí¼Ó²ã
+    auto Login = LayerLogin::createLayer();
+    auto Register = LayerRegister::createLayer();
+    auto Background = LayerBackground::createLayer();
 
+    Register->setVisible(false);
+
+    this->addChild(Login, 10, "Login");
+    this->addChild(Register, 10, "Register");
+    this->addChild(Background, 9, "Background");
 	return true;
 }

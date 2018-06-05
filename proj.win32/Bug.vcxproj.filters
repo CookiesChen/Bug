@@ -30,6 +30,12 @@
     <ClCompile Include="..\Classes\Layers\LayerLogin.cpp">
       <Filter>src\Layers</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Layers\LayerRegister.cpp">
+      <Filter>src\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Layers\LayerBackground.cpp">
+      <Filter>src\Layers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -42,6 +48,12 @@
       <Filter>src\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Layers\LayerLogin.h">
+      <Filter>src\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Layers\LayerRegister.h">
+      <Filter>src\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Layers\LayerBackground.h">
       <Filter>src\Layers</Filter>
     </ClInclude>
   </ItemGroup>

@@ -12,8 +12,13 @@ class LayerLogin : public Layer
 public:
 	static Layer* createLayer();
 	virtual bool init();
-	CREATE_FUNC(LayerLogin);
-    void login(Ref* pSender);
+
+    // 登陆按钮事件
+    void LogIn(Ref* pSender);
+    
+    // 跳转注册事件
+    void turnToRegister(Ref* pSender);
+    CREATE_FUNC(LayerLogin);
 };
 
 #endif // __SCENE_LOGIN_AND_REGISTER_H__

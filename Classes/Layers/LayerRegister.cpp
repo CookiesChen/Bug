@@ -1,12 +1,12 @@
-#include "LayerLogin.h"
+#include "LayerRegister.h"
 #include "SceneLoginAndRegister.h"
 
-Layer * LayerLogin::createLayer()
+Layer * LayerRegister::createLayer()
 {
-	return LayerLogin::create();
+	return LayerRegister::create();
 }
 
-bool LayerLogin::init()
+bool LayerRegister::init()
 {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	auto origin = Director::getInstance()->getVisibleOrigin();
@@ -26,13 +26,22 @@ bool LayerLogin::init()
     password->setFont("fonts/arial.ttf", 18);
     password->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
 
-    // µÇÂ½°´Å¥
-    auto loginButton = MenuItemLabel::create(Label::createWithTTF("Login", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerLogin::LogIn, this));
-    //×¢²á°´Å¥
-    auto registerButton = MenuItemLabel::create(Label::createWithTTF("Register", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerLogin::turnToRegister, this));
+    // ÖØ¸´ÃÜÂë¿ò
+    auto confirm = EditBox::create(Size(250, 30), Scale9Sprite::create("input.png"));
+    confirm->setPlaceHolder("confirm");
+    confirm->setMaxLength(8);
+    confirm->setFontColor(Color3B::BLACK);
+    confirm->setFont("fonts/arial.ttf", 18);
+    confirm->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
 
-	account->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
-	password->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+    // µÇÂ½°´Å¥
+    auto loginButton = MenuItemLabel::create(Label::createWithTTF("Login", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerRegister::turnToLogin, this));
+    //×¢²á°´Å¥
+    auto registerButton = MenuItemLabel::create(Label::createWithTTF("Register", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerRegister::Register, this));
+
+	account->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
+	password->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
+    confirm->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
     loginButton->setPosition(Vec2(visibleSize.width / 2 - 70, visibleSize.height / 2 - 50));
     registerButton->setPosition(Vec2(visibleSize.width / 2 + 70, visibleSize.height / 2 - 50));
 
@@ -44,16 +53,19 @@ bool LayerLogin::init()
     this->addChild(menu);
 	this->addChild(account);
 	this->addChild(password);
+    this->addChild(confirm);
 	return true;
 }
 
-void LayerLogin::LogIn(Ref* pSender) {
-    
-}
-
-void LayerLogin::turnToRegister(Ref* pSender) {
-    (this->getParent())->getChildByName("Register")->setVisible(true);
+void LayerRegister::turnToLogin(Ref* pSender) {
+    auto fade = FadeIn::create(0.5f);
+    (this->getParent())->getChildByName("Login")->setVisible(true);
+    (this->getParent())->getChildByName("Login")->runAction(fade);
     auto rotate = RotateBy::create(1.0f, 180.0f);
     (this->getParent())->getChildByName("Background")->getChildByName("compass")->runAction(rotate);
     this->setVisible(false);
+}
+
+void LayerRegister::Register(Ref* pSender) {
+
 }

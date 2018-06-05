@@ -11,7 +11,9 @@ public:
 
 	virtual bool init();
 
+    
 	CREATE_FUNC(SceneLoginAndRegister);
+
 };
 
 #endif // __SCENE_LOGIN_AND_REGISTER_H__

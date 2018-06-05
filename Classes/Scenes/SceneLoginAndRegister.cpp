@@ -1,14 +1,6 @@
-
-
-
-
-
-
-
-
 #include "SceneLoginAndRegister.h"
 #include "SimpleAudioEngine.h"
-#include "LayerLoginAndRegister.h"
+#include "LayerLogin.h"
 
 USING_NS_CC;
 
@@ -33,34 +25,10 @@ bool SceneLoginAndRegister::init()
 	{
 		return false;
 	}
-
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	auto LoginAndRegister = LayerLogin::createLayer();
+	this->addChild(LoginAndRegister);
 
-	auto SceneUI = new LayerLoginAndRegister();
-	auto account = SceneUI->getAccount();
-	auto password = SceneUI->getPassword();
-	account->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-	password->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 50));
-	this->addChild(account);
-	this->addChild(password);
 	return true;
-}
-
-
-void SceneLoginAndRegister::menuCloseCallback(Ref* pSender)
-{
-	//Close the cocos2d-x game scene and quit the application
-	Director::getInstance()->end();
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	exit(0);
-#endif
-
-	/*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() and exit(0) as given above,instead trigger a custom event created in RootViewController.mm as below*/
-
-	//EventCustom customEndEvent("game_scene_close_event");
-	//_eventDispatcher->dispatchEvent(&customEndEvent);
-
-
 }

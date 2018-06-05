@@ -52,8 +52,14 @@ void LayerLogin::LogIn(Ref* pSender) {
 }
 
 void LayerLogin::turnToRegister(Ref* pSender) {
+    auto rotate1 = RotateTo::create(0.5f, 180.0f);
+    auto rotate2 = RotateTo::create(0.5f, -180.0f);
+    auto rotate3 = RotateTo::create(0.5f, 180.0f);
+
+    (this->getParent())->getChildByName("Background")->getChildByName("compass_1")->runAction(rotate1);
+    (this->getParent())->getChildByName("Background")->getChildByName("compass_2")->runAction(rotate2);
+    (this->getParent())->getChildByName("Background")->getChildByName("compass_3")->runAction(rotate3);
+
     (this->getParent())->getChildByName("Register")->setVisible(true);
-    auto rotate = RotateBy::create(0.5f, 180.0f);
-    (this->getParent())->getChildByName("Background")->getChildByName("compass")->runAction(rotate);
     this->setVisible(false);
 }

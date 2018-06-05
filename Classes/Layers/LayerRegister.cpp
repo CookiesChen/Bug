@@ -37,10 +37,9 @@ bool LayerRegister::init()
     // ÓÊÏäÊäÈë¿ò
     auto email = EditBox::create(Size(250, 30), Scale9Sprite::create("input.png"));
     email->setPlaceHolder("email");
-    email->setMaxLength(8);
+    email->setMaxLength(20);
     email->setFontColor(Color3B::BLACK);
     email->setFont("fonts/arial.ttf", 18);
-    email->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
 
     // ·µ»ØµÇÂ½°´Å¥
     auto loginButton = MenuItemLabel::create(Label::createWithTTF("back", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerRegister::turnToLogin, this));
@@ -68,9 +67,15 @@ bool LayerRegister::init()
 }
 
 void LayerRegister::turnToLogin(Ref* pSender) {
+    auto rotate1 = RotateTo::create(0.5f, 0.0f);
+    auto rotate2 = RotateTo::create(0.5f, 0.0f);
+    auto rotate3 = RotateTo::create(0.5f, 0.0f);
+    
+    (this->getParent())->getChildByName("Background")->getChildByName("compass_1")->runAction(rotate1);
+    (this->getParent())->getChildByName("Background")->getChildByName("compass_2")->runAction(rotate2);
+    (this->getParent())->getChildByName("Background")->getChildByName("compass_3")->runAction(rotate3);
+
     (this->getParent())->getChildByName("Login")->setVisible(true);
-    auto rotate = RotateBy::create(0.5f, -180.0f);
-    (this->getParent())->getChildByName("Background")->getChildByName("compass")->runAction(rotate);
     this->setVisible(false);
 }
 

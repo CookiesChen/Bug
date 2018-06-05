@@ -52,5 +52,8 @@ void LayerLogin::LogIn(Ref* pSender) {
 }
 
 void LayerLogin::turnToRegister(Ref* pSender) {
-    
+    (this->getParent())->getChildByName("Register")->setVisible(true);
+    auto rotate = RotateBy::create(1.0f, 180.0f);
+    (this->getParent())->getChildByName("Background")->getChildByName("compass")->runAction(rotate);
+    this->setVisible(false);
 }

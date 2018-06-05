@@ -53,11 +53,17 @@ bool LayerRegister::init()
     this->addChild(menu);
 	this->addChild(account);
 	this->addChild(password);
+    this->addChild(confirm);
 	return true;
 }
 
 void LayerRegister::turnToLogin(Ref* pSender) {
-
+    auto fade = FadeIn::create(0.5f);
+    (this->getParent())->getChildByName("Login")->setVisible(true);
+    (this->getParent())->getChildByName("Login")->runAction(fade);
+    auto rotate = RotateBy::create(1.0f, 180.0f);
+    (this->getParent())->getChildByName("Background")->getChildByName("compass")->runAction(rotate);
+    this->setVisible(false);
 }
 
 void LayerRegister::Register(Ref* pSender) {

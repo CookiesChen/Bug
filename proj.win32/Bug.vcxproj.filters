@@ -27,6 +27,9 @@
     <ClCompile Include="..\Classes\Scenes\SceneLoginAndRegister.cpp">
       <Filter>src\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Layers\LayerLoginAndRegister.cpp">
+      <Filter>src\Layers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -37,6 +40,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Scenes\SceneLoginAndRegister.h">
       <Filter>src\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Layers\LayerLoginAndRegister.h">
+      <Filter>src\Layers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

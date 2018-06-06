@@ -33,7 +33,10 @@
     <ClCompile Include="..\Classes\Layers\LayerRegister.cpp">
       <Filter>src\Layers</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Layers\LayerBackground.cpp">
+    <ClCompile Include="..\Classes\Scenes\SceneMenu.cpp">
+      <Filter>src\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Layers\LayerLoginAndRegisterBackground.cpp">
       <Filter>src\Layers</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,7 +56,10 @@
     <ClInclude Include="..\Classes\Layers\LayerRegister.h">
       <Filter>src\Layers</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Layers\LayerBackground.h">
+    <ClInclude Include="..\Classes\Scenes\SceneMenu.h">
+      <Filter>src\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Layers\LayerLoginAndRegisterBackground.h">
       <Filter>src\Layers</Filter>
     </ClInclude>
   </ItemGroup>

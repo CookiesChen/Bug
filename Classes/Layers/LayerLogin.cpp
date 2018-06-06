@@ -1,5 +1,6 @@
 #include "LayerLogin.h"
 #include "SceneLoginAndRegister.h"
+#include "SceneMenu.h"
 
 Layer * LayerLogin::createLayer()
 {
@@ -48,7 +49,7 @@ bool LayerLogin::init()
 }
 
 void LayerLogin::LogIn(Ref* pSender) {
-    
+    Director::getInstance()->replaceScene(SceneMenu::createScene());
 }
 
 void LayerLogin::turnToRegister(Ref* pSender) {

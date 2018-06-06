@@ -7,12 +7,12 @@
 USING_NS_CC_EXT;
 USING_NS_CC;
 
-class LayerBackground : public Layer
+class LayerLoginAndRegisterBackground : public Layer
 {
 public:
 	static Layer* createLayer();
 	virtual bool init();
-	CREATE_FUNC(LayerBackground);
+	CREATE_FUNC(LayerLoginAndRegisterBackground);
 };
 
 #endif // __SCENE_LOGIN_AND_REGISTER_H__

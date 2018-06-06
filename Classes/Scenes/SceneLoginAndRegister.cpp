@@ -2,7 +2,7 @@
 #include "SimpleAudioEngine.h"
 #include "LayerLogin.h"
 #include "LayerRegister.h"
-#include "LayerBackground.h"
+#include "LayerLoginAndRegisterBackground.h"
 
 USING_NS_CC;
 
@@ -31,10 +31,13 @@ bool SceneLoginAndRegister::init()
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
+    // 预加载图片资源
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("LogInScene.plist");
+
     // 添加层
     auto Login = LayerLogin::createLayer();
     auto Register = LayerRegister::createLayer();
-    auto Background = LayerBackground::createLayer();
+    auto Background = LayerLoginAndRegisterBackground::createLayer();
 
     Register->setVisible(false);
 

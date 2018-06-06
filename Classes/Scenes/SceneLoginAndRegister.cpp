@@ -2,7 +2,7 @@
 #include "SimpleAudioEngine.h"
 #include "LayerLogin.h"
 #include "LayerRegister.h"
-#include "LayerBackground.h"
+#include "LayerLoginAndRegisterBackground.h"
 
 USING_NS_CC;
 
@@ -37,7 +37,7 @@ bool SceneLoginAndRegister::init()
     // Ìí¼Ó²ã
     auto Login = LayerLogin::createLayer();
     auto Register = LayerRegister::createLayer();
-    auto Background = LayerBackground::createLayer();
+    auto Background = LayerLoginAndRegisterBackground::createLayer();
 
     Register->setVisible(false);
 

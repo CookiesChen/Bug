@@ -1,12 +1,12 @@
-#include "LayerBackground.h"
+#include "LayerLoginAndRegisterBackground.h"
 #include "SceneLoginAndRegister.h"
 
-Layer * LayerBackground::createLayer()
+Layer * LayerLoginAndRegisterBackground::createLayer()
 {
-	return LayerBackground::create();
+	return LayerLoginAndRegisterBackground::create();
 }
 
-bool LayerBackground::init()
+bool LayerLoginAndRegisterBackground::init()
 {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	auto origin = Director::getInstance()->getVisibleOrigin();

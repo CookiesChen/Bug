@@ -4,76 +4,10 @@
 	<dict>
 		<key>frames</key>
 		<dict>
-			<key>BtnBack.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{219,923},{218,88}}</string>
-				<key>offset</key>
-				<string>{-1,0}</string>
-				<key>rotated</key>
-				<false />
-				<key>sourceSize</key>
-				<string>{220,88}</string>
-			</dict>
-			<key>BtnBack_click.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{437,923},{218,88}}</string>
-				<key>offset</key>
-				<string>{0,0}</string>
-				<key>rotated</key>
-				<false />
-				<key>sourceSize</key>
-				<string>{219,88}</string>
-			</dict>
-			<key>BtnLonIn.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{920,676},{218,88}}</string>
-				<key>offset</key>
-				<string>{-1,0}</string>
-				<key>rotated</key>
-				<true />
-				<key>sourceSize</key>
-				<string>{220,88}</string>
-			</dict>
-			<key>BtnLonIn_click.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{433,384},{218,88}}</string>
-				<key>offset</key>
-				<string>{0,0}</string>
-				<key>rotated</key>
-				<false />
-				<key>sourceSize</key>
-				<string>{219,88}</string>
-			</dict>
-			<key>BtnRegister.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{220,835},{219,88}}</string>
-				<key>offset</key>
-				<string>{-1,0}</string>
-				<key>rotated</key>
-				<false />
-				<key>sourceSize</key>
-				<string>{220,88}</string>
-			</dict>
-			<key>BtnRegister_click.png</key>
-			<dict>
-				<key>frame</key>
-				<string>{{0,849},{219,88}}</string>
-				<key>offset</key>
-				<string>{0,0}</string>
-				<key>rotated</key>
-				<false />
-				<key>sourceSize</key>
-				<string>{219,88}</string>
-			</dict>
 			<key>compass_1.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{655,384},{292,293}}</string>
+				<string>{{433,384},{292,293}}</string>
 				<key>offset</key>
 				<string>{0,-1}</string>
 				<key>rotated</key>
@@ -84,11 +18,11 @@
 			<key>compass_2.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{655,676},{265,266}}</string>
+				<string>{{726,384},{265,266}}</string>
 				<key>offset</key>
 				<string>{0,-2}</string>
 				<key>rotated</key>
-				<false />
+				<true />
 				<key>sourceSize</key>
 				<string>{401,455}</string>
 			</dict>
@@ -146,14 +80,14 @@
 			<key>realTextureFileName</key>
 			<string>LogInScene.png</string>
 			<key>size</key>
-			<string>{1024,1024}</string>
+			<string>{992,849}</string>
 		</dict>
 		<key>texture</key>
 		<dict>
 			<key>width</key>
-			<integer>1024</integer>
+			<integer>992</integer>
 			<key>height</key>
-			<integer>1024</integer>
+			<integer>849</integer>
 		</dict>
 	</dict>
 </plist>

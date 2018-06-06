@@ -31,6 +31,9 @@ bool SceneLoginAndRegister::init()
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
+    // 预加载图片资源
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("LogInScene.plist");
+
     // 添加层
     auto Login = LayerLogin::createLayer();
     auto Register = LayerRegister::createLayer();

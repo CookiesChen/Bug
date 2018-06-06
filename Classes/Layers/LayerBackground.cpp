@@ -10,11 +10,11 @@ bool LayerBackground::init()
 {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	auto origin = Director::getInstance()->getVisibleOrigin();
-	
+
     // ÂÞÅÌ
-    auto compass_1 = Sprite::create("compass_1.png");
-    auto compass_2 = Sprite::create("compass_2.png");
-    auto compass_3 = Sprite::create("compass_3.png");
+    auto compass_1 = Sprite::createWithSpriteFrameName("compass_1.png");
+    auto compass_2 = Sprite::createWithSpriteFrameName("compass_2.png");
+    auto compass_3 = Sprite::createWithSpriteFrameName("compass_3.png");
 
     compass_1->setPosition(Vec2(visibleSize.width / 2, origin.y + 20));
     compass_2->setPosition(Vec2(visibleSize.width / 2, origin.y + 20));

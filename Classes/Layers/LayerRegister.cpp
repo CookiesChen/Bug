@@ -46,23 +46,30 @@ bool LayerRegister::init()
     //×¢²á°´Å¥
     auto registerButton = MenuItemLabel::create(Label::createWithTTF("Register", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerRegister::Register, this));
 
+    // ±³¾°¿ò
+    auto RegisterBox = Sprite::createWithSpriteFrameName("RegisterBox.png");
+    RegisterBox->setScale(0.85);
+
 	account->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 150));
 	password->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
     confirm->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
     email->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
     loginButton->setPosition(Vec2(visibleSize.width / 2 - 70, visibleSize.height / 2 - 50));
     registerButton->setPosition(Vec2(visibleSize.width / 2 + 70, visibleSize.height / 2 - 50));
+    RegisterBox->setPosition(Vec2(visibleSize.width / 2 - 30, visibleSize.height / 2 + 50));
+    
 
     auto menu = Menu::create();
     menu->setPosition(origin);
     menu->addChild(loginButton);
     menu->addChild(registerButton);
 
-    this->addChild(menu);
-	this->addChild(account);
-	this->addChild(password);
-    this->addChild(confirm);
-    this->addChild(email);
+    this->addChild(menu, 1);
+	this->addChild(account, 1);
+	this->addChild(password, 1);
+    this->addChild(confirm, 1);
+    this->addChild(email , 1);
+    this->addChild(RegisterBox, 0);
 	return true;
 }
 

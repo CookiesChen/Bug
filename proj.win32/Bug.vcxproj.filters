@@ -24,9 +24,6 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\SceneLoginAndRegister.cpp">
-      <Filter>src\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Layers\LayerLogin.cpp">
       <Filter>src\Layers</Filter>
     </ClCompile>
@@ -40,6 +37,15 @@
       <Filter>src\Layers</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Layers\LayerMessageDialog.cpp">
+      <Filter>src\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\SceneLoginAndRegister.cpp">
+      <Filter>src\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\SceneBase.cpp">
+      <Filter>src\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Layers\LayerBase.cpp">
       <Filter>src\Layers</Filter>
     </ClCompile>
   </ItemGroup>
@@ -66,6 +72,12 @@
       <Filter>src\Layers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Layers\LayerMessageDialog.h">
+      <Filter>src\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\SceneBase.h">
+      <Filter>src\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Layers\LayerBase.h">
       <Filter>src\Layers</Filter>
     </ClInclude>
   </ItemGroup>

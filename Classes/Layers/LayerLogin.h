@@ -1,23 +1,23 @@
-#ifndef __LAYER_LOGIN_H__
+﻿#ifndef __LAYER_LOGIN_H__
 #define __LAYER_LOGIN_H__
 
 #include "cocos-ext.h"
-#include "cocos2d.h"
+#include "LayerBase.h"
 
 USING_NS_CC_EXT;
-USING_NS_CC;
 
-class LayerLogin : public Layer
+
+class LayerLogin : public LayerBase
 {
 public:
-    static Layer* createLayer();
+    static LayerBase* createLayer();
     virtual bool init();
 
     // 登陆按钮事件
-    void LogIn(Ref* pSender);
-
+    void logIn(Ref* pSender);
     // 跳转注册事件
     void turnToRegister(Ref* pSender);
+
     CREATE_FUNC(LayerLogin);
 };
 

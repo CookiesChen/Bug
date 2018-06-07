@@ -1,8 +1,8 @@
-#include "LayerLogin.h"
+﻿#include "LayerLogin.h"
 #include "SceneLoginAndRegister.h"
 #include "SceneMenu.h"
 
-Layer* LayerLogin::createLayer()
+LayerBase* LayerLogin::createLayer()
 {
     return LayerLogin::create();
 }
@@ -28,7 +28,7 @@ bool LayerLogin::init()
     password->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
 
     // 登陆按钮
-    auto loginButton = MenuItemLabel::create(Label::createWithTTF("Login", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerLogin::LogIn, this));
+    auto loginButton = MenuItemLabel::create(Label::createWithTTF("Login", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerLogin::logIn, this));
     // 注册按钮
     auto registerButton = MenuItemLabel::create(Label::createWithTTF("Register", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerLogin::turnToRegister, this));
 
@@ -54,21 +54,17 @@ bool LayerLogin::init()
     return true;
 }
 
-void LayerLogin::LogIn(Ref* pSender)
+void LayerLogin::logIn(Ref* pSender)
 {
     Director::getInstance()->replaceScene(SceneMenu::createScene());
 }
 
 void LayerLogin::turnToRegister(Ref* pSender)
 {
-    auto rotate1 = RotateTo::create(0.5f, 180.0f);
-    auto rotate2 = RotateTo::create(0.5f, -180.0f);
-    auto rotate3 = RotateTo::create(0.5f, 180.0f);
-
-    this->getParent()->getChildByName("Background")->getChildByName("compass_1")->runAction(rotate1);
-    this->getParent()->getChildByName("Background")->getChildByName("compass_2")->runAction(rotate2);
-    this->getParent()->getChildByName("Background")->getChildByName("compass_3")->runAction(rotate3);
-
-    this->getParent()->getChildByName("Register")->setVisible(true);
-    this->setVisible(false);
+    if (this->getActive())
+    {
+        this->setActive(false);
+        this->setVisible(false);
+        this->updateLayer();
+    }
 }

@@ -1,17 +1,23 @@
-#ifndef __SCENE_LOGIN_AND_REGISTER_H__
+﻿#ifndef __SCENE_LOGIN_AND_REGISTER_H__
 #define __SCENE_LOGIN_AND_REGISTER_H__
 
-#include "cocos2d.h"
-USING_NS_CC;
+#include "LayerBase.h"
+#include "SceneBase.h"
 
-class SceneLoginAndRegister : public Scene
+class SceneLoginAndRegister final : public SceneBase
 {
 public:
-    static Scene* createScene();
+    static Scene * createScene();
 
     virtual bool init();
+    virtual void updateLayer() override;
 
     CREATE_FUNC(SceneLoginAndRegister);
+
+private:
+    LayerBase* layerLogin;
+    Layer* layerRegister;
+    Layer* layerBackground;
 };
 
 #endif // __SCENE_LOGIN_AND_REGISTER_H__

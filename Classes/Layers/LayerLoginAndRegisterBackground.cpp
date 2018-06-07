@@ -1,4 +1,4 @@
-#include "LayerLoginAndRegisterBackground.h"
+﻿#include "LayerLoginAndRegisterBackground.h"
 #include "SceneLoginAndRegister.h"
 
 Layer* LayerLoginAndRegisterBackground::createLayer()

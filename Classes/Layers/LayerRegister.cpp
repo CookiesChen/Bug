@@ -1,4 +1,4 @@
-#include "LayerRegister.h"
+﻿#include "LayerRegister.h"
 #include "SceneLoginAndRegister.h"
 
 Layer * LayerRegister::createLayer()
@@ -48,7 +48,7 @@ bool LayerRegister::init()
 
     // 背景框
     auto RegisterBox = Sprite::createWithSpriteFrameName("RegisterBox.png");
-    RegisterBox->setScale(0.85);
+    RegisterBox->setScale(0.85f);
 
     account->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 150));
     password->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));

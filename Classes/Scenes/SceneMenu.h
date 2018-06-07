@@ -7,13 +7,11 @@ USING_NS_CC;
 class SceneMenu : public Scene
 {
 public:
-	static Scene* createScene();
+    static Scene* createScene();
 
-	virtual bool init();
+    virtual bool init();
 
-    
-	CREATE_FUNC(SceneMenu);
-
+    CREATE_FUNC(SceneMenu);
 };
 
-#endif // __SCENE_LOGIN_AND_REGISTER_H__
+#endif //__SCENE_MENU_H__

@@ -7,13 +7,11 @@ USING_NS_CC;
 class SceneLoginAndRegister : public Scene
 {
 public:
-	static Scene* createScene();
+    static Scene* createScene();
 
-	virtual bool init();
+    virtual bool init();
 
-    
-	CREATE_FUNC(SceneLoginAndRegister);
-
+    CREATE_FUNC(SceneLoginAndRegister);
 };
 
 #endif // __SCENE_LOGIN_AND_REGISTER_H__

@@ -1,8 +1,8 @@
 #ifndef __LAYER_LOGIN_H__
 #define __LAYER_LOGIN_H__
 
-#include "cocos2d.h"
 #include "cocos-ext.h"
+#include "cocos2d.h"
 
 USING_NS_CC_EXT;
 USING_NS_CC;
@@ -10,15 +10,15 @@ USING_NS_CC;
 class LayerLogin : public Layer
 {
 public:
-	static Layer* createLayer();
-	virtual bool init();
+    static Layer* createLayer();
+    virtual bool init();
 
-    // µÇÂ½°´Å¥ÊÂ¼þ
+    // ç™»é™†æŒ‰é’®äº‹ä»¶
     void LogIn(Ref* pSender);
-    
-    // Ìø×ª×¢²áÊÂ¼þ
+
+    // è·³è½¬æ³¨å†Œäº‹ä»¶
     void turnToRegister(Ref* pSender);
     CREATE_FUNC(LayerLogin);
 };
 
-#endif // __SCENE_LOGIN_AND_REGISTER_H__
+#endif // __LAYER_LOGIN_H__

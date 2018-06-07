@@ -39,6 +39,9 @@
     <ClCompile Include="..\Classes\Layers\LayerLoginAndRegisterBackground.cpp">
       <Filter>src\Layers</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Layers\LayerMessageDialog.cpp">
+      <Filter>src\Layers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -62,10 +65,16 @@
     <ClInclude Include="..\Classes\Layers\LayerLoginAndRegisterBackground.h">
       <Filter>src\Layers</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Layers\LayerMessageDialog.h">
+      <Filter>src\Layers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
       <Filter>resource</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Classes\.editorconfig" />
   </ItemGroup>
 </Project>

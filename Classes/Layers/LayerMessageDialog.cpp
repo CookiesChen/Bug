@@ -1,6 +1,6 @@
-#include "LayerMessageDialog.h"
+﻿#include "LayerMessageDialog.h"
 
-Layer* LayerMessageDialog::createLayer()
+LayerBase* LayerMessageDialog::createLayer()
 {
     return LayerMessageDialog::create();
 }

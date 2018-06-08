@@ -1,7 +1,10 @@
-﻿#include "LayerRegister.h"
-#include "SceneLoginAndRegister.h"
+﻿#include "cocos-ext.h"
 
-Layer * LayerRegister::createLayer()
+#include "LayerRegister.h"
+
+USING_NS_CC_EXT;
+
+LayerBase* LayerRegister::createLayer()
 {
     return LayerRegister::create();
 }
@@ -44,11 +47,11 @@ bool LayerRegister::init()
     // 返回登陆按钮
     auto loginButton = MenuItemLabel::create(Label::createWithTTF("back", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerRegister::turnToLogin, this));
     //注册按钮
-    auto registerButton = MenuItemLabel::create(Label::createWithTTF("Register", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerRegister::Register, this));
+    auto registerButton = MenuItemLabel::create(Label::createWithTTF("Register", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerRegister::registerEvent, this));
 
     // 背景框
-    auto RegisterBox = Sprite::createWithSpriteFrameName("RegisterBox.png");
-    RegisterBox->setScale(0.85f);
+    auto registerBox = Sprite::createWithSpriteFrameName("RegisterBox.png");
+    registerBox->setScale(0.85f);
 
     account->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 150));
     password->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
@@ -56,7 +59,7 @@ bool LayerRegister::init()
     email->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
     loginButton->setPosition(Vec2(visibleSize.width / 2 - 70, visibleSize.height / 2 - 50));
     registerButton->setPosition(Vec2(visibleSize.width / 2 + 70, visibleSize.height / 2 - 50));
-    RegisterBox->setPosition(Vec2(visibleSize.width / 2 - 30, visibleSize.height / 2 + 50));
+    registerBox->setPosition(Vec2(visibleSize.width / 2 - 30, visibleSize.height / 2 + 50));
 
 
     auto menu = Menu::create();
@@ -69,23 +72,16 @@ bool LayerRegister::init()
     this->addChild(password, 1);
     this->addChild(confirm, 1);
     this->addChild(email, 1);
-    this->addChild(RegisterBox, 0);
+    this->addChild(registerBox, 0);
     return true;
 }
 
 void LayerRegister::turnToLogin(Ref* pSender)
 {
-    auto rotate1 = RotateTo::create(0.5f, 0.0f);
-    auto rotate2 = RotateTo::create(0.5f, 0.0f);
-    auto rotate3 = RotateTo::create(0.5f, 0.0f);
-
-    this->getParent()->getChildByName("Background")->getChildByName("compass_1")->runAction(rotate1);
-    this->getParent()->getChildByName("Background")->getChildByName("compass_2")->runAction(rotate2);
-    this->getParent()->getChildByName("Background")->getChildByName("compass_3")->runAction(rotate3);
-
-    this->getParent()->getChildByName("Login")->setVisible(true);
-    this->setVisible(false);
+    this->updateLayer();
 }
 
-void LayerRegister::Register(Ref* pSender)
-{}
+void LayerRegister::registerEvent(Ref* pSender)
+{
+
+}

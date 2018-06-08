@@ -7,17 +7,18 @@
 class SceneLoginAndRegister final : public SceneBase
 {
 public:
-    static Scene * createScene();
+    static SceneBase * createScene();
 
-    virtual bool init();
+    virtual bool init() override;
     virtual void updateLayer() override;
+    virtual void updateScene() override;
 
     CREATE_FUNC(SceneLoginAndRegister);
 
 private:
     LayerBase* layerLogin;
-    Layer* layerRegister;
-    Layer* layerBackground;
+    LayerBase* layerRegister;
+    LayerBase* layerBackground;
 };
 
 #endif // __SCENE_LOGIN_AND_REGISTER_H__

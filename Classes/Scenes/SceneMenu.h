@@ -1,15 +1,17 @@
-#ifndef __SCENE_MENU_H__
+﻿#ifndef __SCENE_MENU_H__
 #define __SCENE_MENU_H__
 
-#include "cocos2d.h"
-USING_NS_CC;
+#include "LayerBase.h"
+#include "SceneBase.h"
 
-class SceneMenu : public Scene
+class SceneMenu final : public SceneBase
 {
 public:
     static Scene* createScene();
 
-    virtual bool init();
+    virtual bool init() override;
+    virtual void updateLayer() override;
+    virtual void updateScene() override;
 
     CREATE_FUNC(SceneMenu);
 };

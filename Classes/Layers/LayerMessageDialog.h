@@ -1,15 +1,14 @@
-#ifndef __LAYER_MESSAGE_DIALOG_H__
+﻿#ifndef __LAYER_MESSAGE_DIALOG_H__
 #define __LAYER_MESSAGE_DIALOG_H__
 
-#include "cocos2d.h"
+#include "LayerBase.h"
 
-USING_NS_CC;
-
-class LayerMessageDialog : public Layer
+class LayerMessageDialog final : public LayerBase
 {
 public:
-    static Layer* createLayer();
-    virtual bool init();
+    static LayerBase* createLayer();
+
+    virtual bool init() override;
 
     CREATE_FUNC(LayerMessageDialog);
 };

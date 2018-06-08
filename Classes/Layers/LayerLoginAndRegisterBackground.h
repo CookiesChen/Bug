@@ -1,18 +1,25 @@
-#ifndef __LAYER_LOGIN_AND_REGISTER_BACKGROUND_H__
+﻿#ifndef __LAYER_LOGIN_AND_REGISTER_BACKGROUND_H__
 #define __LAYER_LOGIN_AND_REGISTER_BACKGROUND_H__
 
-#include "cocos-ext.h"
-#include "cocos2d.h"
+#include "LayerBase.h"
 
-USING_NS_CC_EXT;
-USING_NS_CC;
-
-class LayerLoginAndRegisterBackground : public Layer
+class LayerLoginAndRegisterBackground final : public LayerBase
 {
 public:
-    static Layer* createLayer();
-    virtual bool init();
+    static LayerBase* createLayer();
+
+    virtual bool init() override;
+
+    void transition();
+
     CREATE_FUNC(LayerLoginAndRegisterBackground);
+
+private:
+    Sprite* compass_1;
+    Sprite* compass_2;
+    Sprite* compass_3;
+
+    bool transitionCount;
 };
 
 #endif // __LAYER_LOGIN_AND_REGISTER_BACKGROUND_H__

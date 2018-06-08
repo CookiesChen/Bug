@@ -10,14 +10,19 @@ class LayerBase : public Layer
 public:
     LayerBase();
 
-    virtual bool getActive();
     virtual void setActive(bool active);
+
+    bool getActive();
+    bool getVisible();
+    void setVisible(bool visible) override;
 
 private:
     bool active;
+    bool visible;
 
 protected:
-    void updateLayer();
+    virtual void updateLayer() final;
+    virtual void updateScene() final;
 };
 
 #endif // __LAYER_BASE_H__

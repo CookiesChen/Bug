@@ -16,6 +16,9 @@
     <Filter Include="src\Layers">
       <UniqueIdentifier>{70f58003-6ba5-470c-a7bf-869cb62857d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Helpers">
+      <UniqueIdentifier>{6c4a00cc-4a29-4e3f-a580-97a0bef27407}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

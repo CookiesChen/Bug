@@ -1,6 +1,8 @@
-﻿#include "LayerLogin.h"
-#include "SceneLoginAndRegister.h"
-#include "SceneMenu.h"
+﻿#include "cocos-ext.h"
+
+#include "LayerLogin.h"
+
+USING_NS_CC_EXT;
 
 LayerBase* LayerLogin::createLayer()
 {
@@ -28,7 +30,7 @@ bool LayerLogin::init()
     password->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
 
     // 登陆按钮
-    auto loginButton = MenuItemLabel::create(Label::createWithTTF("Login", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerLogin::logIn, this));
+    auto loginButton = MenuItemLabel::create(Label::createWithTTF("Login", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerLogin::loginEvent, this));
     // 注册按钮
     auto registerButton = MenuItemLabel::create(Label::createWithTTF("Register", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerLogin::turnToRegister, this));
 
@@ -54,17 +56,12 @@ bool LayerLogin::init()
     return true;
 }
 
-void LayerLogin::logIn(Ref* pSender)
+void LayerLogin::loginEvent(Ref* pSender)
 {
-    Director::getInstance()->replaceScene(SceneMenu::createScene());
+    this->updateScene();
 }
 
 void LayerLogin::turnToRegister(Ref* pSender)
 {
-    if (this->getActive())
-    {
-        this->setActive(false);
-        this->setVisible(false);
-        this->updateLayer();
-    }
+    this->updateLayer();
 }

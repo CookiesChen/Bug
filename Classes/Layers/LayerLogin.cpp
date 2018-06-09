@@ -1,6 +1,10 @@
 ﻿#include "cocos-ext.h"
 
+#include "Helpers.h"
 #include "LayerLogin.h"
+
+#include <iostream>
+using namespace std;
 
 USING_NS_CC_EXT;
 
@@ -53,12 +57,23 @@ bool LayerLogin::init()
     this->addChild(account, 1);
     this->addChild(password, 1);
     this->addChild(LoginBox, 0);
+
     return true;
 }
 
+
 void LayerLogin::loginEvent(Ref* pSender)
 {
-    this->updateScene();
+    log("Test Get:\n%s", Singleton<Net>::getInstance()->Get(
+        "https://oauth.xmatrix.studio/api/v2/Users/Basedata",
+        "accessToken=1&userId=1&clientSecret=1"
+    ).c_str());
+    string pwd = Hash::sha512("000000");
+    log("Test Post:\n%s", Singleton<Net>::getInstance()->Post(
+        "https://oauth.xmatrix.studio/api/v2/self/Users/Login",
+        (string("userName=megaxiu@outlook.com&userPass=") + pwd + "&remember=false").c_str()
+    ).c_str());
+    // this->updateScene();
 }
 
 void LayerLogin::turnToRegister(Ref* pSender)

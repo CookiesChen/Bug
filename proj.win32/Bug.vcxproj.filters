@@ -51,6 +51,12 @@
     <ClCompile Include="..\Classes\Layers\LayerBase.cpp">
       <Filter>src\Layers</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Helpers\Net.cpp">
+      <Filter>src\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Helpers\Hash.cpp">
+      <Filter>src\Helpers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -82,6 +88,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Layers\LayerBase.h">
       <Filter>src\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Helpers\Net.h">
+      <Filter>src\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Helpers\Helpers.h">
+      <Filter>src\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Helpers\Singleton.h">
+      <Filter>src\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Helpers\Hash.h">
+      <Filter>src\Helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

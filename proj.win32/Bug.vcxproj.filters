@@ -19,6 +19,9 @@
     <Filter Include="src\Helpers">
       <UniqueIdentifier>{6c4a00cc-4a29-4e3f-a580-97a0bef27407}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Service">
+      <UniqueIdentifier>{e9df6155-e6ac-4d06-b9c1-e48b801c979b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -56,6 +59,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Helpers\Hash.cpp">
       <Filter>src\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Service\GameService.cpp">
+      <Filter>src\Service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\SceneGameRoom.cpp">
+      <Filter>src\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +109,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Helpers\Hash.h">
       <Filter>src\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Service\GameService.h">
+      <Filter>src\Service</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\SceneGameRoom.h">
+      <Filter>src\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

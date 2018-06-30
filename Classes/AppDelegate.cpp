@@ -1,5 +1,6 @@
-#include "AppDelegate.h"
+﻿#include "AppDelegate.h"
 #include "SceneLoginAndRegister.h"
+#include "SceneGameRoom.h"
 
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
@@ -96,7 +97,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     // create a scene. it's an autorelease object
     auto scene = SceneLoginAndRegister::createScene();
-
+    // auto scene = SceneGameRoom::createScene();
     // run
     director->runWithScene(scene);
 

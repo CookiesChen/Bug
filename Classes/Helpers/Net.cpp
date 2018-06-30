@@ -51,6 +51,47 @@ string Net::Post(string url, string query)
     return res;
 }
 
+void Net::InitSocket(int port)
+{
+    // 初始化DLL
+    WSADATA wsaData;
+    WSAStartup(MAKEWORD(2, 2), &wsaData);
+    // 创建套接字
+    sock = socket(PF_INET, SOCK_DGRAM, 0);
+    // 服务器地址信息
+    memset(&servAddr, 0, sizeof(servAddr));
+    servAddr.sin_family = PF_INET;
+    // servAddr.sin_addr.s_addr = inet_addr("111.230.240.70");
+    servAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    servAddr.sin_port = htons(port);
+}
+
+void Net::CloseSocket()
+{
+    closesocket(sock);
+    WSACleanup();
+}
+
+void Net::Send(string data)
+{
+    char *buffer = new char[data.length() + 1];
+    strcpy(buffer, data.c_str());
+    sendto(sock, buffer, strlen(buffer), 0, (struct sockaddr*)&servAddr, sizeof(servAddr));
+}
+
+string Net::GetState()
+{
+    sockaddr fromAddr;
+    int addrLen = sizeof(fromAddr);
+    char buffer[BUF_SIZE] = { 0 };
+    int strLen = recvfrom(sock, buffer, BUF_SIZE, 0, &fromAddr, &addrLen);
+    if (strLen > BUF_SIZE) {
+        return "";
+    }
+    buffer[strLen] = 0;
+    return string(buffer);
+}
+
 size_t Net::writeString(void* buffer, size_t size, size_t nmemb, void* lpVoid)
 {
     string* str = dynamic_cast<std::string*>((std::string *) lpVoid);

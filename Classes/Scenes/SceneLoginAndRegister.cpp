@@ -1,10 +1,19 @@
 ﻿#include "SimpleAudioEngine.h"
-
 #include "LayerLogin.h"
 #include "LayerLoginAndRegisterBackground.h"
 #include "LayerRegister.h"
 #include "SceneLoginAndRegister.h"
 #include "SceneMenu.h"
+
+#include "json/rapidjson.h"
+#include "json/document.h"
+#include "json/stringbuffer.h"
+#include "json/writer.h"
+#include "Helpers.h"
+
+using namespace rapidjson;
+
+
 
 SceneBase* SceneLoginAndRegister::createScene()
 {
@@ -35,7 +44,37 @@ bool SceneLoginAndRegister::init()
     this->addChild(layerRegister, 10, "Register");
     this->addChild(layerBackground, 9, "Background");
 
+    labelVersion = Label::createWithSystemFont("Connecting to server...", "微软雅黑", 20);
+    labelVersion->setAnchorPoint(Vec2(0, 0));
+    labelVersion->setPosition(Vec2(0, 0));
+    this->addChild(labelVersion, 1);
+
+    this->getNewVersion();
+
+   
     return true;
+}
+
+void SceneLoginAndRegister::getNewVersion() {
+
+    auto res = Singleton<Net>::getInstance()->Get("http://127.0.0.1:30081/game/new");
+    log("res: %s\n", res.c_str());
+    rapidjson::Document d;
+    d.Parse<0>(res.c_str());
+    if (d.HasParseError()) {
+        labelVersion->setString("Connect to server failed!");
+    }
+    if (d.IsObject() && d.HasMember("status")) {
+        auto data = d["data"].GetObjectW();
+        string version(data["title"].GetString());
+        version.append(data["versionStr"].GetString());
+        labelVersion->setString(version);
+    }
+    else {
+        labelVersion->setString("Connect to server failed!");
+    }
+
+
 }
 
 void SceneLoginAndRegister::updateLayer()

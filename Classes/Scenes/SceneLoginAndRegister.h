@@ -13,12 +13,15 @@ public:
     virtual void updateLayer() override;
     virtual void updateScene() override;
 
+    void getNewVersion();
+
     CREATE_FUNC(SceneLoginAndRegister);
 
 private:
     LayerBase* layerLogin;
     LayerBase* layerRegister;
     LayerBase* layerBackground;
+    Label* labelVersion;
 };
 
 #endif // __SCENE_LOGIN_AND_REGISTER_H__

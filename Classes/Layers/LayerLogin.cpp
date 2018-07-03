@@ -1,10 +1,14 @@
-﻿#include "cocos-ext.h"
-
-#include "Helpers.h"
+﻿#include "Helpers.h"
 #include "LayerLogin.h"
+#include "json/rapidjson.h"
+#include "json/document.h"
+#include "json/stringbuffer.h"
+#include "json/writer.h"
 
 #include <iostream>
+
 using namespace std;
+using namespace rapidjson;
 
 USING_NS_CC_EXT;
 
@@ -19,16 +23,16 @@ bool LayerLogin::init()
     auto origin = Director::getInstance()->getVisibleOrigin();
 
     // 账号输入框
-    auto account = EditBox::create(Size(250, 30), Scale9Sprite::create("input.png"));
+    account = EditBox::create(Size(250, 30), Scale9Sprite::create("input.png"));
     account->setPlaceHolder("account");
-    account->setMaxLength(8);
+    account->setMaxLength(88);
     account->setFontColor(Color3B::BLACK);
     account->setFont("fonts/arial.ttf", 18);
 
     // 密码输入框
-    auto password = EditBox::create(Size(250, 30), Scale9Sprite::create("input.png"));
+    password = EditBox::create(Size(250, 30), Scale9Sprite::create("input.png"));
     password->setPlaceHolder("password");
-    password->setMaxLength(8);
+    password->setMaxLength(88);
     password->setFontColor(Color3B::BLACK);
     password->setFont("fonts/arial.ttf", 18);
     password->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
@@ -58,21 +62,34 @@ bool LayerLogin::init()
     this->addChild(password, 1);
     this->addChild(LoginBox, 0);
 
+
     return true;
 }
 
 
 void LayerLogin::loginEvent(Ref* pSender)
 {
-    log("Test Get:\n%s", Singleton<Net>::getInstance()->Get(
-        "https://oauth.xmatrix.studio/api/v2/Users/Basedata",
-        "accessToken=1&userId=1&clientSecret=1"
-    ).c_str());
-    string pwd = Hash::sha512("000000");
-    log("Test Post:\n%s", Singleton<Net>::getInstance()->Post(
-        "https://oauth.xmatrix.studio/api/v2/self/Users/Login",
-        (string("userName=megaxiu@outlook.com&userPass=") + pwd + "&remember=false").c_str()
-    ).c_str());
+
+    rapidjson::Document document;
+    document.SetObject();
+    rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
+    rapidjson::Value valAccount, valPass;
+    valAccount.SetString(account->getText(), allocator);
+    valPass.SetString(Hash::sha512(password->getText()).c_str() , allocator);
+    document.AddMember("name", valAccount, allocator);
+    document.AddMember("password", valPass, allocator);
+    StringBuffer buffer;
+    rapidjson::Writer<StringBuffer> writer(buffer);
+    document.Accept(writer);
+
+    auto res = Singleton<Net>::getInstance()->Post(
+        "http://127.0.0.1:30081/user/login",
+        buffer.GetString()
+    );
+
+    log("Res:%s\n", res.c_str());
+
+
     // this->updateScene();
 }
 

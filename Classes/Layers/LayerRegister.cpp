@@ -2,6 +2,8 @@
 
 #include "LayerRegister.h"
 
+#include <tchar.h>
+#include<Windows.h>
 USING_NS_CC_EXT;
 
 LayerBase* LayerRegister::createLayer()
@@ -84,4 +86,9 @@ void LayerRegister::turnToLogin(Ref* pSender)
 void LayerRegister::registerEvent(Ref* pSender)
 {
 
+    const TCHAR szOperation[] = _T("open");
+    const TCHAR szAddress[] = _T("https://oauth.xmatrix.studio/register");
+
+    HINSTANCE hRslt = ShellExecute(NULL, szOperation,
+        szAddress, NULL, NULL, SW_SHOWNORMAL);
 }

@@ -2,6 +2,11 @@
 #define __LAYER_LOGIN_H__
 
 #include "LayerBase.h"
+#include "cocos-ext.h"
+#include "cocos2d.h"
+#include "ui\CocosGUI.h"
+using namespace cocos2d::ui;
+
 
 class LayerLogin final : public LayerBase
 {
@@ -17,6 +22,11 @@ private:
     void loginEvent(Ref* pSender);
     // 跳转注册事件
     void turnToRegister(Ref* pSender);
+
+    EditBox* account;
+
+    EditBox* password;
+
 };
 
 #endif // __LAYER_LOGIN_H__

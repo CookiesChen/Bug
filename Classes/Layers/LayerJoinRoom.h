@@ -10,6 +10,10 @@ public:
 
     virtual bool init() override;
 
+    void backMenu(Ref* pSender);
+
+    void getRoomList(float dt);
+
     CREATE_FUNC(LayerJoinRoom);
 
 private:

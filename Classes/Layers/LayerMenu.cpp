@@ -10,8 +10,8 @@ bool LayerMenu::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
 
-    auto buttonJoin = MenuItemLabel::create(Label::createWithTTF("Join Room", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerMenu::joinRoom, this));
-    auto buttonNew = MenuItemLabel::create(Label::createWithTTF("New Room", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerMenu::newRoom, this));
+    auto buttonJoin = MenuItemLabel::create(Label::createWithTTF("Join Game", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerMenu::joinRoom, this));
+    auto buttonNew = MenuItemLabel::create(Label::createWithTTF("New Game", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerMenu::newRoom, this));
 
     buttonJoin->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
     buttonNew->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 50));
@@ -27,9 +27,11 @@ bool LayerMenu::init()
 }
 
 void LayerMenu::joinRoom(Ref* pSender) {
-
+    this->targetLayer = 1;
+    this->updateLayer();
 }
 
 void LayerMenu::newRoom(Ref* pSender) {
-
+    this->targetLayer = 2;
+    this->updateLayer();
 }

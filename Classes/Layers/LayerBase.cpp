@@ -27,6 +27,7 @@ void LayerBase::setVisible(bool visible)
 void LayerBase::updateLayer()
 {
     auto scene = (SceneBase*) this->getParent();
+    scene->targetLayer = this->targetLayer;
     if (scene != nullptr)
     {
         scene->updateLayer();

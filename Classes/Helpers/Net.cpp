@@ -18,6 +18,7 @@ Net::~Net()
 
 string Net::Get(string url, string query)
 {
+    url = "http://127.0.0.1:30081/" + url;
     string res;
     CURL* curl = curl_easy_init();
     string _url = url + (query.size() ? "?" : "") + query;
@@ -35,6 +36,7 @@ string Net::Get(string url, string query)
 
 string Net::Post(string url, string query)
 {
+    url = "http://127.0.0.1:30081/" + url;
     string res;
     CURL* curl = curl_easy_init();
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());

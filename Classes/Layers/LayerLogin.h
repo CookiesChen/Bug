@@ -23,9 +23,9 @@ private:
     // 跳转注册事件
     void turnToRegister(Ref* pSender);
 
-    EditBox* account;
+    TextField* account;
 
-    EditBox* password;
+    TextField* password;
 
 };
 

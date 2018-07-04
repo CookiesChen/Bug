@@ -15,6 +15,7 @@ public:
     bool getActive();
     bool getVisible();
     void setVisible(bool visible) override;
+    int targetLayer;
 
 private:
     bool active;

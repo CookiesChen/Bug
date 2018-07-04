@@ -85,7 +85,8 @@ void LayerRegister::turnToLogin(Ref* pSender)
 
 void LayerRegister::registerEvent(Ref* pSender)
 {
-
+    // todo 调用注册API进行注册
+    // 注册完跳转到邮箱激活的界面
     const TCHAR szOperation[] = _T("open");
     const TCHAR szAddress[] = _T("https://oauth.xmatrix.studio/register");
 

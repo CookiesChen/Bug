@@ -14,6 +14,11 @@ public:
     virtual void updateScene() override;
 
     CREATE_FUNC(SceneMenu);
+private:
+
+    LayerBase * layerMenu;
+    LayerBase * layerJoinRoom;
+    LayerBase * layerNewRoom;
 };
 
 #endif //__SCENE_MENU_H__

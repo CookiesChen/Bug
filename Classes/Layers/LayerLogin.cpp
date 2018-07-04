@@ -88,9 +88,20 @@ void LayerLogin::loginEvent(Ref* pSender)
     );
 
     log("Res:%s\n", res.c_str());
-
-
-    // this->updateScene();
+    rapidjson::Document d;
+    d.Parse<0>(res.c_str());
+    if (!d.HasParseError() && d.IsObject() && d.HasMember("status")) {
+        if (strcmp(d["status"].GetString(), "success") == 0) {
+            this->updateScene();
+        }
+        else {
+            // todo 密码错误或用户不存在的提示
+        }
+    }
+    else {
+        // todo 解析失败的提示
+        return;
+    }
 }
 
 void LayerLogin::turnToRegister(Ref* pSender)

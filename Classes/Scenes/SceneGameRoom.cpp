@@ -1,8 +1,10 @@
-﻿#include "SimpleAudioEngine.h"
+﻿#include <thread>
 
+#include "SimpleAudioEngine.h"
+
+#include "Helpers.h"
 #include "SceneGameRoom.h"
-#include "GameService.h"
-#include <thread>
+#include "ServiceGame.h"
 
 SceneBase* SceneGameRoom::createScene()
 {
@@ -32,7 +34,7 @@ bool SceneGameRoom::init()
     srand((unsigned)time(NULL));
     id = rand() % 60000;
 
-    Singleton<GameService>::getInstance()->JoinRoom(30082, id, [&](string res) -> void {
+    Singleton<ServiceGame>::GetInstance()->JoinRoom(30082, id, [&](string res) -> void {
         msgLabel->setString(res);
     });
 
@@ -43,7 +45,7 @@ bool SceneGameRoom::init()
 }
 
 void SceneGameRoom::GetState() {
-    Singleton<GameService>::getInstance()->GetFrame([&](string res) -> void {
+    Singleton<ServiceGame>::GetInstance()->GetFrame([&](string res) -> void {
         msgLabel->setString(res);
     });
 }
@@ -61,12 +63,12 @@ void SceneGameRoom::onKeyPressed(EventKeyboard::KeyCode code, Event* event) {
     case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
     case EventKeyboard::KeyCode::KEY_CAPITAL_A:
     case EventKeyboard::KeyCode::KEY_A:
-        Singleton<GameService>::getInstance()->SendInput(1);
+        Singleton<ServiceGame>::GetInstance()->SendInput(1);
         break;
     case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
     case EventKeyboard::KeyCode::KEY_CAPITAL_D:
     case EventKeyboard::KeyCode::KEY_D:
-        Singleton<GameService>::getInstance()->SendInput(2);
+        Singleton<ServiceGame>::GetInstance()->SendInput(2);
         break;
     }
 }
@@ -76,12 +78,12 @@ void SceneGameRoom::onKeyReleased(EventKeyboard::KeyCode code, Event* event) {
     case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
     case EventKeyboard::KeyCode::KEY_A:
     case EventKeyboard::KeyCode::KEY_CAPITAL_A:
-        Singleton<GameService>::getInstance()->SendInput(3);
+        Singleton<ServiceGame>::GetInstance()->SendInput(3);
         break;
     case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
     case EventKeyboard::KeyCode::KEY_D:
     case EventKeyboard::KeyCode::KEY_CAPITAL_D:
-        Singleton<GameService>::getInstance()->SendInput(4);
+        Singleton<ServiceGame>::GetInstance()->SendInput(4);
         break;
     }
 }

@@ -5,7 +5,7 @@ template <class T>
 class Singleton final
 {
 public:
-    static T* getInstance()
+    static T* GetInstance()
     {
         static T instance;
         return &instance;

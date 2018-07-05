@@ -60,9 +60,6 @@
     <ClCompile Include="..\Classes\Helpers\Hash.cpp">
       <Filter>src\Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Service\GameService.cpp">
-      <Filter>src\Service</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Scenes\SceneGameRoom.cpp">
       <Filter>src\Scenes</Filter>
     </ClCompile>
@@ -77,6 +74,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Scenes\SceneRoom.cpp">
       <Filter>src\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Service\ServiceAPI.cpp">
+      <Filter>src\Service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Service\ServiceGame.cpp">
+      <Filter>src\Service</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -122,9 +125,6 @@
     <ClInclude Include="..\Classes\Helpers\Hash.h">
       <Filter>src\Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Service\GameService.h">
-      <Filter>src\Service</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Scenes\SceneGameRoom.h">
       <Filter>src\Scenes</Filter>
     </ClInclude>
@@ -139,6 +139,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Scenes\SceneRoom.h">
       <Filter>src\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Service\ServiceAPI.h">
+      <Filter>src\Service</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Service\ServiceGame.h">
+      <Filter>src\Service</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

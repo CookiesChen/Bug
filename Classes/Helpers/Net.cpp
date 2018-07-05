@@ -6,6 +6,8 @@
 #include "curl/include/win32/curl/curl.h"
 #endif
 
+char* Net::cookiesFile = "cookies.co";
+
 Net::Net()
 {
     curl_global_init(CURL_GLOBAL_ALL);
@@ -18,17 +20,19 @@ Net::~Net()
 
 string Net::Get(string url, string query)
 {
-    url = "http://127.0.0.1:30081/" + url;
     string res;
     CURL* curl = curl_easy_init();
     string _url = url + (query.size() ? "?" : "") + query;
+    curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 3);
+    curl_easy_setopt(curl, CURLOPT_COOKIEFILE, cookiesFile);
+    curl_easy_setopt(curl, CURLOPT_COOKIEJAR, cookiesFile);
+    curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
+    curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, false);
+    curl_easy_setopt(curl, CURLOPT_TIMEOUT, 3);
     curl_easy_setopt(curl, CURLOPT_URL, _url.c_str());
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, Net::writeString);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void*) &res);
-    curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
-    curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, false);
-    curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 3);
-    curl_easy_setopt(curl, CURLOPT_TIMEOUT, 3);
+
     curl_easy_perform(curl);
     curl_easy_cleanup(curl);
     return res;
@@ -36,18 +40,20 @@ string Net::Get(string url, string query)
 
 string Net::Post(string url, string query)
 {
-    url = "http://127.0.0.1:30081/" + url;
     string res;
     CURL* curl = curl_easy_init();
-    curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+    curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 3);
+    curl_easy_setopt(curl, CURLOPT_COOKIEFILE, cookiesFile);
+    curl_easy_setopt(curl, CURLOPT_COOKIEJAR, cookiesFile);
     curl_easy_setopt(curl, CURLOPT_POST, 1);
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, query.c_str());
-    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, Net::writeString);
-    curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void*) &res);
     curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
     curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, false);
-    curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 3);
     curl_easy_setopt(curl, CURLOPT_TIMEOUT, 3);
+    curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, Net::writeString);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void*) &res);
+
     curl_easy_perform(curl);
     curl_easy_cleanup(curl);
     return res;

@@ -47,7 +47,7 @@ void LayerJoinRoom::backMenu(Ref* pSender) {
 
 void LayerJoinRoom::getRoomList(float dt) {
     if (this->getActive() == false) return;
-    auto res = Singleton<Net>::getInstance()->Get("room/list/1?size=5");
+    auto res = Singleton<Net>::GetInstance()->Get("room/list/1?size=5");
 
     log("Res:%s\n", res.c_str());
     rapidjson::Document d;

@@ -10,7 +10,7 @@
 #pragma comment(lib, "libcrypto.lib") 
 #pragma comment(lib, "libssl.lib") 
 
-string Hash::sha512(string value)
+string Hash::Sha512(string value)
 {
     SHA512_CTX c;
     unsigned char md[SHA512_DIGEST_LENGTH];

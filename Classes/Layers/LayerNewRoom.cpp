@@ -1,10 +1,8 @@
-﻿#include "LayerNewRoom.h"
+﻿#include "Helpers.h"
+#include "LayerNewRoom.h"
+#include "ServiceAPI.h"
 #include "ui/CocosGUI.h"
-#include "Helpers.h"
-#include "json/rapidjson.h"
-#include "json/document.h"
-#include "json/stringbuffer.h"
-#include "json/writer.h"
+
 
 using namespace rapidjson;
 LayerBase* LayerNewRoom::createLayer()
@@ -50,7 +48,8 @@ bool LayerNewRoom::init()
     slider->loadSlidBallTextures("SliderNode_Normal.png", "SliderNode_Press.png", "SliderNode_Disable.png");
     slider->loadProgressBarTexture("Slider_PressBar.png");
     slider->setMaxPercent(8);
-    slider->addTouchEventListener([this](Ref* sender, Widget::TouchEventType type) {
+    slider->addTouchEventListener([this](Ref* sender, Widget::TouchEventType type)
+    {
         switch (type)
         {
         case ui::Widget::TouchEventType::BEGAN:
@@ -91,46 +90,35 @@ bool LayerNewRoom::init()
 }
 
 
-void LayerNewRoom::backMenu(Ref* pSender) {
+void LayerNewRoom::backMenu(Ref* pSender)
+{
     this->targetLayer = 0;
     this->updateLayer();
 }
 
-void LayerNewRoom::newRoom(Ref* pSender) {
-
-    rapidjson::Document document;
-    document.SetObject();
-    rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
-    rapidjson::Value valTitle, valPlayer;
-    valTitle.SetString(roomName->getString().c_str(), allocator);
-    valPlayer.SetInt(this->playerCount);
-    document.AddMember("title", valTitle, allocator);
-    document.AddMember("password", "", allocator);
-    document.AddMember("gameMap", "default", allocator);
-    document.AddMember("gameMode", "personal", allocator);
-    document.AddMember("maxPlayer", valPlayer, allocator);
-    StringBuffer buffer;
-    rapidjson::Writer<StringBuffer> writer(buffer);
-    document.Accept(writer);
-
-    auto res = Singleton<Net>::getInstance()->Post(
-        "room/new",
-        buffer.GetString()
+void LayerNewRoom::newRoom(Ref* pSender)
+{
+    auto d = Singleton<ServiceAPI>::GetInstance()->CreateRoom(
+        roomName->getString(),
+        "",
+        "default",
+        "personal",
+        this->playerCount
     );
-
-    log("Res:%s\n", res.c_str());
-    rapidjson::Document d;
-    d.Parse<0>(res.c_str());
-    if (!d.HasParseError() && d.IsObject() && d.HasMember("status")) {
-        if (strcmp(d["status"].GetString(), "success") == 0) {
+    if (!d.HasParseError() && d.IsObject() && d.HasMember("status"))
+    {
+        if (strcmp(d["status"].GetString(), "success") == 0)
+        {
             // todo 加入游戏 LayerNewRoom
             this->updateScene();
         }
-        else {
+        else
+        {
             // todo 参数错误的提示 LayerNewRoom
         }
     }
-    else {
+    else
+    {
         // todo 解析失败的提示 LayerNewRoom
         return;
     }

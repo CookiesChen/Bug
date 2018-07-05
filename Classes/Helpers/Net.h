@@ -24,6 +24,8 @@ public:
 
 private:
     static size_t writeString(void* buffer, size_t size, size_t nmemb, void* lpVoid);
+
+    static char* cookiesFile;
     SOCKET sock;
     sockaddr_in servAddr; // 服务器地址
 };

@@ -8,7 +8,7 @@ using namespace std;
 class Hash
 {
 public:
-    static string sha512(string value);
+    static string Sha512(string value);
 };
 
 #endif // __HASH_H__

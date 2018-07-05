@@ -165,7 +165,8 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Scenes\SceneLoginAndRegister.cpp" />
     <ClCompile Include="..\Classes\Scenes\SceneMenu.cpp" />
     <ClCompile Include="..\Classes\Scenes\SceneRoom.cpp" />
-    <ClCompile Include="..\Classes\Service\GameService.cpp" />
+    <ClCompile Include="..\Classes\Service\ServiceGame.cpp" />
+    <ClCompile Include="..\Classes\Service\ServiceAPI.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -187,7 +188,8 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Scenes\SceneLoginAndRegister.h" />
     <ClInclude Include="..\Classes\Scenes\SceneMenu.h" />
     <ClInclude Include="..\Classes\Scenes\SceneRoom.h" />
-    <ClInclude Include="..\Classes\Service\GameService.h" />
+    <ClInclude Include="..\Classes\Service\ServiceAPI.h" />
+    <ClInclude Include="..\Classes\Service\ServiceGame.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

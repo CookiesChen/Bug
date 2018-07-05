@@ -75,6 +75,9 @@
     <ClCompile Include="..\Classes\Scenes\SceneRoom.cpp">
       <Filter>src\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Layers\LayerRoom.cpp">
+      <Filter>src\Layers</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\Service\ServiceAPI.cpp">
       <Filter>src\Service</Filter>
     </ClCompile>
@@ -145,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Service\ServiceGame.h">
       <Filter>src\Service</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Layers\LayerRoom.h">
+      <Filter>src\Layers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

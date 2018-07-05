@@ -46,6 +46,7 @@ void LayerJoinRoom::backMenu(Ref* pSender) {
 
 
 void LayerJoinRoom::getRoomList(float dt) {
+    // todo 获取房间列表API
     if (this->getActive() == false) return;
     auto res = Singleton<Net>::GetInstance()->Get("room/list/1?size=5");
 
@@ -54,15 +55,15 @@ void LayerJoinRoom::getRoomList(float dt) {
     d.Parse<0>(res.c_str());
     if (!d.HasParseError() && d.IsObject() && d.HasMember("status")) {
         if (strcmp(d["status"].GetString(), "success") == 0) {
-            // todo 刷新列表 LayerJoinRoom
+            
             // 根据数据生成房间列表
         }
         else {
-            // todo 参数错误的提示 LayerJoinRoom
+            // 参数错误的提示
         }
     }
     else {
-        // todo 解析失败的提示 LayerJoinRoom
+        // 解析失败的提示
         return;
     }
 }

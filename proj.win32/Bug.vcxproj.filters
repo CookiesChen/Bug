@@ -84,6 +84,15 @@
     <ClCompile Include="..\Classes\Service\ServiceGame.cpp">
       <Filter>src\Service</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Layers\LayerRole.cpp">
+      <Filter>src\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Layers\LayerEmail.cpp">
+      <Filter>src\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Layers\LayerNewUser.cpp">
+      <Filter>src\Layers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -150,6 +159,15 @@
       <Filter>src\Service</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Layers\LayerRoom.h">
+      <Filter>src\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Layers\LayerRole.h">
+      <Filter>src\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Layers\LayerEmail.h">
+      <Filter>src\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Layers\LayerNewUser.h">
       <Filter>src\Layers</Filter>
     </ClInclude>
   </ItemGroup>

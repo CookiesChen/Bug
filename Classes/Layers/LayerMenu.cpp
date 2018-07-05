@@ -12,7 +12,8 @@ bool LayerMenu::init()
 
     auto buttonJoin = MenuItemLabel::create(Label::createWithTTF("Join Game", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerMenu::joinRoom, this));
     auto buttonNew = MenuItemLabel::create(Label::createWithTTF("New Game", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerMenu::newRoom, this));
-
+    // todo 退出登陆按钮
+    // todo 显示用户基本信息（头像、名字、等级等）
     buttonJoin->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
     buttonNew->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 50));
 

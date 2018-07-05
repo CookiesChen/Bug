@@ -20,7 +20,9 @@ bool LayerNewRoom::init()
         CC_CALLBACK_1(LayerNewRoom::backMenu, this));
     // 提交
     auto buttonCommit = MenuItemLabel::create(Label::createWithTTF("Create", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerNewRoom::newRoom, this));
-    // todo 房间密码 LayerNewRoom
+    // todo 房间密码
+    // todo 房间地图的选择
+    // todo 房间模式的选择（个人、团队）
     /*auto checkbox = ui::CheckBox::create("CheckBox_Normal.png",
         "CheckBox_Press.png",
         "CheckBoxNode_Normal.png",
@@ -98,6 +100,7 @@ void LayerNewRoom::backMenu(Ref* pSender)
 
 void LayerNewRoom::newRoom(Ref* pSender)
 {
+    // todo 新建房间的API
     auto d = Singleton<ServiceAPI>::GetInstance()->CreateRoom(
         roomName->getString(),
         "",
@@ -109,17 +112,17 @@ void LayerNewRoom::newRoom(Ref* pSender)
     {
         if (strcmp(d["status"].GetString(), "success") == 0)
         {
-            // todo 加入游戏 LayerNewRoom
+            // 跳转到房间页面
             this->updateScene();
         }
         else
         {
-            // todo 参数错误的提示 LayerNewRoom
+            // 参数错误的提示
         }
     }
     else
     {
-        // todo 解析失败的提示 LayerNewRoom
+        // 解析失败的提示
         return;
     }
 }

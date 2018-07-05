@@ -78,6 +78,9 @@
     <ClCompile Include="..\Classes\Scenes\SceneRoom.cpp">
       <Filter>src\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Layers\LayerRoom.cpp">
+      <Filter>src\Layers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -139,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Scenes\SceneRoom.h">
       <Filter>src\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Layers\LayerRoom.h">
+      <Filter>src\Layers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

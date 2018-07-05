@@ -57,7 +57,7 @@ bool SceneLoginAndRegister::init()
 
 void SceneLoginAndRegister::getNewVersion() {
 
-    auto res = Singleton<Net>::getInstance()->Get("http://127.0.0.1:30081/game/new");
+    auto res = Singleton<Net>::GetInstance()->Get("http://127.0.0.1:30081/game/new");
     log("res: %s\n", res.c_str());
     rapidjson::Document d;
     d.Parse<0>(res.c_str());

@@ -1,11 +1,6 @@
 ﻿#include "Helpers.h"
 #include "LayerLogin.h"
-#include "json/rapidjson.h"
-#include "json/document.h"
-#include "json/stringbuffer.h"
-#include "json/writer.h"
-
-#include <iostream>
+#include "ServiceAPI.h"
 
 using namespace std;
 using namespace rapidjson;
@@ -82,26 +77,10 @@ bool LayerLogin::init()
 
 void LayerLogin::loginEvent(Ref* pSender)
 {
-    rapidjson::Document document;
-    document.SetObject();
-    rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
-    rapidjson::Value valAccount, valPass;
-    valAccount.SetString(account->getString().c_str(), allocator);
-    valPass.SetString(Hash::sha512(password->getString()).c_str() , allocator);
-    document.AddMember("name", valAccount, allocator);
-    document.AddMember("password", valPass, allocator);
-    StringBuffer buffer;
-    rapidjson::Writer<StringBuffer> writer(buffer);
-    document.Accept(writer);
-
-    auto res = Singleton<Net>::getInstance()->Post(
-        "user/login",
-        buffer.GetString()
+    auto d = Singleton<ServiceAPI>::GetInstance()->Login(
+        account->getString(),
+        password->getString()
     );
-
-    log("Res:%s\n", res.c_str());
-    rapidjson::Document d;
-    d.Parse<0>(res.c_str());
     if (!d.HasParseError() && d.IsObject() && d.HasMember("status")) {
         if (strcmp(d["status"].GetString(), "success") == 0) {
             this->updateScene();

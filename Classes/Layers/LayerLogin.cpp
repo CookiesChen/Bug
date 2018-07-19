@@ -36,7 +36,6 @@ bool LayerLogin::init()
     account->setTextHorizontalAlignment(TextHAlignment::LEFT);
     account->setTextVerticalAlignment(TextVAlignment::CENTER);
 
-
     // 登陆按钮
     auto loginButton = MenuItemLabel::create(Label::createWithTTF("Login", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerLogin::loginEvent, this));
     // 注册按钮
@@ -57,7 +56,6 @@ bool LayerLogin::init()
     accountBackground->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
     passwordBackground->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 
-
     auto menu = Menu::create();
     menu->setPosition(origin);
     menu->addChild(loginButton);
@@ -70,26 +68,30 @@ bool LayerLogin::init()
     this->addChild(passwordBackground, 1);
     this->addChild(LoginBox, 0);
 
-
     return true;
 }
 
 
 void LayerLogin::loginEvent(Ref* pSender)
 {
+    if (!this->getActive()) return;
     auto d = Singleton<ServiceAPI>::GetInstance()->Login(
         account->getString(),
         password->getString()
     );
-    if (!d.HasParseError() && d.IsObject() && d.HasMember("status")) {
-        if (strcmp(d["status"].GetString(), "success") == 0) {
+    if (!d.HasParseError() && d.IsObject() && d.HasMember("status"))
+    {
+        if (strcmp(d["status"].GetString(), "success") == 0)
+        {
             this->updateScene();
         }
-        else {
+        else
+        {
             // todo 密码错误或用户不存在的提示 LayerLogin
         }
     }
-    else {
+    else
+    {
         // todo 解析失败的提示 LayerLogin
         return;
     }
@@ -97,5 +99,6 @@ void LayerLogin::loginEvent(Ref* pSender)
 
 void LayerLogin::turnToRegister(Ref* pSender)
 {
-    this->updateLayer();
+    if (!this->getActive()) return;
+    this->updateLayer(Tag::LayerFromLoginToRegister);
 }

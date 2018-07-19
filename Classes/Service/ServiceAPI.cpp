@@ -48,3 +48,11 @@ rapidjson::Document ServiceAPI::CreateRoom(string title, string password, string
     d.Parse<0>(res.c_str());
     return d;
 }
+
+rapidjson::Document ServiceAPI::GetNewVersion()
+{
+    auto res = Singleton<Net>::GetInstance()->Get(apiUrl + "/game/new");
+    rapidjson::Document d;
+    d.Parse<0>(res.c_str());
+    return d;
+}

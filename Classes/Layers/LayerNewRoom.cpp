@@ -91,11 +91,10 @@ bool LayerNewRoom::init()
     return true;
 }
 
-
 void LayerNewRoom::backMenu(Ref* pSender)
 {
-    this->targetLayer = 0;
-    this->updateLayer();
+    if (!this->getActive()) return;
+    this->updateLayer(Tag::LayerFromJoinRoomOrNewRoomToMenu);
 }
 
 void LayerNewRoom::newRoom(Ref* pSender)

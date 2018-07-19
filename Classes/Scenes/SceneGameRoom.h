@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿#ifndef __SCENE_GAME_ROOM_H__
+#define __SCENE_GAME_ROOM_H__
 
 #include "LayerBase.h"
 #include "SceneBase.h"
@@ -10,8 +11,8 @@ public:
     static SceneBase * createScene();
 
     virtual bool init() override;
-    virtual void updateLayer() override;
-    virtual void updateScene() override;
+    virtual void updateLayer(Tag tag) override;
+    virtual void updateScene(Tag tag) override;
 
     void addKeyboardListener();
     void onKeyPressed(EventKeyboard::KeyCode code, Event* event);
@@ -25,3 +26,4 @@ private:
     int id;
 };
 
+#endif // __SCENE_GAME_ROOM_H__

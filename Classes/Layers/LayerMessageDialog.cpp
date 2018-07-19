@@ -27,4 +27,3 @@ bool LayerMessageDialog::init()
 
     return true;
 }
-

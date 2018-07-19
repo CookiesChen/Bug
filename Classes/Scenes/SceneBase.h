@@ -3,13 +3,15 @@
 
 #include "cocos2d.h"
 
-USING_NS_CC;
+#include "Tag.h"
+
+using namespace cocos2d;
 
 class SceneBase : public Scene
 {
 public:
-    virtual void updateLayer() = 0;
-    virtual void updateScene() = 0;
+    virtual void updateLayer(Tag tag) = 0;
+    virtual void updateScene(Tag tag) = 0;
     int targetLayer;
 };
 

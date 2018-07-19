@@ -1,18 +1,12 @@
 ﻿#include "SimpleAudioEngine.h"
+
+#include "Helpers.h"
 #include "LayerLogin.h"
 #include "LayerLoginAndRegisterBackground.h"
 #include "LayerRegister.h"
 #include "SceneLoginAndRegister.h"
 #include "SceneMenu.h"
-
-#include "json/rapidjson.h"
-#include "json/document.h"
-#include "json/stringbuffer.h"
-#include "json/writer.h"
-#include "Helpers.h"
-
-using namespace rapidjson;
-
+#include "ServiceAPI.h"
 
 
 SceneBase* SceneLoginAndRegister::createScene()
@@ -51,53 +45,54 @@ bool SceneLoginAndRegister::init()
 
     this->getNewVersion();
 
-   
     return true;
 }
 
-void SceneLoginAndRegister::getNewVersion() {
-
-    auto res = Singleton<Net>::GetInstance()->Get("http://127.0.0.1:30081/game/new");
-    log("res: %s\n", res.c_str());
-    rapidjson::Document d;
-    d.Parse<0>(res.c_str());
-    if (d.HasParseError()) {
+void SceneLoginAndRegister::getNewVersion()
+{
+    auto d = Singleton<ServiceAPI>::GetInstance()->GetNewVersion();
+    if (!d.HasParseError() && d.IsObject() && d.HasMember("status"))
+    {
+        if (strcmp(d["status"].GetString(), "success") == 0)
+        {
+            auto data = d["data"].GetObjectW();
+            string version = data["title"].GetString();
+            version += data["versionStr"].GetString();
+            labelVersion->setString(version);
+        }
+        else
+        {
+            labelVersion->setString("Occur an error!");
+        }
+    }
+    else
+    {
         labelVersion->setString("Connect to server failed!");
     }
-    if (d.IsObject() && d.HasMember("status")) {
-        auto data = d["data"].GetObjectW();
-        string version(data["title"].GetString());
-        version.append(data["versionStr"].GetString());
-        labelVersion->setString(version);
-    }
-    else {
-        labelVersion->setString("Connect to server failed!");
-    }
-
-
 }
 
-void SceneLoginAndRegister::updateLayer()
+void SceneLoginAndRegister::updateLayer(Tag tag)
 {
-    if (layerLogin->getActive())
+    switch (tag)
     {
+    case Tag::LayerFromLoginToRegister:
         ((LayerLoginAndRegisterBackground*) layerBackground)->transition();
         layerLogin->setActive(false);
         layerLogin->setVisible(false);
         layerRegister->setVisible(true);
         layerRegister->setActive(true);
-    }
-    else if (layerRegister->getActive())
-    {
+        break;
+    case Tag::LayerFromRegisterToLogin:
         ((LayerLoginAndRegisterBackground*) layerBackground)->transition();
         layerRegister->setActive(false);
         layerRegister->setVisible(false);
         layerLogin->setVisible(true);
         layerLogin->setActive(true);
+        break;
     }
 }
 
-void SceneLoginAndRegister::updateScene()
+void SceneLoginAndRegister::updateScene(Tag tag)
 {
     if (layerLogin->getActive())
     {

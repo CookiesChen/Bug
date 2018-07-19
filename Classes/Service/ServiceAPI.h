@@ -13,9 +13,9 @@ using namespace std;
 class ServiceAPI final
 {
 public:
-    rapidjson::Document Login(string username, string password);
-
     rapidjson::Document CreateRoom(string title, string password, string map, string mode, int maxPlayer);
+    rapidjson::Document GetNewVersion();
+    rapidjson::Document Login(string username, string password);
 
 private:
     static const string apiUrl;

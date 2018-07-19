@@ -3,7 +3,9 @@
 
 #include "cocos2d.h"
 
-USING_NS_CC;
+#include "Tag.h"
+
+using namespace cocos2d;
 
 class LayerBase : public Layer
 {
@@ -15,15 +17,14 @@ public:
     bool getActive();
     bool getVisible();
     void setVisible(bool visible) override;
-    int targetLayer;
 
 private:
     bool active;
     bool visible;
 
 protected:
-    virtual void updateLayer() final;
-    virtual void updateScene() final;
+    virtual void updateLayer(Tag tag = Tag::Null) final;
+    virtual void updateScene(Tag tag = Tag::Null) final;
 };
 
 #endif // __LAYER_BASE_H__

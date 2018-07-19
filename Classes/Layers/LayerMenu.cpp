@@ -28,11 +28,11 @@ bool LayerMenu::init()
 }
 
 void LayerMenu::joinRoom(Ref* pSender) {
-    this->targetLayer = 1;
-    this->updateLayer();
+    if (!this->getActive()) return;
+    this->updateLayer(Tag::LayerFromMenuToJoinRoom);
 }
 
 void LayerMenu::newRoom(Ref* pSender) {
-    this->targetLayer = 2;
-    this->updateLayer();
+    if (!this->getActive()) return;
+    this->updateLayer(Tag::LayerFromMenuToNewRoom);
 }

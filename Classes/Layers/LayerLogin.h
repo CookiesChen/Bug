@@ -18,15 +18,11 @@ public:
     CREATE_FUNC(LayerLogin);
 
 private:
-    // 登陆按钮事件
     void loginEvent(Ref* pSender);
-    // 跳转注册事件
     void turnToRegister(Ref* pSender);
 
     TextField* account;
-
     TextField* password;
-
 };
 
 #endif // __LAYER_LOGIN_H__

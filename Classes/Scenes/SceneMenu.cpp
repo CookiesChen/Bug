@@ -34,30 +34,34 @@ bool SceneMenu::init()
     return true;
 }
 
-void SceneMenu::updateLayer()
+void SceneMenu::updateLayer(Tag tag)
 {
-    if (this->targetLayer == 1) { // 加入房间
+    switch (tag)
+    {
+    case Tag::LayerFromMenuToJoinRoom: // 加入房间
         this->layerJoinRoom->setVisible(true);
         this->layerJoinRoom->setActive(true);
         this->layerMenu->setVisible(false);
         this->layerMenu->setActive(false);
-    }
-    else if (this->targetLayer == 2) { // 新建房间
+        break;
+    case Tag::LayerFromMenuToNewRoom: // 新建房间
         this->layerNewRoom->setVisible(true);
         this->layerNewRoom->setActive(true);
         this->layerMenu->setVisible(false);
         this->layerMenu->setActive(false);
-    } else if(this->targetLayer == 0){ // 返回菜单
+        break;
+    case Tag::LayerFromJoinRoomOrNewRoomToMenu: // 返回菜单
         this->layerMenu->setVisible(true);
         this->layerMenu->setActive(true);
         this->layerJoinRoom->setVisible(false);
         this->layerJoinRoom->setActive(false);
         this->layerNewRoom->setVisible(false);
         this->layerNewRoom->setActive(false);
+        break;
     }
 }
 
-void SceneMenu::updateScene()
+void SceneMenu::updateScene(Tag tag)
 {
 
 }

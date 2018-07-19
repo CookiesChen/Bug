@@ -24,21 +24,20 @@ void LayerBase::setVisible(bool visible)
     this->visible = visible;
 }
 
-void LayerBase::updateLayer()
+void LayerBase::updateLayer(Tag tag)
 {
     auto scene = (SceneBase*) this->getParent();
-    scene->targetLayer = this->targetLayer;
     if (scene != nullptr)
     {
-        scene->updateLayer();
+        scene->updateLayer(tag);
     }
 }
 
-void LayerBase::updateScene()
+void LayerBase::updateScene(Tag tag)
 {
     auto scene = (SceneBase*) this->getParent();
     if (scene != nullptr)
     {
-        scene->updateScene();
+        scene->updateScene(tag);
     }
 }

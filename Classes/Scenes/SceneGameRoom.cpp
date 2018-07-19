@@ -88,12 +88,12 @@ void SceneGameRoom::onKeyReleased(EventKeyboard::KeyCode code, Event* event) {
     }
 }
 
-void SceneGameRoom::updateLayer()
+void SceneGameRoom::updateLayer(Tag tag)
 {
 
 }
 
-void SceneGameRoom::updateScene()
+void SceneGameRoom::updateScene(Tag tag)
 {
 
 }

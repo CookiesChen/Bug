@@ -80,7 +80,7 @@ bool LayerRegister::init()
 
 void LayerRegister::turnToLogin(Ref* pSender)
 {
-    this->updateLayer();
+    this->updateLayer(Tag::LayerFromRegisterToLogin);
 }
 
 void LayerRegister::registerEvent(Ref* pSender)

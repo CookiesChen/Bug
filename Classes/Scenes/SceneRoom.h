@@ -10,8 +10,8 @@ public:
     static Scene* createScene();
 
     virtual bool init() override;
-    virtual void updateLayer() override;
-    virtual void updateScene() override;
+    virtual void updateLayer(Tag tag) override;
+    virtual void updateScene(Tag tag) override;
 
     CREATE_FUNC(SceneRoom);
 private:

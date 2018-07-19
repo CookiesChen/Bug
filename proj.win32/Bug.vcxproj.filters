@@ -22,6 +22,9 @@
     <Filter Include="src\Service">
       <UniqueIdentifier>{e9df6155-e6ac-4d06-b9c1-e48b801c979b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Resources">
+      <UniqueIdentifier>{14c78989-82a7-4223-a1f3-f7130764e976}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -169,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Layers\LayerNewUser.h">
       <Filter>src\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Resources\Tag.h">
+      <Filter>src\Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

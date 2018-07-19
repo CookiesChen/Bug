@@ -19,11 +19,11 @@ bool SceneRoom::init()
     return true;
 }
 
-void SceneRoom::updateLayer()
+void SceneRoom::updateLayer(Tag tag)
 {
 }
 
-void SceneRoom::updateScene()
+void SceneRoom::updateScene(Tag tag)
 {
 
 }

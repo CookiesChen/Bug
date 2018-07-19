@@ -38,12 +38,10 @@ bool LayerJoinRoom::init()
     return true;
 }
 
-
 void LayerJoinRoom::backMenu(Ref* pSender) {
-    this->targetLayer = 0;
-    this->updateLayer();
+    if (!this->getActive()) return;
+    this->updateLayer(Tag::LayerFromJoinRoomOrNewRoomToMenu);
 }
-
 
 void LayerJoinRoom::getRoomList(float dt) {
     // todo 获取房间列表API

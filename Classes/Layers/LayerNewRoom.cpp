@@ -16,10 +16,10 @@ bool LayerNewRoom::init()
     auto origin = Director::getInstance()->getVisibleOrigin();
 
     // 返回菜单
-    auto buttonBack = MenuItemImage::create("BtnBack.png", "BtnBack_click.png",
+    auto buttonBack = MenuItemImage::create("Graphics/System/BtnBack.png", "Graphics/System/BtnBack_click.png",
         CC_CALLBACK_1(LayerNewRoom::backMenu, this));
     // 提交
-    auto buttonCommit = MenuItemLabel::create(Label::createWithTTF("Create", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerNewRoom::newRoom, this));
+    auto buttonCommit = MenuItemLabel::create(Label::createWithTTF("Create", "Fonts/arial.ttf", 30), CC_CALLBACK_1(LayerNewRoom::newRoom, this));
     // todo 房间密码
     // todo 房间地图的选择
     // todo 房间模式的选择（个人、团队）
@@ -31,7 +31,7 @@ bool LayerNewRoom::init()
     checkbox->setPosition(Vec2(400, visibleSize.height - 50));
     this->addChild(checkbox, 1);*/
     // 房间名称
-    auto labelRoomName = Label::createWithTTF("Room Name: ", "fonts/arial.ttf", 20);
+    auto labelRoomName = Label::createWithTTF("Room Name: ", "Fonts/arial.ttf", 20);
     labelRoomName->setAnchorPoint(Vec2(0, 0));
 
     roomName = ui::TextField::create("", "Arial", 18);
@@ -43,12 +43,12 @@ bool LayerNewRoom::init()
     roomName->setTextVerticalAlignment(TextVAlignment::CENTER);
 
     // 房间人数
-    labelRoomPlayer = Label::createWithTTF("Players Count: ", "fonts/arial.ttf", 20);
+    labelRoomPlayer = Label::createWithTTF("Players Count: ", "Fonts/arial.ttf", 20);
     labelRoomPlayer->setAnchorPoint(Vec2(0, 0));
     slider = ui::Slider::create();
-    slider->loadBarTexture("Slider_Back.png"); // what the slider looks like
-    slider->loadSlidBallTextures("SliderNode_Normal.png", "SliderNode_Press.png", "SliderNode_Disable.png");
-    slider->loadProgressBarTexture("Slider_PressBar.png");
+    slider->loadBarTexture("Graphics/System/Slider_Back.png"); // what the slider looks like
+    slider->loadSlidBallTextures("Graphics/System/SliderNode_Normal.png", "Graphics/System/SliderNode_Press.png", "Graphics/System/SliderNode_Disable.png");
+    slider->loadProgressBarTexture("Graphics/System/Slider_PressBar.png");
     slider->setMaxPercent(8);
     slider->addTouchEventListener([this](Ref* sender, Widget::TouchEventType type)
     {

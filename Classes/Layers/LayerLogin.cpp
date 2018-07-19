@@ -1,12 +1,9 @@
 ﻿#include "Helpers.h"
 #include "LayerLogin.h"
+#include "ModelUser.h"
 #include "ServiceAPI.h"
-#include "UserModel.h"
 
-using namespace std;
-using namespace rapidjson;
-
-USING_NS_CC_EXT;
+using namespace cocos2d::extension;
 
 LayerBase* LayerLogin::createLayer()
 {
@@ -38,15 +35,15 @@ bool LayerLogin::init()
     account->setTextVerticalAlignment(TextVAlignment::CENTER);
 
     // 登陆按钮
-    auto loginButton = MenuItemLabel::create(Label::createWithTTF("Login", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerLogin::loginEvent, this));
+    auto loginButton = MenuItemLabel::create(Label::createWithTTF("Login", "Fonts/arial.ttf", 30), CC_CALLBACK_1(LayerLogin::loginEvent, this));
     // 注册按钮
-    auto registerButton = MenuItemLabel::create(Label::createWithTTF("Register", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerLogin::turnToRegister, this));
+    auto registerButton = MenuItemLabel::create(Label::createWithTTF("Register", "Fonts/arial.ttf", 30), CC_CALLBACK_1(LayerLogin::turnToRegister, this));
 
     // 背景框
-    auto LoginBox = Sprite::createWithSpriteFrameName("LonInBox.png");
-    auto accountBackground = Sprite::create("input.png");
+    auto LoginBox = Sprite::createWithSpriteFrameName("LoginBox.png");
+    auto accountBackground = Sprite::create("Graphics/System/input.png");
     accountBackground->setOpacity(20);
-    auto passwordBackground = Sprite::create("input.png");
+    auto passwordBackground = Sprite::create("Graphics/System/input.png");
     passwordBackground->setOpacity(20);
 
     account->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
@@ -84,6 +81,7 @@ void LayerLogin::loginEvent(Ref* pSender)
     {
         if (strcmp(d["status"].GetString(), "success") == 0)
         {
+            Singleton<ModelUser>::GetInstance()->setUserId(account->getString());
             this->updateScene();
         }
         else

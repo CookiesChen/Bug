@@ -19,14 +19,14 @@
     <Filter Include="src\Helpers">
       <UniqueIdentifier>{6c4a00cc-4a29-4e3f-a580-97a0bef27407}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Service">
-      <UniqueIdentifier>{e9df6155-e6ac-4d06-b9c1-e48b801c979b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Models">
       <UniqueIdentifier>{928f47a6-633f-4748-add6-e578ed5849f0}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Resources">
       <UniqueIdentifier>{14c78989-82a7-4223-a1f3-f7130764e976}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Services">
+      <UniqueIdentifier>{e9df6155-e6ac-4d06-b9c1-e48b801c979b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -84,12 +84,6 @@
     <ClCompile Include="..\Classes\Layers\LayerRoom.cpp">
       <Filter>src\Layers</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Service\ServiceAPI.cpp">
-      <Filter>src\Service</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Service\ServiceGame.cpp">
-      <Filter>src\Service</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Layers\LayerRole.cpp">
       <Filter>src\Layers</Filter>
     </ClCompile>
@@ -99,7 +93,13 @@
     <ClCompile Include="..\Classes\Layers\LayerNewUser.cpp">
       <Filter>src\Layers</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Models\UserModel.cpp">
+    <ClCompile Include="..\Classes\Services\ServiceAPI.cpp">
+      <Filter>src\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Services\ServiceGame.cpp">
+      <Filter>src\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Models\ModelUser.cpp">
       <Filter>src\Models</Filter>
     </ClCompile>
   </ItemGroup>
@@ -161,12 +161,6 @@
     <ClInclude Include="..\Classes\Scenes\SceneRoom.h">
       <Filter>src\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Service\ServiceAPI.h">
-      <Filter>src\Service</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Service\ServiceGame.h">
-      <Filter>src\Service</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Layers\LayerRoom.h">
       <Filter>src\Layers</Filter>
     </ClInclude>
@@ -182,7 +176,13 @@
     <ClInclude Include="..\Classes\Resources\Tag.h">
       <Filter>src\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Models\UserModel.h">
+    <ClInclude Include="..\Classes\Services\ServiceAPI.h">
+      <Filter>src\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Services\ServiceGame.h">
+      <Filter>src\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Models\ModelUser.h">
       <Filter>src\Models</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿ <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
@@ -48,7 +48,7 @@
 				<key>sourceSize</key>
 				<string>{472,216}</string>
 			</dict>
-			<key>LonInBox.png</key>
+			<key>LoginBox.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{0,363},{486,220}}</string>
@@ -76,9 +76,9 @@
 			<key>format</key>
 			<integer>2</integer>
 			<key>textureFileName</key>
-			<string>LogInScene.png</string>
+			<string>SceneLoginAndRegister.png</string>
 			<key>realTextureFileName</key>
-			<string>LogInScene.png</string>
+			<string>SceneLoginAndRegister.png</string>
 			<key>size</key>
 			<string>{992,849}</string>
 		</dict>

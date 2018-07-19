@@ -25,7 +25,7 @@ bool SceneGameRoom::init()
     addKeyboardListener();
 
 
-    msgLabel = Label::createWithTTF("Msg", "fonts/arial.ttf", 30);
+    msgLabel = Label::createWithTTF("Msg", "Fonts/arial.ttf", 30);
     
     msgLabel->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 

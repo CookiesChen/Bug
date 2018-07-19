@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class User final
+class ModelUser final
 {
 public:
 
@@ -25,15 +25,11 @@ public:
     int getLevel();
 
 private:
-
-    static string userId;
-    static string nickname;
-    // 头像
-    static string avatar;
-    // 0:man 1:women 3:gay
-    static int gender;
-    static int level;
-
+    string userId;
+    string nickname;
+    string avatar;
+    int gender; // 0:man 1:women
+    int level;
 };
 
 #endif

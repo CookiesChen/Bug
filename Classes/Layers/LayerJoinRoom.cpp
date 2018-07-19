@@ -21,7 +21,7 @@ bool LayerJoinRoom::init()
     auto origin = Director::getInstance()->getVisibleOrigin();
 
 
-    auto buttonBack = MenuItemImage::create("BtnBack.png", "BtnBack_click.png",
+    auto buttonBack = MenuItemImage::create("Graphics/System/BtnBack.png", "Graphics/System/BtnBack_click.png",
         CC_CALLBACK_1(LayerJoinRoom::backMenu, this));
 
     buttonBack->setPosition(Vec2(150, visibleSize.height - 50));

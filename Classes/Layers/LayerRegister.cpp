@@ -17,39 +17,39 @@ bool LayerRegister::init()
     auto origin = Director::getInstance()->getVisibleOrigin();
 
     // 账号输入框
-    auto account = EditBox::create(Size(250, 30), Scale9Sprite::create("input.png"));
+    auto account = EditBox::create(Size(250, 30), Scale9Sprite::create("Graphics/System/input.png"));
     account->setPlaceHolder("account");
     account->setMaxLength(8);
     account->setFontColor(Color3B::BLACK);
-    account->setFont("fonts/arial.ttf", 18);
+    account->setFont("Fonts/arial.ttf", 18);
 
     // 密码输入框
-    auto password = EditBox::create(Size(250, 30), Scale9Sprite::create("input.png"));
+    auto password = EditBox::create(Size(250, 30), Scale9Sprite::create("Graphics/System/input.png"));
     password->setPlaceHolder("password");
     password->setMaxLength(8);
     password->setFontColor(Color3B::BLACK);
-    password->setFont("fonts/arial.ttf", 18);
+    password->setFont("Fonts/arial.ttf", 18);
     password->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
 
     // 重复密码框
-    auto confirm = EditBox::create(Size(250, 30), Scale9Sprite::create("input.png"));
+    auto confirm = EditBox::create(Size(250, 30), Scale9Sprite::create("Graphics/System/input.png"));
     confirm->setPlaceHolder("confirm password");
     confirm->setMaxLength(8);
     confirm->setFontColor(Color3B::BLACK);
-    confirm->setFont("fonts/arial.ttf", 18);
+    confirm->setFont("Fonts/arial.ttf", 18);
     confirm->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
 
     // 邮箱输入框
-    auto email = EditBox::create(Size(250, 30), Scale9Sprite::create("input.png"));
+    auto email = EditBox::create(Size(250, 30), Scale9Sprite::create("Graphics/System/input.png"));
     email->setPlaceHolder("email");
     email->setMaxLength(20);
     email->setFontColor(Color3B::BLACK);
-    email->setFont("fonts/arial.ttf", 18);
+    email->setFont("Fonts/arial.ttf", 18);
 
     // 返回登陆按钮
-    auto loginButton = MenuItemLabel::create(Label::createWithTTF("back", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerRegister::turnToLogin, this));
+    auto loginButton = MenuItemLabel::create(Label::createWithTTF("back", "Fonts/arial.ttf", 30), CC_CALLBACK_1(LayerRegister::turnToLogin, this));
     //注册按钮
-    auto registerButton = MenuItemLabel::create(Label::createWithTTF("Register", "fonts/arial.ttf", 30), CC_CALLBACK_1(LayerRegister::registerEvent, this));
+    auto registerButton = MenuItemLabel::create(Label::createWithTTF("Register", "Fonts/arial.ttf", 30), CC_CALLBACK_1(LayerRegister::registerEvent, this));
 
     // 背景框
     auto registerBox = Sprite::createWithSpriteFrameName("RegisterBox.png");

@@ -25,7 +25,7 @@ bool SceneLoginAndRegister::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
     // 预加载图片资源
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("LogInScene.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Graphics/System/SceneLoginAndRegister.plist");
 
     // 添加层
     layerLogin = LayerLogin::createLayer();

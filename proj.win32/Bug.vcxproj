@@ -76,7 +76,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)external;$(EngineRoot)cocos\audio\include;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes\Helpers;..\Classes\Layers;..\Classes\Models;..\Classes\Scenes;..\Classes\Service;..\Classes;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)external;$(EngineRoot)cocos\audio\include;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes\Helpers;..\Classes\Layers;..\Classes\Models;..\Classes\Resources;..\Classes\Scenes;..\Classes\Services;..\Classes;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -164,14 +164,14 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Layers\LayerRegister.cpp" />
     <ClCompile Include="..\Classes\Layers\LayerRole.cpp" />
     <ClCompile Include="..\Classes\Layers\LayerRoom.cpp" />
-    <ClCompile Include="..\Classes\Models\UserModel.cpp" />
+    <ClCompile Include="..\Classes\Models\ModelUser.cpp" />
     <ClCompile Include="..\Classes\Scenes\SceneGameRoom.cpp" />
     <ClCompile Include="..\Classes\Scenes\SceneBase.cpp" />
     <ClCompile Include="..\Classes\Scenes\SceneLoginAndRegister.cpp" />
     <ClCompile Include="..\Classes\Scenes\SceneMenu.cpp" />
     <ClCompile Include="..\Classes\Scenes\SceneRoom.cpp" />
-    <ClCompile Include="..\Classes\Service\ServiceGame.cpp" />
-    <ClCompile Include="..\Classes\Service\ServiceAPI.cpp" />
+    <ClCompile Include="..\Classes\Services\ServiceAPI.cpp" />
+    <ClCompile Include="..\Classes\Services\ServiceGame.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -193,14 +193,14 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Layers\LayerRole.h" />
     <ClInclude Include="..\Classes\Layers\LayerRoom.h" />
     <ClInclude Include="..\Classes\Resources\Tag.h" />
-    <ClInclude Include="..\Classes\Models\UserModel.h" />
+    <ClInclude Include="..\Classes\Models\ModelUser.h" />
     <ClInclude Include="..\Classes\Scenes\SceneGameRoom.h" />
     <ClInclude Include="..\Classes\Scenes\SceneBase.h" />
     <ClInclude Include="..\Classes\Scenes\SceneLoginAndRegister.h" />
     <ClInclude Include="..\Classes\Scenes\SceneMenu.h" />
     <ClInclude Include="..\Classes\Scenes\SceneRoom.h" />
-    <ClInclude Include="..\Classes\Service\ServiceAPI.h" />
-    <ClInclude Include="..\Classes\Service\ServiceGame.h" />
+    <ClInclude Include="..\Classes\Services\ServiceAPI.h" />
+    <ClInclude Include="..\Classes\Services\ServiceGame.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

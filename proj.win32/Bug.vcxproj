@@ -76,7 +76,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)external;$(EngineRoot)cocos\audio\include;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes\Helpers;..\Classes\Layers;..\Classes\Scenes;..\Classes\Service;..\Classes;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)external;$(EngineRoot)cocos\audio\include;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes\Helpers;..\Classes\Layers;..\Classes\Scenes;..\Classes\Service;..\Classes;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END);..\Classes\Models</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -164,6 +164,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Layers\LayerRegister.cpp" />
     <ClCompile Include="..\Classes\Layers\LayerRole.cpp" />
     <ClCompile Include="..\Classes\Layers\LayerRoom.cpp" />
+    <ClCompile Include="..\Classes\Models\UserModel.cpp" />
     <ClCompile Include="..\Classes\Scenes\SceneGameRoom.cpp" />
     <ClCompile Include="..\Classes\Scenes\SceneBase.cpp" />
     <ClCompile Include="..\Classes\Scenes\SceneLoginAndRegister.cpp" />
@@ -191,6 +192,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Layers\LayerRegister.h" />
     <ClInclude Include="..\Classes\Layers\LayerRole.h" />
     <ClInclude Include="..\Classes\Layers\LayerRoom.h" />
+    <ClInclude Include="..\Classes\Models\UserModel.h" />
     <ClInclude Include="..\Classes\Scenes\SceneGameRoom.h" />
     <ClInclude Include="..\Classes\Scenes\SceneBase.h" />
     <ClInclude Include="..\Classes\Scenes\SceneLoginAndRegister.h" />

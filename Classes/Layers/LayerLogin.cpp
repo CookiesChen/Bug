@@ -1,6 +1,7 @@
 ﻿#include "Helpers.h"
 #include "LayerLogin.h"
 #include "ServiceAPI.h"
+#include "UserModel.h"
 
 using namespace std;
 using namespace rapidjson;
@@ -83,6 +84,7 @@ void LayerLogin::loginEvent(Ref* pSender)
     );
     if (!d.HasParseError() && d.IsObject() && d.HasMember("status")) {
         if (strcmp(d["status"].GetString(), "success") == 0) {
+            Singleton<User>::GetInstance()->setUserId(account->getString());
             this->updateScene();
         }
         else {

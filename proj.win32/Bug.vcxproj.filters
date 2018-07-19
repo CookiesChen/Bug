@@ -22,6 +22,9 @@
     <Filter Include="src\Service">
       <UniqueIdentifier>{e9df6155-e6ac-4d06-b9c1-e48b801c979b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Models">
+      <UniqueIdentifier>{928f47a6-633f-4748-add6-e578ed5849f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -92,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Layers\LayerNewUser.cpp">
       <Filter>src\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Models\UserModel.cpp">
+      <Filter>src\Models</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +175,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Layers\LayerNewUser.h">
       <Filter>src\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Models\UserModel.h">
+      <Filter>src\Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

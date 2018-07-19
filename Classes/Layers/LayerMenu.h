@@ -16,9 +16,17 @@ public:
 
     void logoutEvent(Ref* pSender);
 
+    void initUser();
+
     CREATE_FUNC(LayerMenu);
 
 private:
+    MenuItemLabel * buttonJoin;
+    MenuItemLabel * buttonNew;
+    MenuItemLabel * logoutButton;
+
+    Label * userIdLabel;
+
 };
 
 #endif // __LAYER_MENU_H__

@@ -11,11 +11,8 @@
 
 using namespace cocos2d;
 
-void ServiceGame::JoinRoom(int port, int id, function<void(string)> callBack)
+void ServiceGame::JoinRoom()
 {
-    frame = 0;
-    this->id = id;
-
     rapidjson::Document document;
     document.SetObject();
     rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
@@ -26,9 +23,8 @@ void ServiceGame::JoinRoom(int port, int id, function<void(string)> callBack)
     document.Accept(writer);
     string req = "0";
     req.append(buffer.GetString());
-    Singleton<Net>::GetInstance()->InitSocket(30082);
+    Singleton<Net>::GetInstance()->InitSocket(this->port);
     Singleton<Net>::GetInstance()->Send(req);
-    callBack("Join in Room success");
 }
 
 void ServiceGame::SendInput(int input)
@@ -47,10 +43,16 @@ void ServiceGame::SendInput(int input)
     Singleton<Net>::GetInstance()->Send(req);
 }
 
+void ServiceGame::InitGame(int port, int id) {
+    frame = 0;
+    this->id = id;
+    this->isJoin = false;
+    this->isOut = false;
+    this->port = port;
+}
 
 void ServiceGame::GetFrame(function<void(string)> callBack)
 {
-
     while (true)
     {
         DWORD t1, t2;
@@ -58,8 +60,19 @@ void ServiceGame::GetFrame(function<void(string)> callBack)
         string res = Singleton<Net>::GetInstance()->GetState();
         t2 = timeGetTime();
         stringstream ss;
-        ss << "Delay: " << (t2 - t1)*1.0 << "ms\n";
+        ss << "Delay: " << (t2 - t1) * 1.0 << "ms\n";
         log("get: %s\n", res.c_str());
+
+        if (res.compare("join")) {
+            this->isJoin = true;
+            continue;
+        }
+
+        if (res.compare("out")) {
+            this->isOut = true;
+            continue;
+        }
+
         rapidjson::Document d;
         d.Parse<0>(res.c_str());
         if (!d["data"].IsArray()) continue;
@@ -103,4 +116,14 @@ void ServiceGame::GetFrame(function<void(string)> callBack)
 void ServiceGame::OutRoom()
 {
     Singleton<Net>::GetInstance()->Send("3");
+}
+
+bool ServiceGame::GetJoinState()
+{
+    return this->isJoin;
+}
+
+bool ServiceGame::GetOutState()
+{
+    return this->isOut;
 }

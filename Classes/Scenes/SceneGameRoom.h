@@ -17,11 +17,14 @@ public:
     void onKeyPressed(EventKeyboard::KeyCode code, Event* event);
     void onKeyReleased(EventKeyboard::KeyCode code, Event* event);
     void GetState();
+    void JoinGame(float dt);
+    void ExitGame(float dt);
 
     CREATE_FUNC(SceneGameRoom);
 
 private:
     Label *msgLabel;
     int id;
+    int port;
 };
 

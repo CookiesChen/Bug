@@ -14,6 +14,8 @@ public:
 
     void newRoom(Ref* pSender);
 
+    void logoutEvent(Ref* pSender);
+
     CREATE_FUNC(LayerMenu);
 
 private:

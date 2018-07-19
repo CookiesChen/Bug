@@ -5,6 +5,7 @@
 
 USING_NS_CC;
 
+
 class LayerBase : public Layer
 {
 public:

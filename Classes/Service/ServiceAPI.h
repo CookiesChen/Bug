@@ -17,6 +17,8 @@ public:
 
     rapidjson::Document CreateRoom(string title, string password, string map, string mode, int maxPlayer);
 
+    rapidjson::Document Logout();
+
 private:
     static const string apiUrl;
 };

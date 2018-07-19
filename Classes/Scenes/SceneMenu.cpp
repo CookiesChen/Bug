@@ -1,4 +1,5 @@
 ﻿#include "SceneMenu.h"
+#include "SceneLoginAndRegister.h"
 #include "LayerMenu.h"
 #include "LayerJoinRoom.h"
 #include "LayerNewRoom.h"
@@ -22,6 +23,7 @@ bool SceneMenu::init()
     layerMenu = LayerMenu::createLayer();
     layerJoinRoom = LayerJoinRoom::createLayer();
     layerNewRoom = LayerNewRoom::createLayer();
+    
     layerJoinRoom->setVisible(false);
     layerNewRoom->setVisible(false);
     layerJoinRoom->setActive(false);
@@ -59,5 +61,8 @@ void SceneMenu::updateLayer()
 
 void SceneMenu::updateScene()
 {
-
+    if (layerMenu->getActive())
+    {
+        Director::getInstance()->replaceScene(SceneLoginAndRegister::createScene());
+    }
 }

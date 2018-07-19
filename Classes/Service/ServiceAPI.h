@@ -17,6 +17,8 @@ public:
     rapidjson::Document GetNewVersion();
     rapidjson::Document Login(string username, string password);
 
+    rapidjson::Document Logout();
+
 private:
     static const string apiUrl;
 };

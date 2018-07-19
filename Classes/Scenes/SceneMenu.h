@@ -19,6 +19,7 @@ private:
     LayerBase * layerMenu;
     LayerBase * layerJoinRoom;
     LayerBase * layerNewRoom;
+    LayerBase * layerLogin;
 };
 
 #endif //__SCENE_MENU_H__

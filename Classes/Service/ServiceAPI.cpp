@@ -23,6 +23,14 @@ rapidjson::Document ServiceAPI::Login(string username, string password)
     return d;
 }
 
+rapidjson::Document ServiceAPI::Logout()
+{
+    auto res = Singleton<Net>::GetInstance()->Post(apiUrl + "/user/logout");
+    rapidjson::Document d;
+    d.Parse(res.c_str());
+    return d;
+}
+
 rapidjson::Document ServiceAPI::CreateRoom(string title, string password, string map, string mode, int maxPlayer)
 {
     rapidjson::Document document;

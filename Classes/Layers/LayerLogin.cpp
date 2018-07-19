@@ -1,6 +1,7 @@
 ﻿#include "Helpers.h"
 #include "LayerLogin.h"
 #include "ServiceAPI.h"
+#include "UserModel.h"
 
 using namespace std;
 using namespace rapidjson;

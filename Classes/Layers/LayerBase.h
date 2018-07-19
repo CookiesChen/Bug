@@ -7,6 +7,7 @@
 
 using namespace cocos2d;
 
+
 class LayerBase : public Layer
 {
 public:

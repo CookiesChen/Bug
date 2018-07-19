@@ -19,7 +19,7 @@ bool LayerLoginAndRegisterBackground::init()
     compass_2->setPosition(Vec2(visibleSize.width / 2, origin.y + 20));
     compass_3->setPosition(Vec2(visibleSize.width / 2, origin.y + 20));
 
-    // 背景图
+    // todo 背景图
 
     this->addChild(compass_1, 3);
     this->addChild(compass_2, 2);

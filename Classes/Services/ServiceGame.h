@@ -8,14 +8,20 @@ using namespace std;
 class ServiceGame
 {
 public:
-    void JoinRoom(int port, int id, function<void(string)> callBack);
+    void InitGame(int id, int port);
+    void JoinRoom();
     void SendInput(int input);
     void GetFrame(function<void(string)> callBack);
     void OutRoom();
 
+    bool GetJoinState();
+    bool GetOutState();
 private:
     int frame;
     int id;
+    int port;
+    bool isJoin;
+    bool isOut;
 };
 
 #endif // __SERVICE_GAME__

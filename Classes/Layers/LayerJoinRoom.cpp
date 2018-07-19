@@ -1,14 +1,6 @@
-﻿#include "LayerJoinRoom.h"
-#include "Helpers.h"
-#include "json/rapidjson.h"
-#include "json/document.h"
-#include "json/stringbuffer.h"
-#include "json/writer.h"
-
-#include <iostream>
-
-using namespace std;
-using namespace rapidjson;
+﻿#include "Helpers.h"
+#include "LayerJoinRoom.h"
+#include "ServiceAPI.h"
 
 LayerBase* LayerJoinRoom::createLayer()
 {
@@ -38,29 +30,31 @@ bool LayerJoinRoom::init()
     return true;
 }
 
-void LayerJoinRoom::backMenu(Ref* pSender) {
+void LayerJoinRoom::backMenu(Ref* pSender)
+{
     if (!this->getActive()) return;
     this->updateLayer(Tag::LayerFromJoinRoomOrNewRoomToMenu);
 }
 
-void LayerJoinRoom::getRoomList(float dt) {
+void LayerJoinRoom::getRoomList(float dt)
+{
     // todo 获取房间列表API
     if (this->getActive() == false) return;
-    auto res = Singleton<Net>::GetInstance()->Get("room/list/1?size=5");
+    auto d = Singleton<ServiceAPI>::GetInstance()->GetRoomsList(1, 5);
+    if (!d.HasParseError() && d.IsObject() && d.HasMember("status"))
+    {
+        if (strcmp(d["status"].GetString(), "success") == 0)
+        {
 
-    log("Res:%s\n", res.c_str());
-    rapidjson::Document d;
-    d.Parse<0>(res.c_str());
-    if (!d.HasParseError() && d.IsObject() && d.HasMember("status")) {
-        if (strcmp(d["status"].GetString(), "success") == 0) {
-            
             // 根据数据生成房间列表
         }
-        else {
+        else
+        {
             // 参数错误的提示
         }
     }
-    else {
+    else
+    {
         // 解析失败的提示
         return;
     }

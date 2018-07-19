@@ -1,10 +1,7 @@
 ﻿#include "Helpers.h"
 #include "LayerNewRoom.h"
 #include "ServiceAPI.h"
-#include "ui/CocosGUI.h"
 
-
-using namespace rapidjson;
 LayerBase* LayerNewRoom::createLayer()
 {
     return LayerNewRoom::create();

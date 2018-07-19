@@ -1,7 +1,7 @@
-﻿#include "LayerMenu.h"
-#include "Helpers.h"
-#include "ServiceAPI.h"
+﻿#include "Helpers.h"
+#include "LayerMenu.h"
 #include "ModelUser.h"
+#include "ServiceAPI.h"
 
 LayerBase* LayerMenu::createLayer()
 {
@@ -17,11 +17,11 @@ bool LayerMenu::init()
     buttonNew = MenuItemLabel::create(Label::createWithTTF("New Game", "Fonts/arial.ttf", 30), CC_CALLBACK_1(LayerMenu::newRoom, this));
     logoutButton = MenuItemLabel::create(Label::createWithTTF("Logout", "Fonts/arial.ttf", 20), CC_CALLBACK_1(LayerMenu::logoutEvent, this));
     userIdLabel = Label::createWithTTF("", "Fonts/arial.ttf", 20);
-    
+
     buttonJoin->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
     buttonNew->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 50));
     logoutButton->setPosition(Vec2(visibleSize.width - 60, visibleSize.height - 60));
-    userIdLabel->setPosition(Vec2(100 , visibleSize.height - 50));
+    userIdLabel->setPosition(Vec2(100, visibleSize.height - 50));
 
     auto menu = Menu::create();
     menu->setPosition(origin);
@@ -37,12 +37,14 @@ bool LayerMenu::init()
     return true;
 }
 
-void LayerMenu::joinRoom(Ref* pSender) {
+void LayerMenu::joinRoom(Ref* pSender)
+{
     if (!this->getActive()) return;
     this->updateLayer(Tag::LayerFromMenuToJoinRoom);
 }
 
-void LayerMenu::newRoom(Ref* pSender) {
+void LayerMenu::newRoom(Ref* pSender)
+{
     if (!this->getActive()) return;
     this->updateLayer(Tag::LayerFromMenuToNewRoom);
 }

@@ -15,6 +15,7 @@ class ServiceAPI final
 public:
     rapidjson::Document CreateRoom(string title, string password, string map, string mode, int maxPlayer);
     rapidjson::Document GetNewVersion();
+    rapidjson::Document GetRoomsList(int page, int maxSizePerPage);
     rapidjson::Document Login(string username, string password);
 
     rapidjson::Document Logout();

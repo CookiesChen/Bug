@@ -21,7 +21,6 @@ bool SceneGameRoom::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-
     addKeyboardListener();
 
 
@@ -32,12 +31,12 @@ bool SceneGameRoom::init()
     this->addChild(msgLabel);
 
     srand((unsigned)time(NULL));
+
     id = rand() % 60000;
 
-    Singleton<ServiceGame>::GetInstance()->JoinRoom(30082, id, [&](string res) -> void {
-        msgLabel->setString(res);
-    });
+    Singleton<ServiceGame>::GetInstance()->InitGame(30082, id);
 
+    schedule(schedule_selector(SceneGameRoom::JoinGame), 1.0f, kRepeatForever, 0);
 
     auto t = new std::thread(&SceneGameRoom::GetState, this);
 
@@ -48,6 +47,34 @@ void SceneGameRoom::GetState() {
     Singleton<ServiceGame>::GetInstance()->GetFrame([&](string res) -> void {
         msgLabel->setString(res);
     });
+}
+
+
+void SceneGameRoom::JoinGame(float dt) {
+    if (Singleton<ServiceGame>::GetInstance()->GetJoinState() == true)
+    {   // 已经加入房间
+        msgLabel->setString("join room success!");
+        this->unschedule(schedule_selector(SceneGameRoom::JoinGame));
+    }
+    else {
+        // 重连中
+        msgLabel->setString("joining...");
+        Singleton<ServiceGame>::GetInstance()->JoinRoom();
+    }
+}
+
+void SceneGameRoom::ExitGame(float dt) {
+    if (Singleton<ServiceGame>::GetInstance()->GetOutState() == true)
+    {
+        // 已经退出房间
+        msgLabel->setString("join room success!");
+        this->unschedule(schedule_selector(SceneGameRoom::ExitGame));
+    }
+    else {
+        // 重新发送
+        msgLabel->setString("joining...");
+        Singleton<ServiceGame>::GetInstance()->OutRoom();
+    }
 }
 
 // 添加键盘事件监听器

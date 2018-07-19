@@ -8,8 +8,6 @@ class LayerEmail final : public LayerBase
 public:
     static LayerBase* createLayer();
 
-
-
     virtual bool init() override;
 
     CREATE_FUNC(LayerEmail);

@@ -64,3 +64,13 @@ rapidjson::Document ServiceAPI::GetNewVersion()
     d.Parse<0>(res.c_str());
     return d;
 }
+
+rapidjson::Document ServiceAPI::GetRoomsList(int page, int maxSizePerPage)
+{
+    string query("size=");
+    query.append(to_string(maxSizePerPage));
+    auto res = Singleton<Net>::GetInstance()->Get(apiUrl + "/room/list/" + to_string(page), query);
+    rapidjson::Document d;
+    d.Parse<0>(res.c_str());
+    return d;
+}

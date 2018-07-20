@@ -8,6 +8,7 @@ class ServiceUser final
 public:
     string GetEmail();
     string GetNikename();
+    string GetUserId();
     void SetEmail(string email);
     void SetNikename(string nikename);
     bool RefreshInfo();

@@ -9,6 +9,7 @@ using namespace std;
 class ModelUser final
 {
 public:
+    string id;
     string Email;
     string Nikename;
     string avatar;

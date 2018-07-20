@@ -79,6 +79,24 @@ rapidjson::Document ServiceAPI::CreateRoom(string title, string password, string
     return d;
 }
 
+rapidjson::Document ServiceAPI::JoinRoom(int id, string password)
+{
+    rapidjson::Document document;
+    document.SetObject();
+    rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
+    rapidjson::Value valPassword;
+    valPassword.SetString(password.c_str(), allocator);
+    document.AddMember("password", valPassword, allocator);
+    rapidjson::StringBuffer buffer;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+    document.Accept(writer);
+
+    auto res = Singleton<Net>::GetInstance()->Post(apiUrl + "/room/join/" + to_string(id), buffer.GetString());
+    rapidjson::Document d;
+    d.Parse<0>(res.c_str());
+    return d;
+}
+
 rapidjson::Document ServiceAPI::GetEmailCode()
 {
     auto res = Singleton<Net>::GetInstance()->Post(apiUrl + "/user/email");
@@ -147,7 +165,79 @@ rapidjson::Document ServiceAPI::GetRoomsList(int page, int maxSizePerPage)
 
 rapidjson::Document ServiceAPI::GetUserInfo(string userID)
 {
-    auto res = Singleton<Net>::GetInstance()->Get(apiUrl + "/user/info/self");
+    if (userID == "") userID = "self";
+    auto res = Singleton<Net>::GetInstance()->Get(apiUrl + "/user/info/" + userID);
+    rapidjson::Document d;
+    d.Parse<0>(res.c_str());
+    return d;
+}
+
+string ServiceAPI::RoomHeart()
+{
+    return Singleton<Net>::GetInstance()->Get(apiUrl + "/room/heart");
+}
+
+rapidjson::Document ServiceAPI::GetRoomDetail()
+{
+    auto res = Singleton<Net>::GetInstance()->Get(apiUrl + "/room/detail");
+    rapidjson::Document d;
+    d.Parse<0>(res.c_str());
+    return d;
+}
+
+rapidjson::Document ServiceAPI::SetReady(bool isReady)
+{
+    auto res = Singleton<Net>::GetInstance()->Post(apiUrl + "/room/ready/" + (isReady ? "true" : "false"));
+    rapidjson::Document d;
+    d.Parse<0>(res.c_str());
+    return d;
+}
+
+rapidjson::Document ServiceAPI::SetTeam(int team)
+{
+    auto res = Singleton<Net>::GetInstance()->Post(apiUrl + "/room/team/" + to_string(team));
+    rapidjson::Document d;
+    d.Parse<0>(res.c_str());
+    return d;
+}
+
+rapidjson::Document ServiceAPI::SetRole(string role)
+{
+    auto res = Singleton<Net>::GetInstance()->Post(apiUrl + "/room/role/" + role);
+    rapidjson::Document d;
+    d.Parse<0>(res.c_str());
+    return d;
+}
+
+rapidjson::Document ServiceAPI::QuitRoom()
+{
+    auto res = Singleton<Net>::GetInstance()->Post(apiUrl + "/room/quit");
+    rapidjson::Document d;
+    d.Parse<0>(res.c_str());
+    return d;
+}
+
+rapidjson::Document ServiceAPI::SetRoomInfo(string title, string password, string gameMap, int maxPlayer)
+{
+    // todo 设置房间信息
+    return nullptr;
+}
+
+rapidjson::Document ServiceAPI::SetRoomOwn(string userId)
+{
+    // todo 设置房主
+    return nullptr;
+}
+
+rapidjson::Document ServiceAPI::OutSbfromRoom(string userId)
+{
+    // todo 踢人
+    return nullptr;
+}
+
+rapidjson::Document ServiceAPI::startGame()
+{
+    auto res = Singleton<Net>::GetInstance()->Post(apiUrl + "/room/start");
     rapidjson::Document d;
     d.Parse<0>(res.c_str());
     return d;

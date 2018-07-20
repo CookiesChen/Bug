@@ -12,6 +12,11 @@ string ServiceUser::GetNikename()
     return user.Nikename;
 }
 
+string ServiceUser::GetUserId()
+{
+    return user.id;
+}
+
 void ServiceUser::SetEmail(string email)
 {
     user.Email = email;
@@ -33,6 +38,7 @@ bool ServiceUser::RefreshInfo()
             this->user.avatar = d["avatar"].GetString();
             this->user.gender = d["gender"].GetInt();
             this->user.level = d["level"].GetInt();
+            this->user.id = d["id"].GetString();
             return true;
         }
         else

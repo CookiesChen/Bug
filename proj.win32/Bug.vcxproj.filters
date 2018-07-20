@@ -99,9 +99,6 @@
     <ClCompile Include="..\Classes\Services\ServiceGame.cpp">
       <Filter>src\Services</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Models\ModelUser.cpp">
-      <Filter>src\Models</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Services\ServiceUser.cpp">
       <Filter>src\Services</Filter>
     </ClCompile>

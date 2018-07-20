@@ -10,6 +10,7 @@ class ModelUser final
 {
 public:
     string Email;
+    string Nikename;
 };
 
 #endif

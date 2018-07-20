@@ -97,8 +97,7 @@ void LayerLogin::loginEvent(Ref* pSender)
             }
             else
             {
-                // todo 用户名为msg
-                //Singleton<ModelUser>::GetInstance()->setUserId(account->getString());
+                Singleton<ServiceUser>::GetInstance()->SetNikename(msg);
                 this->updateScene(Tag::SceneFromLoginAndRegisterToMenu);
             }
         }

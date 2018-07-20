@@ -103,28 +103,28 @@ void LayerNewUser::checkBoxWomanCallback(cocos2d::Ref * ref, CheckBox::EventType
 void LayerNewUser::setUserInfo(Ref* pSender)
 {
     // todo 新建房间的API
-    auto d = Singleton<ServiceAPI>::GetInstance()->CreateRoom(
-        roomName->getString(),
-        roomPassword->getString(),
-        "jungle",
-        this->mode,
-        this->playerCount
-    );
-    if (!d.HasParseError() && d.IsObject() && d.HasMember("status"))
-    {
-        if (strcmp(d["status"].GetString(), "success") == 0)
-        {
-            // 跳转到房间页面
-            this->updateScene();
-        }
-        else
-        {
-            // 参数错误的提示
-        }
-    }
-    else
-    {
-        // 解析失败的提示
-        return;
-    }
+    //auto d = Singleton<ServiceAPI>::GetInstance()->CreateRoom(
+    //    roomName->getString(),
+    //    roomPassword->getString(),
+    //    "jungle",
+    //    this->mode,
+    //    this->playerCount
+    //);
+    //if (!d.HasParseError() && d.IsObject() && d.HasMember("status"))
+    //{
+    //    if (strcmp(d["status"].GetString(), "success") == 0)
+    //    {
+    //        // 跳转到房间页面
+    //        this->updateScene();
+    //    }
+    //    else
+    //    {
+    //        // 参数错误的提示
+    //    }
+    //}
+    //else
+    //{
+    //    // 解析失败的提示
+    //    return;
+    //}
 }

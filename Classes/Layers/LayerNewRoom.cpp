@@ -1,7 +1,7 @@
 ﻿#include "Helpers.h"
 #include "LayerNewRoom.h"
 #include "ServiceAPI.h"
-#include "ModelUser.h"
+#include "ServiceUser.h"
 
 LayerBase* LayerNewRoom::createLayer()
 {
@@ -187,7 +187,7 @@ void LayerNewRoom::backMenu(Ref* pSender)
 
 void LayerNewRoom::refreshRoomName()
 {
-    this->roomName->setText(Singleton<ModelUser>::GetInstance()->getUserId() + "'s room");
+    this->roomName->setText(Singleton<ServiceUser>::GetInstance()->GetNikename() + "'s room");
 }
 
 void LayerNewRoom::checkBoxPersonCallback(cocos2d::Ref * ref, CheckBox::EventType type)

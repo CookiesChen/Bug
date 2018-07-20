@@ -87,6 +87,27 @@ rapidjson::Document ServiceAPI::GetEmailCode()
     return d;
 }
 
+rapidjson::Document ServiceAPI::SetUserInfo(string name, int gender)
+{
+    rapidjson::Document document;
+    document.SetObject();
+    rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
+    rapidjson::Value valName, valGender;
+    valName.SetString(name.c_str(), allocator);
+    document.AddMember("title", valName, allocator);
+    valGender.SetInt(gender);
+    document.AddMember("gender", valGender, allocator);
+    document.AddMember("avatar", "default", allocator);
+    rapidjson::StringBuffer buffer;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+    document.Accept(writer);
+
+    auto res = Singleton<Net>::GetInstance()->Post(apiUrl + "/user/info", buffer.GetString());
+    rapidjson::Document d;
+    d.Parse<0>(res.c_str());
+    return d;
+}
+
 rapidjson::Document ServiceAPI::GetNewVersion()
 {
     auto res = Singleton<Net>::GetInstance()->Get(apiUrl + "/game/new");

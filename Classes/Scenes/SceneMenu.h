@@ -13,12 +13,15 @@ public:
     virtual void updateLayer(Tag tag) override;
     virtual void updateScene(Tag tag) override;
 
+    void updateUserInfo();
+
     CREATE_FUNC(SceneMenu);
 private:
 
     LayerBase * layerMenu;
     LayerBase * layerJoinRoom;
     LayerBase * layerNewRoom;
+    LayerBase * layerNewUser;
     LayerBase * layerLogin;
 };
 

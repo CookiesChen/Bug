@@ -1,4 +1,5 @@
 ﻿#include "SceneRoom.h"
+#include "LayerRoom.h"
 
 Scene* SceneRoom::createScene()
 {
@@ -14,6 +15,7 @@ bool SceneRoom::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+    layerRoom = LayerRoom::createLayer();
     
 
     return true;

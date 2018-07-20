@@ -22,7 +22,7 @@ bool LayerNewUser::init()
     float Height2 = visibleSize.height - 200;
     auto labelUserName = Label::createWithTTF("Your nikename: ", "Fonts/arial.ttf", 20);
     labelUserName->setAnchorPoint(Vec2(1, 0.5));
-    labelUserName->setPosition(Vec2(LabelX, Height1));
+    labelUserName->setPosition(Vec2(LabelX, Height2));
     this->addChild(labelUserName, 1);
     // 用户名称输入框
     userName = ui::TextField::create("", "Arial", 20);
@@ -52,8 +52,8 @@ bool LayerNewUser::init()
     checkGenderMan->setSelected(true);
     this->isMan = true;
     this->addChild(checkGenderMan, 1);
-    auto labelModePerson = Label::createWithTTF("Personal", "Fonts/arial.ttf", 20);
-    labelModePerson->setPosition(Vec2(checkGenderMan->getPosition().x + checkGenderMan->getContentSize().width + 50, Height3));
+    auto labelModePerson = Label::createWithTTF("Man", "Fonts/arial.ttf", 20);
+    labelModePerson->setPosition(Vec2(checkGenderMan->getPosition().x + checkGenderMan->getContentSize().width + 20, Height3));
     this->addChild(labelModePerson, 1);
     // woman
     checkGenderWoman = ui::CheckBox::create("CheckBox_Normal.png",
@@ -65,8 +65,8 @@ bool LayerNewUser::init()
     checkGenderWoman->addEventListener(CC_CALLBACK_2(LayerNewUser::checkBoxWomanCallback, this));
     checkGenderWoman->setSelected(false);
     this->addChild(checkGenderWoman, 1);
-    auto labelModeTeam = Label::createWithTTF("Team", "Fonts/arial.ttf", 20);
-    labelModeTeam->setPosition(Vec2(checkGenderWoman->getPosition().x + checkGenderWoman->getContentSize().width + 50, Height3));
+    auto labelModeTeam = Label::createWithTTF("Woman", "Fonts/arial.ttf", 20);
+    labelModeTeam->setPosition(Vec2(checkGenderWoman->getPosition().x + checkGenderWoman->getContentSize().width + 20, Height3));
     this->addChild(labelModeTeam, 1);
 
     // 用户选择头像 (暂时不做)
@@ -102,29 +102,29 @@ void LayerNewUser::checkBoxWomanCallback(cocos2d::Ref * ref, CheckBox::EventType
 
 void LayerNewUser::setUserInfo(Ref* pSender)
 {
-    // todo 新建房间的API
-    //auto d = Singleton<ServiceAPI>::GetInstance()->CreateRoom(
-    //    roomName->getString(),
-    //    roomPassword->getString(),
-    //    "jungle",
-    //    this->mode,
-    //    this->playerCount
-    //);
-    //if (!d.HasParseError() && d.IsObject() && d.HasMember("status"))
-    //{
-    //    if (strcmp(d["status"].GetString(), "success") == 0)
-    //    {
-    //        // 跳转到房间页面
-    //        this->updateScene();
-    //    }
-    //    else
-    //    {
-    //        // 参数错误的提示
-    //    }
-    //}
-    //else
-    //{
-    //    // 解析失败的提示
-    //    return;
-    //}
+    auto d = Singleton<ServiceAPI>::GetInstance()->SetUserInfo(
+        this->userName->getString(),
+        this->isMan ? 0 : 1,
+        "default"
+    );
+    if (!d.HasParseError() && d.IsObject() && d.HasMember("status"))
+    {
+        if (strcmp(d["status"].GetString(), "success") == 0)
+        {
+            // 跳转到房间页面
+            this->dialog("Set user info success!");
+            this->updateLayer(Tag::LayerFromNewUserToMenu);
+        }
+        else
+        {
+            this->dialog("error userName!");
+            // 参数错误的提示
+        }
+    }
+    else
+    {
+        this->dialog("Oop!");
+        // 解析失败的提示
+        return;
+    }
 }

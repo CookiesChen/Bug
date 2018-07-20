@@ -87,17 +87,18 @@ rapidjson::Document ServiceAPI::GetEmailCode()
     return d;
 }
 
-rapidjson::Document ServiceAPI::SetUserInfo(string name, int gender)
+rapidjson::Document ServiceAPI::SetUserInfo(string name, int gender, string avatar)
 {
     rapidjson::Document document;
     document.SetObject();
     rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
-    rapidjson::Value valName, valGender;
+    rapidjson::Value valName, valGender, valAvatar;
     valName.SetString(name.c_str(), allocator);
-    document.AddMember("title", valName, allocator);
+    document.AddMember("name", valName, allocator);
     valGender.SetInt(gender);
     document.AddMember("gender", valGender, allocator);
-    document.AddMember("avatar", "default", allocator);
+    valAvatar.SetString(avatar.c_str(), allocator);
+    document.AddMember("avatar", valAvatar, allocator);
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
     document.Accept(writer);
@@ -139,6 +140,14 @@ rapidjson::Document ServiceAPI::GetRoomsList(int page, int maxSizePerPage)
     string query("size=");
     query.append(to_string(maxSizePerPage));
     auto res = Singleton<Net>::GetInstance()->Get(apiUrl + "/room/list/" + to_string(page), query);
+    rapidjson::Document d;
+    d.Parse<0>(res.c_str());
+    return d;
+}
+
+rapidjson::Document ServiceAPI::GetUserInfo(string userID)
+{
+    auto res = Singleton<Net>::GetInstance()->Get(apiUrl + "/user/info/self");
     rapidjson::Document d;
     d.Parse<0>(res.c_str());
     return d;

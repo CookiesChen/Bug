@@ -1,6 +1,6 @@
 ﻿#include "Helpers.h"
 #include "LayerMenu.h"
-#include "ModelUser.h"
+#include "ServiceUser.h"
 #include "ServiceAPI.h"
 
 LayerBase* LayerMenu::createLayer()
@@ -16,12 +16,12 @@ bool LayerMenu::init()
     buttonJoin = MenuItemLabel::create(Label::createWithTTF("Join Game", "Fonts/arial.ttf", 30), CC_CALLBACK_1(LayerMenu::joinRoom, this));
     buttonNew = MenuItemLabel::create(Label::createWithTTF("New Game", "Fonts/arial.ttf", 30), CC_CALLBACK_1(LayerMenu::newRoom, this));
     logoutButton = MenuItemLabel::create(Label::createWithTTF("Logout", "Fonts/arial.ttf", 20), CC_CALLBACK_1(LayerMenu::logoutEvent, this));
-    userIdLabel = Label::createWithTTF("", "Fonts/arial.ttf", 20);
+    labelUserName = Label::createWithTTF("", "Fonts/arial.ttf", 20);
 
     buttonJoin->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
     buttonNew->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 50));
     logoutButton->setPosition(Vec2(visibleSize.width - 60, visibleSize.height - 60));
-    userIdLabel->setPosition(Vec2(100, visibleSize.height - 50));
+    labelUserName->setPosition(Vec2(100, visibleSize.height - 50));
 
     auto menu = Menu::create();
     menu->setPosition(origin);
@@ -29,7 +29,7 @@ bool LayerMenu::init()
     menu->addChild(buttonNew);
     menu->addChild(logoutButton);
 
-    this->addChild(userIdLabel, 1);
+    this->addChild(labelUserName, 1);
     this->addChild(menu, 1);
 
     initUser();
@@ -49,6 +49,11 @@ void LayerMenu::newRoom(Ref* pSender)
     this->updateLayer(Tag::LayerFromMenuToNewRoom);
 }
 
+void LayerMenu::UpdateUserInfo()
+{
+    this->labelUserName->setString(Singleton<ServiceUser>::GetInstance()->GetNikename());
+}
+
 void LayerMenu::logoutEvent(Ref* pSender)
 {
     Singleton<ServiceAPI>::GetInstance()->Logout();
@@ -63,5 +68,4 @@ void LayerMenu::initUser()
     //auto nickname = Singleton<ModelUser>::GetInstance()->getNickName();
     //auto gender = Singleton<ModelUser>::GetInstance()->getGender();
     //auto level = Singleton<ModelUser>::GetInstance()->getLevel();
-    userIdLabel->setString("test");
 }

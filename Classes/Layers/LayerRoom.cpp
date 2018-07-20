@@ -9,6 +9,8 @@ bool LayerRoom::init()
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
+
+
     // todo 显示玩家信息和准备状态以及所选角色
     // todo 显示这个房间的游戏模式和地图
     // todo 准备
@@ -21,4 +23,9 @@ bool LayerRoom::init()
     // todo 设置房间信息
     // todo 开始游戏
     return true;
+}
+
+void LayerRoom::SetRoomId(string id)
+{
+    this->roomID = id;
 }

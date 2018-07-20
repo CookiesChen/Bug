@@ -20,8 +20,9 @@ public:
     rapidjson::Document Login(string username, string password);
     rapidjson::Document Logout();
     rapidjson::Document Register(string username, string password, string email);
-    rapidjson::Document SetUserInfo(string name, int gender);
+    rapidjson::Document SetUserInfo(string name, int gender, string avatar);
     rapidjson::Document VerifyEmail(string code);
+    rapidjson::Document GetUserInfo(string userID = "");
 
 private:
     static const string apiUrl;

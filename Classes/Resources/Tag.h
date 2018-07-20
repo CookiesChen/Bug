@@ -14,9 +14,12 @@ enum Tag
     LayerFromMenuToJoinRoom,
     LayerFromMenuToNewRoom,
     LayerFromJoinRoomOrNewRoomToMenu,
+    LayerFromNewUserToMenu,
+    LayerFromMenuToNewUser,
 
     // Scene
     SceneFromLoginAndRegisterToMenu,
+
 
     Reversed = 9999
 };

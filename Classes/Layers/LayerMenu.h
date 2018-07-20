@@ -13,6 +13,7 @@ public:
     void joinRoom(Ref* pSender);
     void newRoom(Ref* pSender);
     void logoutEvent(Ref* pSender);
+    void UpdateUserInfo();
     void initUser();
 
     CREATE_FUNC(LayerMenu);
@@ -22,7 +23,7 @@ private:
     MenuItemLabel * buttonNew;
     MenuItemLabel * logoutButton;
 
-    Label * userIdLabel;
+    Label * labelUserName;
 };
 
 #endif // __LAYER_MENU_H__

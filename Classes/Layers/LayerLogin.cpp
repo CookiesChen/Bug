@@ -91,15 +91,8 @@ void LayerLogin::loginEvent(Ref* pSender)
         if (status == "success")
         {
             string msg(d["msg"].GetString());
-            if (msg == "new_user")
-            {
-                // todo 新用户
-            }
-            else
-            {
-                Singleton<ServiceUser>::GetInstance()->SetNikename(msg);
-                this->updateScene(Tag::SceneFromLoginAndRegisterToMenu);
-            }
+            Singleton<ServiceUser>::GetInstance()->SetNikename(msg);
+            this->updateScene(Tag::SceneFromLoginAndRegisterToMenu);
         }
         else if (status == "not_valid")
         {

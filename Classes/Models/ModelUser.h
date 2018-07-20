@@ -11,6 +11,9 @@ class ModelUser final
 public:
     string Email;
     string Nikename;
+    string avatar;
+    int gender;
+    int level;
 };
 
 #endif

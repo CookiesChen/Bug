@@ -15,6 +15,7 @@ public:
     virtual bool init() override;
 
     void setString(const string& str);
+    void show();
 
     CREATE_FUNC(LayerMessageDialog);
 
@@ -22,6 +23,7 @@ private:
     void back(Ref* pSender);
 
     Label* label;
+    LayerColor* layerColor;
 };
 
 #endif //__LAYER_MESSAGE_DIALOG_H__

@@ -5,6 +5,9 @@ bool SceneBase::init()
 {
     if (!Scene::init()) return false;
 
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
     // 预加载图片资源
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Graphics/System/SceneLoginAndRegister.plist");
 
@@ -19,9 +22,9 @@ bool SceneBase::init()
 
 void SceneBase::dialog(const string& str)
 {
-    ((LayerMessageDialog*) d)->setString(str);
-    d->setActive(true);
-    d->setVisible(true);
+    auto msgDialog = (LayerMessageDialog*) d;
+    msgDialog->setString(str);
+    msgDialog->show();
 }
 
 bool SceneBase::getHaltState()

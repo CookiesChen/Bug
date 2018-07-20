@@ -11,10 +11,8 @@ Scene* SceneMenu::createScene()
 
 bool SceneMenu::init()
 {
-    if (!Scene::init())
-    {
-        return false;
-    }
+    if (!SceneBase::init()) return false;
+
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 

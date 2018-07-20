@@ -79,21 +79,33 @@ void LayerLogin::loginEvent(Ref* pSender)
     );
     if (!d.HasParseError() && d.IsObject() && d.HasMember("status"))
     {
-        if (strcmp(d["status"].GetString(), "success") == 0)
+        string status(d["status"].GetString());
+        if (status == "success")
         {
-            Singleton<ModelUser>::GetInstance()->setUserId(account->getString());
-            this->updateScene();
+            string msg(d["msg"].GetString());
+            if (msg == "new_user")
+            {
+                // todo 新用户
+            }
+            else
+            {
+                // todo 用户名为msg
+                Singleton<ModelUser>::GetInstance()->setUserId(account->getString());
+                this->updateScene(Tag::SceneFromLoginAndRegisterToMenu);
+            }
+        }
+        else if (status == "not_valid")
+        {
+            // todo 邮箱认证跳转到LayerEmail
         }
         else
         {
-            this->dialog("Login failed, check your name/email and password.");
-            // todo 密码错误或用户不存在的提示 LayerLogin
+            this->dialog("Error username/email or password.");
         }
     }
     else
     {
-        // todo 解析失败的提示 LayerLogin
-        return;
+        this->dialog("Ooops, a system error occurs.");
     }
 }
 

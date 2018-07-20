@@ -13,6 +13,11 @@ enum Tag
     LayerFromMenuToJoinRoom,
     LayerFromMenuToNewRoom,
     LayerFromJoinRoomOrNewRoomToMenu,
+
+    // Scene
+    SceneFromLoginAndRegisterToMenu,
+
+    Reversed = 9999
 };
 
 #endif // __TAG_H__

@@ -91,8 +91,10 @@ void SceneLoginAndRegister::updateLayer(Tag tag)
 
 void SceneLoginAndRegister::updateScene(Tag tag)
 {
-    if (layerLogin->getActive())
+    switch (tag)
     {
+    case SceneFromLoginAndRegisterToMenu:
         Director::getInstance()->replaceScene(SceneMenu::createScene());
+        break;
     }
 }

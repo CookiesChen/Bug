@@ -18,6 +18,8 @@ public:
     CREATE_FUNC(SceneLoginAndRegister);
 
 private:
+    void website(Ref* pSender);
+
     Label * labelVersion;
     LayerBase* layerBackground;
     LayerBase* layerEmail;

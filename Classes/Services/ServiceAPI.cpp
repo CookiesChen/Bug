@@ -108,6 +108,24 @@ rapidjson::Document ServiceAPI::SetUserInfo(string name, int gender)
     return d;
 }
 
+rapidjson::Document ServiceAPI::VerifyEmail(string code)
+{
+    rapidjson::Document document;
+    document.SetObject();
+    rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
+    rapidjson::Value valVCode;
+    valVCode.SetString(code.c_str(), allocator);
+    document.AddMember("vCode", valVCode, allocator);
+    rapidjson::StringBuffer buffer;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+    document.Accept(writer);
+
+    auto res = Singleton<Net>::GetInstance()->Post(apiUrl + "/user/valid", buffer.GetString());
+    rapidjson::Document d;
+    d.Parse<0>(res.c_str());
+    return d;
+}
+
 rapidjson::Document ServiceAPI::GetNewVersion()
 {
     auto res = Singleton<Net>::GetInstance()->Get(apiUrl + "/game/new");

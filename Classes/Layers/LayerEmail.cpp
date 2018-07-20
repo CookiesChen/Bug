@@ -67,37 +67,32 @@ void LayerEmail::setActive(bool active)
     {
         email->setString(Singleton<ServiceUser>::GetInstance()->GetEmail());
         auto d = Singleton<ServiceAPI>::GetInstance()->GetEmailCode();
-        if (!d.HasParseError() && d.IsObject() && d.HasMember("status"))
-        {
-            if (strcmp(d["status"].GetString(), "success") == 0)
-            {
-                this->dialog("Send email successfully.");
-            }
-            else
-            {
-                this->dialog("Send email failed. Is your logged?");
-            }
-        }
-        else
-        {
-            this->dialog("Ooops, a system error occurs. Please check your Network.");
-        }
     }
     LayerBase::setActive(active);
 }
 
 void LayerEmail::resend(Ref * pSender)
 {
+    if (!this->getActive()) return;
     auto d = Singleton<ServiceAPI>::GetInstance()->GetEmailCode();
     if (!d.HasParseError() && d.IsObject() && d.HasMember("status"))
     {
-        if (strcmp(d["status"].GetString(), "success") == 0)
+        string status(d["status"].GetString());
+        if (status == "success")
         {
             this->dialog("Send email successfully.");
         }
-        else
+        else if (status == "not_login")
         {
             this->dialog("Send email failed. Is your logged?");
+        }
+        else if (status == "limit_time")
+        {
+            this->dialog("Send email failed. Please send again after 60 seconds.");
+        }
+        else
+        {
+            this->dialog(string("Unknown status: ") + status);
         }
     }
     else
@@ -108,5 +103,39 @@ void LayerEmail::resend(Ref * pSender)
 
 void LayerEmail::verify(Ref * pSender)
 {
-    
+    if (!this->getActive()) return;
+    if (code->getString().size() == 0)
+    {
+        this->dialog("Please input verify code.");
+        return;
+    }
+    auto d = Singleton<ServiceAPI>::GetInstance()->VerifyEmail(code->getString());
+    if (!d.HasParseError() && d.IsObject() && d.HasMember("status"))
+    {
+        string status(d["status"].GetString());
+        if (status == "success")
+        {
+            this->updateScene(Tag::SceneFromLoginAndRegisterToMenu);
+        }
+        else if (status == "not_login")
+        {
+            this->dialog("Verify email failed. Is your logged?");
+        }
+        else if (status == "error_emailCode")
+        {
+            this->dialog("Verify email failed. Please input correct code.");
+        }
+        else if (status == "timeout_emailCode")
+        {
+            this->dialog("Verify email failed. This code is time out.");
+        }
+        else
+        {
+            this->dialog(string("Unknown status: ") + status);
+        }
+    }
+    else
+    {
+        this->dialog("Ooops, a system error occurs. Please check your Network.");
+    }
 }

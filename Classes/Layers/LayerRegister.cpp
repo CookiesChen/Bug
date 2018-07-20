@@ -2,9 +2,6 @@
 #include "LayerRegister.h"
 #include "ServiceAPI.h"
 
-#include <tchar.h>
-#include<Windows.h>
-
 LayerBase* LayerRegister::createLayer()
 {
     return LayerRegister::create();

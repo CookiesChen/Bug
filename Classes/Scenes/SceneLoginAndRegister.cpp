@@ -1,4 +1,6 @@
-﻿#include "SimpleAudioEngine.h"
+﻿#include <tchar.h>
+
+#include "SimpleAudioEngine.h"
 
 #include "Helpers.h"
 #include "LayerEmail.h"
@@ -46,6 +48,14 @@ bool SceneLoginAndRegister::init()
     labelVersion->setPosition(Vec2(0, 0));
     this->addChild(labelVersion, 1);
 
+    auto violetLogo = MenuItemImage::create("Graphics/Pictures/violet.png", "Graphics/Pictures/violet.png", CC_CALLBACK_1(SceneLoginAndRegister::website, this));
+    violetLogo->setAnchorPoint(Vec2(1, 0));
+    violetLogo->setPosition(Vec2(visibleSize.width, 0));
+    violetLogo->setScale(0.2f);
+    auto menu = Menu::create(violetLogo, nullptr);
+    menu->setPosition(Vec2::ZERO);
+    this->addChild(menu, 1);
+
     this->getNewVersion();
 
     return true;
@@ -72,6 +82,14 @@ void SceneLoginAndRegister::getNewVersion()
     {
         labelVersion->setString("Connect to server failed!");
     }
+}
+
+void SceneLoginAndRegister::website(Ref * pSender)
+{
+    const TCHAR szOperation[] = _T("open");
+    const TCHAR szAddress[] = _T("https://oauth.xmatrix.studio/");
+
+    HINSTANCE hRslt = ShellExecute(NULL, szOperation, szAddress, NULL, NULL, SW_SHOWNORMAL);
 }
 
 void SceneLoginAndRegister::updateLayer(Tag tag)

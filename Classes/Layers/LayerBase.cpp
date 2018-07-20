@@ -10,6 +10,11 @@ bool LayerBase::getActive()
     return !scene->getHaltState() && active;
 }
 
+bool LayerBase::init()
+{
+    return Layer::init();
+}
+
 void LayerBase::setActive(bool active)
 {
     this->active = active;

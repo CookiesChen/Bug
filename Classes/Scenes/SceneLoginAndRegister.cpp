@@ -1,6 +1,9 @@
-﻿#include "SimpleAudioEngine.h"
+﻿#include <tchar.h>
+
+#include "SimpleAudioEngine.h"
 
 #include "Helpers.h"
+#include "LayerEmail.h"
 #include "LayerLogin.h"
 #include "LayerLoginAndRegisterBackground.h"
 #include "LayerRegister.h"
@@ -25,12 +28,17 @@ bool SceneLoginAndRegister::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
     // 添加层
+    layerEmail = LayerEmail::createLayer();
     layerLogin = LayerLogin::createLayer();
     layerRegister = LayerRegister::createLayer();
     layerBackground = LayerLoginAndRegisterBackground::createLayer();
 
+    layerEmail->setActive(false);
+    layerEmail->setVisible(false);
+    layerRegister->setActive(false);
     layerRegister->setVisible(false);
 
+    this->addChild(layerEmail, 10);
     this->addChild(layerLogin, 10);
     this->addChild(layerRegister, 10);
     this->addChild(layerBackground, 0);
@@ -39,6 +47,14 @@ bool SceneLoginAndRegister::init()
     labelVersion->setAnchorPoint(Vec2(0, 0));
     labelVersion->setPosition(Vec2(0, 0));
     this->addChild(labelVersion, 1);
+
+    auto violetLogo = MenuItemImage::create("Graphics/Pictures/violet.png", "Graphics/Pictures/violet.png", CC_CALLBACK_1(SceneLoginAndRegister::website, this));
+    violetLogo->setAnchorPoint(Vec2(1, 0));
+    violetLogo->setPosition(Vec2(visibleSize.width, 0));
+    violetLogo->setScale(0.2f);
+    auto menu = Menu::create(violetLogo, nullptr);
+    menu->setPosition(Vec2::ZERO);
+    this->addChild(menu, 1);
 
     this->getNewVersion();
 
@@ -68,6 +84,14 @@ void SceneLoginAndRegister::getNewVersion()
     }
 }
 
+void SceneLoginAndRegister::website(Ref * pSender)
+{
+    const TCHAR szOperation[] = _T("open");
+    const TCHAR szAddress[] = _T("https://oauth.xmatrix.studio/");
+
+    HINSTANCE hRslt = ShellExecute(NULL, szOperation, szAddress, NULL, NULL, SW_SHOWNORMAL);
+}
+
 void SceneLoginAndRegister::updateLayer(Tag tag)
 {
     switch (tag)
@@ -85,6 +109,14 @@ void SceneLoginAndRegister::updateLayer(Tag tag)
         layerRegister->setVisible(false);
         layerLogin->setVisible(true);
         layerLogin->setActive(true);
+        break;
+    case Tag::LayerFromLoginOrRegisterToEmail:
+        layerLogin->setActive(false);
+        layerLogin->setVisible(false);
+        layerRegister->setActive(false);
+        layerRegister->setVisible(false);
+        layerEmail->setActive(true);
+        layerEmail->setVisible(true);
         break;
     }
 }

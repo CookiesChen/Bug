@@ -18,10 +18,13 @@ public:
     CREATE_FUNC(SceneLoginAndRegister);
 
 private:
+    void website(Ref* pSender);
+
+    Label * labelVersion;
+    LayerBase* layerBackground;
+    LayerBase* layerEmail;
     LayerBase* layerLogin;
     LayerBase* layerRegister;
-    LayerBase* layerBackground;
-    Label* labelVersion;
 };
 
 #endif // __SCENE_LOGIN_AND_REGISTER_H__

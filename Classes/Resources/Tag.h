@@ -8,6 +8,7 @@ enum Tag
     // SceneLoginAndRegister
     LayerFromLoginToRegister,
     LayerFromRegisterToLogin,
+    LayerFromLoginOrRegisterToEmail,
 
     // SceneMenu
     LayerFromMenuToJoinRoom,

@@ -164,7 +164,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Layers\LayerRegister.cpp" />
     <ClCompile Include="..\Classes\Layers\LayerRole.cpp" />
     <ClCompile Include="..\Classes\Layers\LayerRoom.cpp" />
-    <ClCompile Include="..\Classes\Models\ModelUser.cpp" />
     <ClCompile Include="..\Classes\Scenes\SceneGameRoom.cpp" />
     <ClCompile Include="..\Classes\Scenes\SceneBase.cpp" />
     <ClCompile Include="..\Classes\Scenes\SceneLoginAndRegister.cpp" />
@@ -172,6 +171,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Scenes\SceneRoom.cpp" />
     <ClCompile Include="..\Classes\Services\ServiceAPI.cpp" />
     <ClCompile Include="..\Classes\Services\ServiceGame.cpp" />
+    <ClCompile Include="..\Classes\Services\ServiceUser.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +201,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Scenes\SceneRoom.h" />
     <ClInclude Include="..\Classes\Services\ServiceAPI.h" />
     <ClInclude Include="..\Classes\Services\ServiceGame.h" />
+    <ClInclude Include="..\Classes\Services\ServiceUser.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

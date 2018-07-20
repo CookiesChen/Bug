@@ -31,6 +31,28 @@ rapidjson::Document ServiceAPI::Logout()
     return d;
 }
 
+rapidjson::Document ServiceAPI::Register(string username, string password, string email)
+{
+    rapidjson::Document document;
+    document.SetObject();
+    rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
+    rapidjson::Value valName, valEmail, valPassword;
+    valName.SetString(username.c_str(), allocator);
+    valEmail.SetString(email.c_str(), allocator);
+    valPassword.SetString(Hash::Sha512(password).c_str(), allocator);
+    document.AddMember("name", valName, allocator);
+    document.AddMember("email", valEmail, allocator);
+    document.AddMember("password", valPassword, allocator);
+    rapidjson::StringBuffer buffer;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+    document.Accept(writer);
+
+    auto res = Singleton<Net>::GetInstance()->Post(apiUrl + "/user/register", buffer.GetString());
+    rapidjson::Document d;
+    d.Parse(res.c_str());
+    return d;
+}
+
 rapidjson::Document ServiceAPI::CreateRoom(string title, string password, string map, string mode, int maxPlayer)
 {
     rapidjson::Document document;
@@ -52,6 +74,53 @@ rapidjson::Document ServiceAPI::CreateRoom(string title, string password, string
     document.Accept(writer);
 
     auto res = Singleton<Net>::GetInstance()->Post(apiUrl + "/room/new", buffer.GetString());
+    rapidjson::Document d;
+    d.Parse<0>(res.c_str());
+    return d;
+}
+
+rapidjson::Document ServiceAPI::GetEmailCode()
+{
+    auto res = Singleton<Net>::GetInstance()->Post(apiUrl + "/user/email");
+    rapidjson::Document d;
+    d.Parse<0>(res.c_str());
+    return d;
+}
+
+rapidjson::Document ServiceAPI::SetUserInfo(string name, int gender)
+{
+    rapidjson::Document document;
+    document.SetObject();
+    rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
+    rapidjson::Value valName, valGender;
+    valName.SetString(name.c_str(), allocator);
+    document.AddMember("title", valName, allocator);
+    valGender.SetInt(gender);
+    document.AddMember("gender", valGender, allocator);
+    document.AddMember("avatar", "default", allocator);
+    rapidjson::StringBuffer buffer;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+    document.Accept(writer);
+
+    auto res = Singleton<Net>::GetInstance()->Post(apiUrl + "/user/info", buffer.GetString());
+    rapidjson::Document d;
+    d.Parse<0>(res.c_str());
+    return d;
+}
+
+rapidjson::Document ServiceAPI::VerifyEmail(string code)
+{
+    rapidjson::Document document;
+    document.SetObject();
+    rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
+    rapidjson::Value valVCode;
+    valVCode.SetString(code.c_str(), allocator);
+    document.AddMember("vCode", valVCode, allocator);
+    rapidjson::StringBuffer buffer;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+    document.Accept(writer);
+
+    auto res = Singleton<Net>::GetInstance()->Post(apiUrl + "/user/valid", buffer.GetString());
     rapidjson::Document d;
     d.Parse<0>(res.c_str());
     return d;

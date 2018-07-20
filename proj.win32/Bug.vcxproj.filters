@@ -99,8 +99,8 @@
     <ClCompile Include="..\Classes\Services\ServiceGame.cpp">
       <Filter>src\Services</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Models\ModelUser.cpp">
-      <Filter>src\Models</Filter>
+    <ClCompile Include="..\Classes\Services\ServiceUser.cpp">
+      <Filter>src\Services</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Models\ModelUser.h">
       <Filter>src\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Services\ServiceUser.h">
+      <Filter>src\Services</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

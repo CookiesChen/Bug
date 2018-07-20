@@ -1,7 +1,6 @@
-﻿#include "LayerRegister.h"
-
-#include <tchar.h>
-#include<Windows.h>
+﻿#include "Helpers.h"
+#include "LayerRegister.h"
+#include "ServiceAPI.h"
 
 LayerBase* LayerRegister::createLayer()
 {
@@ -10,6 +9,8 @@ LayerBase* LayerRegister::createLayer()
 
 bool LayerRegister::init()
 {
+    if (!LayerBase::init()) return false;
+
     auto visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
 
@@ -107,11 +108,60 @@ void LayerRegister::turnToLogin(Ref* pSender)
 
 void LayerRegister::registerEvent(Ref* pSender)
 {
-    // todo 调用注册API进行注册
-    // 注册完跳转到邮箱激活的界面
-    const TCHAR szOperation[] = _T("open");
-    const TCHAR szAddress[] = _T("https://oauth.xmatrix.studio/register");
-
-    HINSTANCE hRslt = ShellExecute(NULL, szOperation,
-        szAddress, NULL, NULL, SW_SHOWNORMAL);
+    if (!this->getActive()) return;
+    if (username->getString().size() == 0 || password->getString().size() == 0 || confirm->getString().size() == 0 || email->getString().size() == 0)
+    {
+        this->dialog("Please input username, password and email.");
+        return;
+    }
+    if (password->getString() != confirm->getString())
+    {
+        this->dialog("Confirm Passwords are not the same.");
+        return;
+    }
+    auto d = Singleton<ServiceAPI>::GetInstance()->Register(
+        username->getString(),
+        password->getString(),
+        email->getString()
+    );
+    if (!d.HasParseError() && d.IsObject() && d.HasMember("status"))
+    {
+        string status(d["status"].GetString());
+        if (status == "success")
+        {
+            this->updateLayer(Tag::LayerFromLoginOrRegisterToEmail);
+        }
+        else if (status == "invalid_email")
+        {
+            this->dialog("Invalid email.");
+        }
+        else if (status == "invalid_name")
+        {
+            this->dialog("Invalid username.");
+        }
+        else if (status == "invalid_password")
+        {
+            this->dialog("Invalid password.");
+        }
+        else if (status == "exist_email")
+        {
+            this->dialog("This email is used for another account.");
+        }
+        else if (status == "exist_name")
+        {
+            this->dialog("This username is used for another account.");
+        }
+        else if (status == "reserved_name")
+        {
+            this->dialog("This username is reserved key.");
+        }
+        else
+        {
+            this->dialog(string("Unknown status: ") + status);
+        }
+    }
+    else
+    {
+        this->dialog("Ooops, a system error occurs. Please check your Network.");
+    }
 }

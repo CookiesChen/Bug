@@ -77,6 +77,7 @@ void LayerJoinRoom::getRoomList(float dt)
     {
         if (strcmp(d["status"].GetString(), "success") == 0)
         {
+            if (d["rooms"].IsNull()) return;
             for (auto &room : d["rooms"].GetArray())
             {
                 ModelRoom room;

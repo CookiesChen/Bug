@@ -39,11 +39,11 @@ bool ServiceRoom::refreshInfo()
     if (d.HasParseError() || !d.IsObject() || !d.HasMember("status")) return false;
     if (strcmp(d["status"].GetString(), "success") != 0) return false;
     auto roomData = d["room"].GetObjectW();
-    room.roomId = roomData["id"].GetInt();
-    room.title = roomData["title"].GetString();
-    room.ownId = roomData["ownId"].GetString();
-    room.isOwn = Singleton<ServiceUser>::GetInstance()->GetUserId() == room.ownId;
-    room.port = roomData["port"].GetInt();
+    room.Id = roomData["id"].GetInt();
+    room.Title = roomData["title"].GetString();
+    room.OwnId = roomData["ownId"].GetString();
+    room.IsOwn = Singleton<ServiceUser>::GetInstance()->GetUserId() == room.OwnId;
+    room.Port = roomData["port"].GetInt();
     return true;
 }
 

@@ -22,7 +22,7 @@ class ModelRoom final
 public:
   int Id;
   string OwnId;
-  bool isOwn;
+  bool IsOwn;
   int Port;
   string Title;
   string GameMap;

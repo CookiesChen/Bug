@@ -16,13 +16,15 @@ public:
 
     void backMenu(Ref* pSender);
     void getRoomList(float dt);
-
-    void prePage(Ref* pSender);
-    void nextPage(Ref* pSender);
+    void changePage(Ref* pSender, bool);
+    void quickJoin(Ref* pSender);
+    void search(Ref* pSender);
 
     CREATE_FUNC(LayerJoinRoom);
 
 private:
+    Size visibleSize;
+    Vec2 origin;
 };
 
 #endif // __LAYER_JOIN_ROOM_H__

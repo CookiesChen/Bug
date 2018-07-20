@@ -42,11 +42,11 @@ bool LayerNewUser::init()
     labelGender->setPosition(Vec2(LabelX, Height3));
     this->addChild(labelGender, 1);
     // man
-    checkGenderMan = ui::CheckBox::create("CheckBox_Normal.png",
-        "CheckBox_Press.png",
-        "CheckBoxNode_Normal.png",
-        "CheckBox_Disable.png",
-        "CheckBoxNode_Disable.png");
+    checkGenderMan = ui::CheckBox::create("Graphics/System/CheckBox_Normal.png",
+        "Graphics/System/CheckBox_Press.png",
+        "Graphics/System/CheckBoxNode_Normal.png",
+        "Graphics/System/CheckBox_Disable.png",
+        "Graphics/System/CheckBoxNode_Disable.png");
     checkGenderMan->setPosition(Vec2(labelGender->getPosition().x + 50, Height3));
     checkGenderMan->addEventListener(CC_CALLBACK_2(LayerNewUser::checkBoxManCallback, this));
     checkGenderMan->setSelected(true);
@@ -56,11 +56,11 @@ bool LayerNewUser::init()
     labelModePerson->setPosition(Vec2(checkGenderMan->getPosition().x + checkGenderMan->getContentSize().width + 20, Height3));
     this->addChild(labelModePerson, 1);
     // woman
-    checkGenderWoman = ui::CheckBox::create("CheckBox_Normal.png",
-        "CheckBox_Press.png",
-        "CheckBoxNode_Normal.png",
-        "CheckBox_Disable.png",
-        "CheckBoxNode_Disable.png");
+    checkGenderWoman = ui::CheckBox::create("Graphics/System/CheckBox_Normal.png",
+        "Graphics/System/CheckBox_Press.png",
+        "Graphics/System/CheckBoxNode_Normal.png",
+        "Graphics/System/CheckBox_Disable.png",
+        "Graphics/System/CheckBoxNode_Disable.png");
     checkGenderWoman->setPosition(Vec2(labelModePerson->getPosition().x + labelModePerson->getContentSize().width + 50, Height3));
     checkGenderWoman->addEventListener(CC_CALLBACK_2(LayerNewUser::checkBoxWomanCallback, this));
     checkGenderWoman->setSelected(false);

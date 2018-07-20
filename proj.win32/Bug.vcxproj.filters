@@ -102,7 +102,10 @@
     <ClCompile Include="..\Classes\Services\ServiceUser.cpp">
       <Filter>src\Services</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Services\ServiceRoom.cpp">
+	<ClCompile Include="..\Classes\Layers\LayerJoinRoomCard.cpp">
+      <Filter>src\Layers</Filter>
+    </ClCompile>
+	<ClCompile Include="..\Classes\Services\ServiceRoom.cpp">
       <Filter>src\Services</Filter>
     </ClCompile>
   </ItemGroup>
@@ -190,6 +193,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Services\ServiceUser.h">
       <Filter>src\Services</Filter>
+    </ClInclude>
+	<ClInclude Include="..\Classes\Layers\LayerJoinRoomCard.h">
+      <Filter>src\Layers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Models\ModelRoom.h">
       <Filter>src\Models</Filter>

@@ -43,11 +43,11 @@ bool LayerNewRoom::init()
     labelMode->setPosition(Vec2(LabelX, Height2));
     this->addChild(labelMode, 1);
     // 个人模式
-    checkModePerson = ui::CheckBox::create("CheckBox_Normal.png",
-        "CheckBox_Press.png",
-        "CheckBoxNode_Normal.png",
-        "CheckBox_Disable.png",
-        "CheckBoxNode_Disable.png");
+    checkModePerson = ui::CheckBox::create("Graphics/System/CheckBox_Normal.png",
+        "Graphics/System/CheckBox_Press.png",
+        "Graphics/System/CheckBoxNode_Normal.png",
+        "Graphics/System/CheckBox_Disable.png",
+        "Graphics/System/CheckBoxNode_Disable.png");
     checkModePerson->setPosition(Vec2(labelMode->getPosition().x + 50, Height2));
     checkModePerson->addEventListener(CC_CALLBACK_2(LayerNewRoom::checkBoxPersonCallback, this));
     checkModePerson->setSelected(false);
@@ -56,11 +56,11 @@ bool LayerNewRoom::init()
     labelModePerson->setPosition(Vec2(checkModePerson->getPosition().x + checkModePerson->getContentSize().width + 50, Height2));
     this->addChild(labelModePerson, 1);
     // 团队模式
-    checkModeTeam = ui::CheckBox::create("CheckBox_Normal.png",
-        "CheckBox_Press.png",
-        "CheckBoxNode_Normal.png",
-        "CheckBox_Disable.png",
-        "CheckBoxNode_Disable.png");
+    checkModeTeam = ui::CheckBox::create("Graphics/System/CheckBox_Normal.png",
+        "Graphics/System/CheckBox_Press.png",
+        "Graphics/System/CheckBoxNode_Normal.png",
+        "Graphics/System/CheckBox_Disable.png",
+        "Graphics/System/CheckBoxNode_Disable.png");
     checkModeTeam->setPosition(Vec2(labelModePerson->getPosition().x + labelModePerson->getContentSize().width + 50, Height2));
     checkModeTeam->addEventListener(CC_CALLBACK_2(LayerNewRoom::checkBoxTeamCallback, this));
     checkModeTeam->setSelected(true);
@@ -77,11 +77,11 @@ bool LayerNewRoom::init()
     labelMap->setPosition(Vec2(LabelX, Height3));
     this->addChild(labelMap, 1);
     // 丛林地图模式
-    checkMapJungle = ui::CheckBox::create("CheckBox_Normal.png",
-        "CheckBox_Press.png",
-        "CheckBoxNode_Normal.png",
-        "CheckBox_Disable.png",
-        "CheckBoxNode_Disable.png");
+    checkMapJungle = ui::CheckBox::create("Graphics/System/CheckBox_Normal.png",
+        "Graphics/System/CheckBox_Press.png",
+        "Graphics/System/CheckBoxNode_Normal.png",
+        "Graphics/System/CheckBox_Disable.png",
+        "Graphics/System/CheckBoxNode_Disable.png");
     checkMapJungle->setPosition(Vec2(labelMap->getPosition().x + 50, Height3));
     checkMapJungle->addEventListener(CC_CALLBACK_2(LayerNewRoom::checkBoxMapJungleCallback, this));
     checkMapJungle->setSelected(true);
@@ -96,11 +96,11 @@ bool LayerNewRoom::init()
     labelRandom->setAnchorPoint(Vec2(1, 0.5));
     labelRandom->setPosition(Vec2(LabelX, Height4));
     this->addChild(labelRandom, 1);
-    checkRandom = ui::CheckBox::create("CheckBox_Normal.png",
-        "CheckBox_Press.png",
-        "CheckBoxNode_Normal.png",
-        "CheckBox_Disable.png",
-        "CheckBoxNode_Disable.png");
+    checkRandom = ui::CheckBox::create("Graphics/System/CheckBox_Normal.png",
+        "Graphics/System/CheckBox_Press.png",
+        "Graphics/System/CheckBoxNode_Normal.png",
+        "Graphics/System/CheckBox_Disable.png",
+        "Graphics/System/CheckBoxNode_Disable.png");
     checkRandom->setPosition(Vec2(labelRandom->getPosition().x + 50, Height4));
     checkRandom->setSelected(true);
     this->addChild(checkRandom, 1);

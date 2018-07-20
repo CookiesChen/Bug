@@ -1,11 +1,13 @@
 ﻿#ifndef __LAYER_JOIN_ROOM_H__
 #define __LAYER_JOIN_ROOM_H__
 
-#include "LayerBase.h"
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
-USING_NS_CC;
-using namespace ui;
+
+#include "LayerBase.h"
+
+using namespace cocos2d;
+using namespace cocos2d::ui;
 
 class LayerJoinRoom final : public LayerBase
 {
@@ -25,6 +27,7 @@ public:
 private:
     Size visibleSize;
     Vec2 origin;
+    int pageNum;
 };
 
 #endif // __LAYER_JOIN_ROOM_H__

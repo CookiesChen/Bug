@@ -155,6 +155,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Layers\LayerBase.cpp" />
     <ClCompile Include="..\Classes\Layers\LayerEmail.cpp" />
     <ClCompile Include="..\Classes\Layers\LayerJoinRoom.cpp" />
+    <ClCompile Include="..\Classes\Layers\LayerJoinRoomCard.cpp" />
     <ClCompile Include="..\Classes\Layers\LayerLoginAndRegisterBackground.cpp" />
     <ClCompile Include="..\Classes\Layers\LayerLogin.cpp" />
     <ClCompile Include="..\Classes\Layers\LayerMenu.cpp" />
@@ -184,6 +185,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Layers\LayerBase.h" />
     <ClInclude Include="..\Classes\Layers\LayerEmail.h" />
     <ClInclude Include="..\Classes\Layers\LayerJoinRoom.h" />
+    <ClInclude Include="..\Classes\Layers\LayerJoinRoomCard.h" />
     <ClInclude Include="..\Classes\Layers\LayerLoginAndRegisterBackground.h" />
     <ClInclude Include="..\Classes\Layers\LayerLogin.h" />
     <ClInclude Include="..\Classes\Layers\LayerMenu.h" />

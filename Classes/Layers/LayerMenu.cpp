@@ -57,10 +57,11 @@ void LayerMenu::logoutEvent(Ref* pSender)
 
 void LayerMenu::initUser()
 {
-    auto userid = Singleton<ModelUser>::GetInstance()->getUserId();
-    auto avator = Singleton<ModelUser>::GetInstance()->getAvatar();
-    auto nickname = Singleton<ModelUser>::GetInstance()->getNickName();
-    auto gender = Singleton<ModelUser>::GetInstance()->getGender();
-    auto level = Singleton<ModelUser>::GetInstance()->getLevel();
-    userIdLabel->setString(userid);
+    // todo
+    //auto userid = Singleton<ModelUser>::GetInstance()->getUserId();
+    //auto avator = Singleton<ModelUser>::GetInstance()->getAvatar();
+    //auto nickname = Singleton<ModelUser>::GetInstance()->getNickName();
+    //auto gender = Singleton<ModelUser>::GetInstance()->getGender();
+    //auto level = Singleton<ModelUser>::GetInstance()->getLevel();
+    userIdLabel->setString("test");
 }

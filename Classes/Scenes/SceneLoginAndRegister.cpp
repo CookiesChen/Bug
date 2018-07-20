@@ -1,6 +1,7 @@
 ﻿#include "SimpleAudioEngine.h"
 
 #include "Helpers.h"
+#include "LayerEmail.h"
 #include "LayerLogin.h"
 #include "LayerLoginAndRegisterBackground.h"
 #include "LayerRegister.h"
@@ -25,12 +26,17 @@ bool SceneLoginAndRegister::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
     // 添加层
+    layerEmail = LayerEmail::createLayer();
     layerLogin = LayerLogin::createLayer();
     layerRegister = LayerRegister::createLayer();
     layerBackground = LayerLoginAndRegisterBackground::createLayer();
 
+    layerEmail->setActive(false);
+    layerEmail->setVisible(false);
+    layerRegister->setActive(false);
     layerRegister->setVisible(false);
 
+    this->addChild(layerEmail, 10);
     this->addChild(layerLogin, 10);
     this->addChild(layerRegister, 10);
     this->addChild(layerBackground, 0);
@@ -85,6 +91,14 @@ void SceneLoginAndRegister::updateLayer(Tag tag)
         layerRegister->setVisible(false);
         layerLogin->setVisible(true);
         layerLogin->setActive(true);
+        break;
+    case Tag::LayerFromLoginOrRegisterToEmail:
+        layerLogin->setActive(false);
+        layerLogin->setVisible(false);
+        layerRegister->setActive(false);
+        layerRegister->setVisible(false);
+        layerEmail->setActive(true);
+        layerEmail->setVisible(true);
         break;
     }
 }

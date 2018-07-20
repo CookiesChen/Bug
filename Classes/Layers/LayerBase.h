@@ -15,6 +15,7 @@ class LayerBase : public Layer
 public:
     LayerBase();
 
+    virtual bool init() override;
     virtual void setActive(bool active);
 
     bool getActive();

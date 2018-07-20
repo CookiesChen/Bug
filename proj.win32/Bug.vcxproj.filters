@@ -102,6 +102,9 @@
     <ClCompile Include="..\Classes\Models\ModelUser.cpp">
       <Filter>src\Models</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Services\ServiceUser.cpp">
+      <Filter>src\Services</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -184,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Models\ModelUser.h">
       <Filter>src\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Services\ServiceUser.h">
+      <Filter>src\Services</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

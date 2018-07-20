@@ -2,6 +2,7 @@
 #include "LayerLogin.h"
 #include "ModelUser.h"
 #include "ServiceAPI.h"
+#include "ServiceUser.h"
 
 LayerBase* LayerLogin::createLayer()
 {
@@ -10,6 +11,8 @@ LayerBase* LayerLogin::createLayer()
 
 bool LayerLogin::init()
 {
+    if (!LayerBase::init()) return false;
+
     auto visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
 
@@ -73,6 +76,11 @@ bool LayerLogin::init()
 void LayerLogin::loginEvent(Ref* pSender)
 {
     if (!this->getActive()) return;
+    if (account->getString().size() == 0 || password->getString().size() == 0)
+    {
+        this->dialog("Please input username/email and password.");
+        return;
+    }
     auto d = Singleton<ServiceAPI>::GetInstance()->Login(
         account->getString(),
         password->getString()
@@ -90,13 +98,14 @@ void LayerLogin::loginEvent(Ref* pSender)
             else
             {
                 // todo 用户名为msg
-                Singleton<ModelUser>::GetInstance()->setUserId(account->getString());
+                //Singleton<ModelUser>::GetInstance()->setUserId(account->getString());
                 this->updateScene(Tag::SceneFromLoginAndRegisterToMenu);
             }
         }
         else if (status == "not_valid")
         {
-            // todo 邮箱认证跳转到LayerEmail
+            Singleton<ServiceUser>::GetInstance()->SetEmail(d["msg"].GetString());
+            this->updateLayer(Tag::LayerFromLoginOrRegisterToEmail);
         }
         else
         {
@@ -105,7 +114,7 @@ void LayerLogin::loginEvent(Ref* pSender)
     }
     else
     {
-        this->dialog("Ooops, a system error occurs.");
+        this->dialog("Ooops, a system error occurs. Please check your Network.");
     }
 }
 

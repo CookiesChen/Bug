@@ -21,7 +21,7 @@ bool SceneMenu::init()
     layerMenu = LayerMenu::createLayer();
     layerJoinRoom = LayerJoinRoom::createLayer();
     layerNewRoom = LayerNewRoom::createLayer();
-    
+
     layerJoinRoom->setVisible(false);
     layerNewRoom->setVisible(false);
     layerJoinRoom->setActive(false);
@@ -47,6 +47,7 @@ void SceneMenu::updateLayer(Tag tag)
     case Tag::LayerFromMenuToNewRoom: // 新建房间
         this->layerNewRoom->setVisible(true);
         this->layerNewRoom->setActive(true);
+        ((LayerNewRoom*)this->layerNewRoom)->refreshRoomName();
         this->layerMenu->setVisible(false);
         this->layerMenu->setActive(false);
         break;

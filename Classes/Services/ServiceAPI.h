@@ -17,6 +17,7 @@ public:
     rapidjson::Document GetNewVersion();
     rapidjson::Document GetRoomsList(int page, int maxSizePerPage);
     rapidjson::Document Login(string username, string password);
+    rapidjson::Document SetUserInfo(string name, int gender);
 
     rapidjson::Document Logout();
 

@@ -10,6 +10,12 @@ bool LayerLoginAndRegisterBackground::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
 
+    auto background = Sprite::create("Graphics/Pictures/background.png");
+    background->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
+    float xScale = visibleSize.width / background->getContentSize().width;
+    float yScale = visibleSize.height / background->getContentSize().height;
+    background->setScale(xScale > yScale ? xScale : yScale);
+
     // 罗盘
     compass_1 = Sprite::createWithSpriteFrameName("compass_1.png");
     compass_2 = Sprite::createWithSpriteFrameName("compass_2.png");
@@ -24,6 +30,7 @@ bool LayerLoginAndRegisterBackground::init()
     this->addChild(compass_1, 3);
     this->addChild(compass_2, 2);
     this->addChild(compass_3, 1);
+    this->addChild(background, 0);
 
     transitionCount = false;
 

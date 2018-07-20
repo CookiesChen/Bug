@@ -1,10 +1,10 @@
 ﻿#ifndef __LAYER_LOGIN_H__
 #define __LAYER_LOGIN_H__
 
-#include "LayerBase.h"
-#include "cocos-ext.h"
-#include "cocos2d.h"
 #include "ui\CocosGUI.h"
+
+#include "LayerBase.h"
+
 using namespace cocos2d::ui;
 
 

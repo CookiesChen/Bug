@@ -16,16 +16,13 @@ SceneBase* SceneLoginAndRegister::createScene()
 
 bool SceneLoginAndRegister::init()
 {
-    if (!Scene::init())
+    if (!SceneBase::init())
     {
         return false;
     }
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-    // 预加载图片资源
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Graphics/System/SceneLoginAndRegister.plist");
 
     // 添加层
     layerLogin = LayerLogin::createLayer();
@@ -34,9 +31,9 @@ bool SceneLoginAndRegister::init()
 
     layerRegister->setVisible(false);
 
-    this->addChild(layerLogin, 10, "Login");
-    this->addChild(layerRegister, 10, "Register");
-    this->addChild(layerBackground, 9, "Background");
+    this->addChild(layerLogin, 10);
+    this->addChild(layerRegister, 10);
+    this->addChild(layerBackground, 0);
 
     labelVersion = Label::createWithSystemFont("Connecting to server...", "微软雅黑", 20);
     labelVersion->setAnchorPoint(Vec2(0, 0));

@@ -3,8 +3,6 @@
 #include "ModelUser.h"
 #include "ServiceAPI.h"
 
-using namespace cocos2d::extension;
-
 LayerBase* LayerLogin::createLayer()
 {
     return LayerLogin::create();
@@ -27,20 +25,22 @@ bool LayerLogin::init()
     // 密码输入框
     password = TextField::create("", "Arial", 18);
     password->setPlaceHolder("password");
-    account->setMaxLengthEnabled(true);
+    password->setMaxLengthEnabled(true);
     password->setMaxLength(20);
     password->setSize(Size(250, 30));
     password->setPasswordEnabled(true);
-    account->setTextHorizontalAlignment(TextHAlignment::LEFT);
-    account->setTextVerticalAlignment(TextVAlignment::CENTER);
+    password->setTextHorizontalAlignment(TextHAlignment::LEFT);
+    password->setTextVerticalAlignment(TextVAlignment::CENTER);
 
-    // 登陆按钮
-    auto loginButton = MenuItemLabel::create(Label::createWithTTF("Login", "Fonts/arial.ttf", 30), CC_CALLBACK_1(LayerLogin::loginEvent, this));
-    // 注册按钮
-    auto registerButton = MenuItemLabel::create(Label::createWithTTF("Register", "Fonts/arial.ttf", 30), CC_CALLBACK_1(LayerLogin::turnToRegister, this));
+    // 按钮
+    auto loginButton = MenuItemImage::create("Graphics/System/BtnLogin.png", "Graphics/System/BtnLogin_click.png", CC_CALLBACK_1(LayerLogin::loginEvent, this));
+    auto registerButton = MenuItemImage::create("Graphics/System/BtnRegister.png", "Graphics/System/BtnRegister_click.png", CC_CALLBACK_1(LayerLogin::turnToRegister, this));
+    loginButton->setScale(0.5f);
+    registerButton->setScale(0.5f);
+
 
     // 背景框
-    auto LoginBox = Sprite::createWithSpriteFrameName("LoginBox.png");
+    auto loginBox = Sprite::createWithSpriteFrameName("LoginBox.png");
     auto accountBackground = Sprite::create("Graphics/System/input.png");
     accountBackground->setOpacity(20);
     auto passwordBackground = Sprite::create("Graphics/System/input.png");
@@ -48,9 +48,9 @@ bool LayerLogin::init()
 
     account->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
     password->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-    loginButton->setPosition(Vec2(visibleSize.width / 2 - 70, visibleSize.height / 2 - 50));
-    registerButton->setPosition(Vec2(visibleSize.width / 2 + 70, visibleSize.height / 2 - 50));
-    LoginBox->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+    loginButton->setPosition(Vec2(visibleSize.width / 2 - 70, visibleSize.height / 2 - 60));
+    registerButton->setPosition(Vec2(visibleSize.width / 2 + 70, visibleSize.height / 2 - 60));
+    loginBox->setPosition(Vec2(visibleSize.width / 2 - 25, visibleSize.height / 2));
     accountBackground->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
     passwordBackground->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 
@@ -64,7 +64,7 @@ bool LayerLogin::init()
     this->addChild(password, 2);
     this->addChild(accountBackground, 1);
     this->addChild(passwordBackground, 1);
-    this->addChild(LoginBox, 0);
+    this->addChild(loginBox, 0);
 
     return true;
 }
@@ -86,6 +86,7 @@ void LayerLogin::loginEvent(Ref* pSender)
         }
         else
         {
+            this->dialog("Login failed, check your name/email and password.");
             // todo 密码错误或用户不存在的提示 LayerLogin
         }
     }

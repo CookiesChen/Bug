@@ -5,7 +5,9 @@ LayerBase::LayerBase() : active(true), visible(true) {}
 
 bool LayerBase::getActive()
 {
-    return active;
+    auto scene = (SceneBase*) this->getParent();
+    if (scene == nullptr) return false;
+    return !scene->getHaltState() && active;
 }
 
 void LayerBase::setActive(bool active)
@@ -22,6 +24,15 @@ void LayerBase::setVisible(bool visible)
 {
     Layer::setVisible(visible);
     this->visible = visible;
+}
+
+void LayerBase::dialog(const string & str)
+{
+    auto scene = (SceneBase*) this->getParent();
+    if (scene != nullptr)
+    {
+        scene->dialog(str);
+    }
 }
 
 void LayerBase::updateLayer(Tag tag)

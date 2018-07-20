@@ -5,8 +5,10 @@
 
 #include "Tag.h"
 
-using namespace cocos2d;
+#include <string>
 
+using namespace cocos2d;
+using namespace std;
 
 class LayerBase : public Layer
 {
@@ -19,13 +21,14 @@ public:
     bool getVisible();
     void setVisible(bool visible) override;
 
+protected:
+    virtual void dialog(const string& str) final;
+    virtual void updateLayer(Tag tag = Tag::Null) final;
+    virtual void updateScene(Tag tag = Tag::Null) final;
+
 private:
     bool active;
     bool visible;
-
-protected:
-    virtual void updateLayer(Tag tag = Tag::Null) final;
-    virtual void updateScene(Tag tag = Tag::Null) final;
 };
 
 #endif // __LAYER_BASE_H__

@@ -13,22 +13,6 @@ enum Tag
     LayerFromMenuToJoinRoom,
     LayerFromMenuToNewRoom,
     LayerFromJoinRoomOrNewRoomToMenu,
-
-    LayerEmail = 1000,
-    LayerJoinRoom,
-    LayerLogin,
-    LayerMenu,
-    LayerMessageDialog,
-    LayerNewRoom,
-    LayerNewUser,
-    LayerRegister,
-    LayerRole,
-    LayerRoom,
-
-    SceneGameRoom = 2000,
-    SceneLoginAndRegister,
-    SceneMenu,
-    SceneRoom
 };
 
 #endif // __TAG_H__

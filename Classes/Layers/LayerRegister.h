@@ -1,7 +1,11 @@
 ﻿#ifndef __LAYER_REGISTER_H__
 #define __LAYER_REGISTER_H__
 
+#include "ui/CocosGUI.h"
+
 #include "LayerBase.h"
+
+using namespace cocos2d::ui;
 
 class LayerRegister final : public LayerBase
 {
@@ -13,10 +17,13 @@ public:
     CREATE_FUNC(LayerRegister);
 
 private:
-    // 注册按钮事件
     void registerEvent(Ref* pSender);
-    // 跳转登陆事件
     void turnToLogin(Ref* pSender);
+
+    TextField* username;
+    TextField* password;
+    TextField* confirm;
+    TextField* email;
 };
 
 #endif // __LAYER_REGISTER_H__

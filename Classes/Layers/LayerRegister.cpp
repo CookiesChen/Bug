@@ -1,10 +1,7 @@
-﻿#include "cocos-ext.h"
-
-#include "LayerRegister.h"
+﻿#include "LayerRegister.h"
 
 #include <tchar.h>
 #include<Windows.h>
-USING_NS_CC_EXT;
 
 LayerBase* LayerRegister::createLayer()
 {
@@ -17,51 +14,72 @@ bool LayerRegister::init()
     auto origin = Director::getInstance()->getVisibleOrigin();
 
     // 账号输入框
-    auto account = EditBox::create(Size(250, 30), Scale9Sprite::create("Graphics/System/input.png"));
-    account->setPlaceHolder("account");
-    account->setMaxLength(8);
-    account->setFontColor(Color3B::BLACK);
-    account->setFont("Fonts/arial.ttf", 18);
+    username = TextField::create("", "Arial", 18);
+    username->setPlaceHolder("UserName");
+    username->setMaxLengthEnabled(true);
+    username->setMaxLength(20);
+    username->setSize(Size(250, 30));
+    username->setTextHorizontalAlignment(TextHAlignment::LEFT);
+    username->setTextVerticalAlignment(TextVAlignment::CENTER);
 
     // 密码输入框
-    auto password = EditBox::create(Size(250, 30), Scale9Sprite::create("Graphics/System/input.png"));
-    password->setPlaceHolder("password");
-    password->setMaxLength(8);
-    password->setFontColor(Color3B::BLACK);
-    password->setFont("Fonts/arial.ttf", 18);
-    password->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
+    password = TextField::create("", "Arial", 18);
+    password->setPlaceHolder("Password");
+    password->setPasswordEnabled(true);
+    password->setMaxLengthEnabled(true);
+    password->setMaxLength(20);
+    password->setSize(Size(250, 30));
+    password->setTextHorizontalAlignment(TextHAlignment::LEFT);
+    password->setTextVerticalAlignment(TextVAlignment::CENTER);
 
     // 重复密码框
-    auto confirm = EditBox::create(Size(250, 30), Scale9Sprite::create("Graphics/System/input.png"));
-    confirm->setPlaceHolder("confirm password");
-    confirm->setMaxLength(8);
-    confirm->setFontColor(Color3B::BLACK);
-    confirm->setFont("Fonts/arial.ttf", 18);
-    confirm->setInputFlag(cocos2d::ui::EditBox::InputFlag::PASSWORD);
+    confirm = TextField::create("", "Arial", 18);
+    confirm->setPlaceHolder("Confirm Password");
+    confirm->setPasswordEnabled(true);
+    confirm->setMaxLengthEnabled(true);
+    confirm->setMaxLength(20);
+    confirm->setSize(Size(250, 30));
+    confirm->setTextHorizontalAlignment(TextHAlignment::LEFT);
+    confirm->setTextVerticalAlignment(TextVAlignment::CENTER);
 
     // 邮箱输入框
-    auto email = EditBox::create(Size(250, 30), Scale9Sprite::create("Graphics/System/input.png"));
-    email->setPlaceHolder("email");
+    email = TextField::create("", "Arial", 18);
+    email->setPlaceHolder("Email");
+    email->setMaxLengthEnabled(true);
     email->setMaxLength(20);
-    email->setFontColor(Color3B::BLACK);
-    email->setFont("Fonts/arial.ttf", 18);
-
-    // 返回登陆按钮
-    auto loginButton = MenuItemLabel::create(Label::createWithTTF("back", "Fonts/arial.ttf", 30), CC_CALLBACK_1(LayerRegister::turnToLogin, this));
-    //注册按钮
-    auto registerButton = MenuItemLabel::create(Label::createWithTTF("Register", "Fonts/arial.ttf", 30), CC_CALLBACK_1(LayerRegister::registerEvent, this));
+    email->setSize(Size(250, 30));
+    email->setTextHorizontalAlignment(TextHAlignment::LEFT);
+    email->setTextVerticalAlignment(TextVAlignment::CENTER);
 
     // 背景框
     auto registerBox = Sprite::createWithSpriteFrameName("RegisterBox.png");
+    auto usernameBg = Sprite::create("Graphics/System/input.png");
+    auto passwordBg = Sprite::create("Graphics/System/input.png");
+    auto confirmBg = Sprite::create("Graphics/System/input.png");
+    auto emailBg = Sprite::create("Graphics/System/input.png");
     registerBox->setScale(0.85f);
+    usernameBg->setOpacity(20);
+    passwordBg->setOpacity(20);
+    confirmBg->setOpacity(20);
+    emailBg->setOpacity(20);
 
-    account->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 150));
+    // 按钮
+    auto loginButton = MenuItemImage::create("Graphics/System/BtnBack.png", "Graphics/System/BtnBack_click.png", CC_CALLBACK_1(LayerRegister::turnToLogin, this));
+    auto registerButton = MenuItemImage::create("Graphics/System/BtnRegister.png", "Graphics/System/BtnRegister_click.png", CC_CALLBACK_1(LayerRegister::registerEvent, this));
+    loginButton->setScale(0.5f);
+    registerButton->setScale(0.5f);
+
+    username->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 150));
+    usernameBg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 150));
     password->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
+    passwordBg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
     confirm->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
+    confirmBg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
     email->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-    loginButton->setPosition(Vec2(visibleSize.width / 2 - 70, visibleSize.height / 2 - 50));
-    registerButton->setPosition(Vec2(visibleSize.width / 2 + 70, visibleSize.height / 2 - 50));
-    registerBox->setPosition(Vec2(visibleSize.width / 2 - 30, visibleSize.height / 2 + 50));
+    emailBg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+    loginButton->setPosition(Vec2(visibleSize.width / 2 - 70, visibleSize.height / 2 - 60));
+    registerButton->setPosition(Vec2(visibleSize.width / 2 + 70, visibleSize.height / 2 - 60));
+    registerBox->setPosition(Vec2(visibleSize.width / 2 - 20, visibleSize.height / 2 + 50));
 
 
     auto menu = Menu::create();
@@ -69,11 +87,15 @@ bool LayerRegister::init()
     menu->addChild(loginButton);
     menu->addChild(registerButton);
 
-    this->addChild(menu, 1);
-    this->addChild(account, 1);
-    this->addChild(password, 1);
-    this->addChild(confirm, 1);
-    this->addChild(email, 1);
+    this->addChild(menu, 2);
+    this->addChild(username, 2);
+    this->addChild(password, 2);
+    this->addChild(confirm, 2);
+    this->addChild(email, 2);
+    this->addChild(usernameBg, 1);
+    this->addChild(passwordBg, 1);
+    this->addChild(confirmBg, 1);
+    this->addChild(emailBg, 1);
     this->addChild(registerBox, 0);
     return true;
 }

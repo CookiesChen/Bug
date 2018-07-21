@@ -54,6 +54,7 @@ void SceneMenu::addCardLayer(ModelRoom r, int index) {
     auto card = LayerJoinRoomCard::createLayerWithRoom(r);
     card->setPosition(Vec2((visibleSize.width - card->getContentSize().width) / 2, visibleSize.height - 120 - index * card->getContentSize().height));
     this->addChild(card, 20);
+    cards.push_back(card);
 }
 
 void SceneMenu::updateUserInfo()
@@ -92,6 +93,10 @@ void SceneMenu::updateLayer(Tag tag)
     case Tag::LayerFromNewUserToMenu:
         this->updateUserInfo();
     case Tag::LayerFromJoinRoomOrNewRoomToMenu: // 返回菜单
+        for (auto& card : cards) {
+            card->removeFromParentAndCleanup(true);
+        }
+        cards.clear();
         this->layerMenu->setVisible(true);
         this->layerMenu->setActive(true);
         this->layerJoinRoom->setVisible(false);

@@ -39,7 +39,7 @@ bool LayerJoinRoomCard::init()
     roomname->setAnchorPoint(Vec2(0, 0.5));
     roomname->setPosition(Vec2(width / 2 - 210, height / 2 - padding));
 
-    auto owner = Label::createWithTTF(string("Owner: ") + room.OwnId, "Fonts/arial.ttf", 15);
+    auto owner = Label::createWithTTF(string("Owner: ") + room.OwnName, "Fonts/arial.ttf", 15);
     owner->setColor(Color3B::BLACK);
     owner->setAnchorPoint(Vec2(0, 0.5));
     owner->setPosition(Vec2(width / 2 - 210, height / 2));

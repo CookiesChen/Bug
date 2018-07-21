@@ -20,7 +20,7 @@ public:
 
     CREATE_FUNC(SceneMenu);
 private:
-
+    vector<LayerBase*> cards;
     LayerBase * layerMenu;
     LayerBase * layerJoinRoom;
     LayerBase * layerNewRoom;

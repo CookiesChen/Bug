@@ -236,11 +236,13 @@ void LayerNewRoom::newRoom(Ref* pSender)
         }
         else
         {
+            this->dialog("Error req");
             // 参数错误的提示
         }
     }
     else
     {
+        this->dialog("Error data");
         // 解析失败的提示
         return;
     }

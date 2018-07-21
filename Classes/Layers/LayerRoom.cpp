@@ -41,8 +41,8 @@ bool LayerRoom::init()
 
     this->addChild(menu, 1);
 
-    schedule(schedule_selector(LayerRoom::heart), 1.0f, kRepeatForever, 0.0f);
-    schedule(schedule_selector(LayerRoom::refreshData), 2.0f, kRepeatForever, 0.0f);
+    schedule(schedule_selector(LayerRoom::heart), 1.5f, kRepeatForever, 0.0f);
+    schedule(schedule_selector(LayerRoom::refreshData), 1.0f, kRepeatForever, 0.0f);
 
     return true;
 }

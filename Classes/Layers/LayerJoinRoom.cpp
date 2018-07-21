@@ -77,14 +77,29 @@ void LayerJoinRoom::getRoomList(float dt)
     {
         if (strcmp(d["status"].GetString(), "success") == 0)
         {
+            if (d["rooms"].IsNull())
+            {
+                this->dialog("No room found.");
+                return;
+            }
+            int index = 0;
             for (auto &room : d["rooms"].GetArray())
             {
-                ModelRoom room;
-            }
-            for (auto i = 1; i <= 5; i++)
-            {
-                auto card = LayerJoinRoomCard::createLayerWithRoom(ModelRoom());
-                card->setPosition(Vec2((visibleSize.width - card->getContentSize().width) / 2, visibleSize.height - 120 - i * card->getContentSize().height));
+                index++;
+                ModelRoom r;
+                r.Id = room["id"].GetInt();
+                r.OwnId = room["ownId"].GetString();
+                r.Port = room["port"].GetInt();
+                r.Title = room["title"].GetString();
+                r.IsRandom = room["isRandom"].GetBool();
+                r.GameMap = room["gameMap"].GetString();
+                r.MaxPalyer = room["maxPlayer"].GetInt();
+                r.Mode = room["mode"].GetString();
+                r.Password = room["password"].GetString();
+                r.Playing = room["playing"].GetBool();
+                r.Players.reserve(room["players"].GetArray().Size());
+                auto card = LayerJoinRoomCard::createLayerWithRoom(r);
+                card->setPosition(Vec2((visibleSize.width - card->getContentSize().width) / 2, visibleSize.height - 120 - index * card->getContentSize().height));
                 this->addChild(card, 1);
             }
             // 根据数据生成房间列表

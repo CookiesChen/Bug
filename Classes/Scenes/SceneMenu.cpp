@@ -1,10 +1,11 @@
-﻿#include "SceneMenu.h"
-#include "SceneLoginAndRegister.h"
+﻿#include "Helpers.h"
 #include "LayerMenu.h"
 #include "LayerJoinRoom.h"
 #include "LayerNewRoom.h"
 #include "LayerNewUser.h"
-#include "Helpers.h"
+#include "SceneLoginAndRegister.h"
+#include "SceneMenu.h"
+#include "SceneRoom.h"
 #include "ServiceUser.h"
 
 Scene* SceneMenu::createScene()
@@ -108,8 +109,13 @@ void SceneMenu::updateLayer(Tag tag)
 
 void SceneMenu::updateScene(Tag tag)
 {
-    if (layerMenu->getActive())
+    switch (tag)
     {
+    case Tag::SceneFromMenuToLoginAndRegister:
         Director::getInstance()->replaceScene(SceneLoginAndRegister::createScene());
+        break;
+    case Tag::SceneFromMenuToRoom:
+        Director::getInstance()->replaceScene(SceneRoom::createScene());
+        break;
     }
 }

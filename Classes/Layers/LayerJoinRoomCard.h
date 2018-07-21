@@ -14,7 +14,12 @@ public:
     CREATE_FUNC(LayerJoinRoomCard);
 
 private:
-    ModelRoom room;
+    void join(Ref* pSender);
+
+    static ModelRoom room;
+
+    int roomId;
+    bool needPassword;
 };
 
 #endif // __LAYER_JOIN_ROOM_CARD_H__

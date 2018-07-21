@@ -19,6 +19,8 @@ enum Tag
 
     // Scene
     SceneFromLoginAndRegisterToMenu,
+    SceneFromMenuToLoginAndRegister,
+    SceneFromMenuToRoom,
 
 
     Reversed = 9999

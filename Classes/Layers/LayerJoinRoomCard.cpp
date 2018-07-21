@@ -1,10 +1,13 @@
-﻿#include "LayerJoinRoomCard.h"
+﻿#include "Helpers.h"
+#include "LayerJoinRoomCard.h"
+#include "ServiceRoom.h"
 
-LayerBase* LayerJoinRoomCard::createLayerWithRoom(const ModelRoom& room)
+ModelRoom LayerJoinRoomCard::room;
+
+LayerBase* LayerJoinRoomCard::createLayerWithRoom(const ModelRoom& r)
 {
-    auto layer = LayerJoinRoomCard::create();
-    layer->room = room;
-    return layer;
+    room = r;
+    return LayerJoinRoomCard::create();
 }
 
 bool LayerJoinRoomCard::init()
@@ -15,7 +18,7 @@ bool LayerJoinRoomCard::init()
     auto origin = Director::getInstance()->getVisibleOrigin();
 
     auto padding = 20;
-    auto width = 400.0f;
+    auto width = 700.0f;
     auto height = 100.0f;
     auto mapImageWidth = 70.0f;
 
@@ -29,22 +32,22 @@ bool LayerJoinRoomCard::init()
 
     auto mapimage = Sprite::create("Graphics/Pictures/background.png");
     mapimage->setContentSize(Size(mapImageWidth, mapImageWidth));
-    mapimage->setPosition(Vec2(width / 2 - 150, height / 2));
+    mapimage->setPosition(Vec2(width / 2 - 250, height / 2));
 
     auto roomname = Label::createWithTTF(string("Room Name: ") + room.Title, "Fonts/arial.ttf", 15);
     roomname->setColor(Color3B::BLACK);
     roomname->setAnchorPoint(Vec2(0, 0.5));
-    roomname->setPosition(Vec2(width / 2 - 110, height / 2 - padding));
+    roomname->setPosition(Vec2(width / 2 - 210, height / 2 - padding));
 
     auto owner = Label::createWithTTF(string("Owner: ") + room.OwnId, "Fonts/arial.ttf", 15);
     owner->setColor(Color3B::BLACK);
     owner->setAnchorPoint(Vec2(0, 0.5));
-    owner->setPosition(Vec2(width / 2 - 110, height / 2));
+    owner->setPosition(Vec2(width / 2 - 210, height / 2));
 
     auto mapname = Label::createWithTTF(string("Map: ") + room.GameMap, "Fonts/arial.ttf", 15);
     mapname->setColor(Color3B::BLACK);
     mapname->setAnchorPoint(Vec2(0, 0.5));
-    mapname->setPosition(Vec2(width / 2 - 110, height / 2 + padding));
+    mapname->setPosition(Vec2(width / 2 - 210, height / 2 + padding));
 
     // 是否有密码
     if (room.Password.size())
@@ -76,10 +79,17 @@ bool LayerJoinRoomCard::init()
     mode->setColor(Color3B::BLACK);
     mode->setPosition(Vec2(width / 2 + 160, height / 2));
 
-    auto count = Label::createWithTTF("10/10", "Fonts/arial.ttf", 15);
+    auto count = Label::createWithTTF(to_string(room.Players.size()) + "/" + to_string(room.MaxPalyer), "Fonts/arial.ttf", 15);
     count->setAnchorPoint(Vec2(1, 0.5));
     count->setColor(Color3B::BLACK);
     count->setPosition(Vec2(width / 2 + 160, height / 2 - padding));
+
+    auto btn = MenuItemImage::create("Graphics/System/BtnVerify.png", "Graphics/System/BtnVerify_click.png", CC_CALLBACK_1(LayerJoinRoomCard::join, this));
+    btn->setScaleX(50.0f / btn->getContentSize().width);
+    btn->setScaleY(50.0f / btn->getContentSize().height);
+    btn->setPosition(Vec2(width / 2 + 200, height / 2));
+    auto menu = Menu::create(btn, nullptr);
+    menu->setPosition(Vec2::ZERO);
 
     this->addChild(status, 3);
     this->addChild(roomname, 3);
@@ -88,8 +98,32 @@ bool LayerJoinRoomCard::init()
     this->addChild(mode, 3);
     this->addChild(count, 3);
     this->addChild(mapimage, 3);
-    this->addChild(itembackground, 2);
+    this->addChild(menu, 2);
+    this->addChild(itembackground, 1);
+
+    needPassword = (room.Password.size() ? true : false);
+    roomId = room.Id;
 
     return true;
+}
+
+void LayerJoinRoomCard::join(Ref * pSender)
+{
+    if (!this->getActive()) return;
+    if (needPassword)
+    {
+        // todo
+    }
+    else
+    {
+        if (Singleton<ServiceRoom>::GetInstance()->joinInRoom(roomId))
+        {
+            this->updateScene(Tag::SceneFromMenuToRoom);
+        }
+        else
+        {
+            this->dialog("Join room failed.");
+        }
+    }
 }
 

@@ -57,7 +57,7 @@ void LayerMenu::UpdateUserInfo()
 void LayerMenu::logoutEvent(Ref* pSender)
 {
     Singleton<ServiceAPI>::GetInstance()->Logout();
-    this->updateScene();
+    this->updateScene(Tag::SceneFromMenuToLoginAndRegister);
 }
 
 void LayerMenu::initUser()

@@ -6,33 +6,34 @@
 
 using namespace std;
 
-typedef struct {
-  string userId;
-  int gameId;
-  string roleId;
-  bool isReady;
-  int team;
-  string userName;
-  string avatar;
-  int gender;
-} playerInfo;
+typedef struct
+{
+    string userId;
+    int gameId;
+    string roleId;
+    bool isReady;
+    int team;
+    string userName;
+    string avatar;
+    int gender;
+} PlayerInfo;
 
 class ModelRoom final
 {
 public:
-  int Id;
-  string OwnId;
-  bool IsOwn;
-  int Port;
-  string Title;
-  string GameMap;
-  int MaxPalyer;
-  string Mode;
-  bool IsRandom;
-  bool IsPublic;
-  string Password;
-  bool Playing;
-  vector<playerInfo> players;
+    int Id;
+    string OwnId;
+    bool IsOwn;
+    int Port;
+    string Title;
+    string GameMap;
+    int MaxPalyer;
+    string Mode;
+    bool IsRandom;
+    bool IsPublic;
+    string Password;
+    bool Playing;
+    vector<PlayerInfo> Players;
 };
 
 #endif

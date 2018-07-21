@@ -19,8 +19,8 @@ bool LayerEmail::init()
     email = Label::create("", "Fonts/arial.ttf", 20);
     email->setContentSize(Size(250, 30));
 
-    auto resendButton = MenuItemImage::create("Graphics/System/BtnRegister.png", "Graphics/System/BtnRegister_click.png", CC_CALLBACK_1(LayerEmail::resend, this));
-    auto verifyButton = MenuItemImage::create("Graphics/System/BtnLogin.png", "Graphics/System/BtnLogin_click.png", CC_CALLBACK_1(LayerEmail::verify, this));
+    auto resendButton = MenuItemImage::create("Graphics/System/BtnResend.png", "Graphics/System/BtnResend_click.png", CC_CALLBACK_1(LayerEmail::resend, this));
+    auto verifyButton = MenuItemImage::create("Graphics/System/BtnVerify.png", "Graphics/System/BtnVerify_click.png", CC_CALLBACK_1(LayerEmail::verify, this));
     resendButton->setScale(0.5f);
     verifyButton->setScale(0.5f);
 

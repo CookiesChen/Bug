@@ -13,14 +13,15 @@ bool LayerMenu::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
 
-    buttonJoin = MenuItemLabel::create(Label::createWithTTF("Join Game", "Fonts/arial.ttf", 30), CC_CALLBACK_1(LayerMenu::joinRoom, this));
-    buttonNew = MenuItemLabel::create(Label::createWithTTF("New Game", "Fonts/arial.ttf", 30), CC_CALLBACK_1(LayerMenu::newRoom, this));
-    logoutButton = MenuItemLabel::create(Label::createWithTTF("Logout", "Fonts/arial.ttf", 20), CC_CALLBACK_1(LayerMenu::logoutEvent, this));
+    buttonJoin = MenuItemImage::create("Graphics/System/BtnJoinGame.png", "Graphics/System/BtnJoinGame_click.png", CC_CALLBACK_1(LayerMenu::joinRoom, this));
+    buttonNew = MenuItemImage::create("Graphics/System/BtnNewGame.png", "Graphics/System/BtnNewGame_click.png", CC_CALLBACK_1(LayerMenu::newRoom, this));
+    logoutButton = MenuItemImage::create("Graphics/System/BtnLogOut.png", "Graphics/System/BtnLogOut_click.png", CC_CALLBACK_1(LayerMenu::logoutEvent, this));
+    logoutButton->setScale(0.5);
     labelUserName = Label::createWithTTF("", "Fonts/arial.ttf", 20);
 
-    buttonJoin->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
-    buttonNew->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 50));
-    logoutButton->setPosition(Vec2(visibleSize.width - 60, visibleSize.height - 60));
+    buttonJoin->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
+    buttonNew->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 100));
+    logoutButton->setPosition(Vec2(visibleSize.width - 70, visibleSize.height - 50));
     labelUserName->setPosition(Vec2(100, visibleSize.height - 50));
 
     auto menu = Menu::create();

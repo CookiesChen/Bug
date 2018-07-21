@@ -10,6 +10,7 @@ public:
     bool refreshInfo();
     bool joinInRoom(int roomId, string password = "");
     bool setTeam(int team);
+    bool setReady(bool isReady);
     bool setRole(string role);
     bool quitRoom();
 
@@ -17,6 +18,7 @@ public:
     bool startGame();
     bool setInfo(string title, string password, string map, int maxPlayer);
     bool setOwn(string userId);
+    bool setPlay(bool isPlay);
     bool outSb(string userId);
 
     ModelRoom getRoom();

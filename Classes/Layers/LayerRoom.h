@@ -31,7 +31,12 @@ private:
     bool isReady;
     ModelRoom room;
     Label * labelTitle;
+    Label * labelMap;
+    Label * labelMode;
     Label * labelPlayer;
+    MenuItemImage * buttonReady;
+    MenuItemImage * buttonBack;
+    Menu * menu;
 };
 
 #endif // __LAYER_ROOM_H__s

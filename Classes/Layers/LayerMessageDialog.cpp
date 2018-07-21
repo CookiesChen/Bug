@@ -30,7 +30,7 @@ bool LayerMessageDialog::init()
     menu->setPosition(origin);
 
     label = Label::create("hello, world", "Fonts/arial.ttf", 24);
-    label->setDimensions(background->getContentSize().width - 50, background->getContentSize().height - 50);
+    label->setDimensions(background->getContentSize().width - 70, background->getContentSize().height - 70);
     label->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 
     this->addChild(label, 3);

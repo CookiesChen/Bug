@@ -7,7 +7,8 @@
 #include "SceneMenu.h"
 #include "SceneRoom.h"
 #include "ServiceUser.h"
-
+#include "LayerJoinRoomCard.h"
+#include "LayerBackground.h"
 Scene* SceneMenu::createScene()
 {
     return SceneMenu::create();
@@ -20,6 +21,9 @@ bool SceneMenu::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+    // 背景层
+    auto layerBackground = LayerBackground::createLayer();
+    this->addChild(layerBackground, 0, "Background");
 
     // 添加层
     layerMenu = LayerMenu::createLayer();
@@ -47,6 +51,14 @@ bool SceneMenu::init()
     }
 
     return true;
+}
+
+void SceneMenu::addCardLayer(ModelRoom r, int index) {
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    auto card = LayerJoinRoomCard::createLayerWithRoom(r);
+    card->setPosition(Vec2((visibleSize.width - card->getContentSize().width) / 2, visibleSize.height - 120 - index * card->getContentSize().height));
+    this->addChild(card, 20);
+    cards.push_back(card);
 }
 
 void SceneMenu::updateUserInfo()
@@ -85,6 +97,10 @@ void SceneMenu::updateLayer(Tag tag)
     case Tag::LayerFromNewUserToMenu:
         this->updateUserInfo();
     case Tag::LayerFromJoinRoomOrNewRoomToMenu: // 返回菜单
+        for (auto& card : cards) {
+            card->removeFromParentAndCleanup(true);
+        }
+        cards.clear();
         this->layerMenu->setVisible(true);
         this->layerMenu->setActive(true);
         this->layerJoinRoom->setVisible(false);

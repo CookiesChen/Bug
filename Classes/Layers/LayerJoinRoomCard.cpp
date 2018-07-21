@@ -26,20 +26,21 @@ bool LayerJoinRoomCard::init()
 
     this->setContentSize(Size(width, height));
 
-    auto itembackground = Sprite::create("Graphics/System/BtnBack.png");
+    auto itembackground = Sprite::create("Graphics/System/RoomBox.png");
     itembackground->setContentSize(Size::Size(width, height));
     itembackground->setPosition(Vec2(width / 2, height / 2));
 
     auto mapimage = Sprite::create("Graphics/Pictures/background.png");
     mapimage->setContentSize(Size(mapImageWidth, mapImageWidth));
-    mapimage->setPosition(Vec2(width / 2 - 250, height / 2));
+    mapimage->setScale(0.6);
+    mapimage->setPosition(Vec2(width / 2 - 240, height / 2));
 
     auto roomname = Label::createWithTTF(string("Room Name: ") + room.Title, "Fonts/arial.ttf", 15);
     roomname->setColor(Color3B::BLACK);
     roomname->setAnchorPoint(Vec2(0, 0.5));
     roomname->setPosition(Vec2(width / 2 - 210, height / 2 - padding));
 
-    auto owner = Label::createWithTTF(string("Owner: ") + room.OwnId, "Fonts/arial.ttf", 15);
+    auto owner = Label::createWithTTF(string("Owner: ") + room.OwnName, "Fonts/arial.ttf", 15);
     owner->setColor(Color3B::BLACK);
     owner->setAnchorPoint(Vec2(0, 0.5));
     owner->setPosition(Vec2(width / 2 - 210, height / 2));
@@ -84,10 +85,9 @@ bool LayerJoinRoomCard::init()
     count->setColor(Color3B::BLACK);
     count->setPosition(Vec2(width / 2 + 160, height / 2 - padding));
 
-    auto btn = MenuItemImage::create("Graphics/System/BtnVerify.png", "Graphics/System/BtnVerify_click.png", CC_CALLBACK_1(LayerJoinRoomCard::join, this));
-    btn->setScaleX(50.0f / btn->getContentSize().width);
-    btn->setScaleY(50.0f / btn->getContentSize().height);
-    btn->setPosition(Vec2(width / 2 + 200, height / 2));
+    auto btn = MenuItemImage::create("Graphics/System/BtnJoin.png", "Graphics/System/BtnJoin_click.png", CC_CALLBACK_1(LayerJoinRoomCard::join, this));
+    btn->setScale(0.4);
+    btn->setPosition(Vec2(width / 2 + 220, height / 2));
     auto menu = Menu::create(btn, nullptr);
     menu->setPosition(Vec2::ZERO);
 

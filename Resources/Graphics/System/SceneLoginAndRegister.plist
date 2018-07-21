@@ -1,4 +1,4 @@
-﻿ <?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
@@ -7,68 +7,68 @@
 			<key>compass_1.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{433,384},{292,293}}</string>
+				<string>{{0,647},{303,303}}</string>
 				<key>offset</key>
-				<string>{0,-1}</string>
+				<string>{-1,-1}</string>
 				<key>rotated</key>
-				<true />
+				<false />
 				<key>sourceSize</key>
 				<string>{401,455}</string>
 			</dict>
 			<key>compass_2.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{726,384},{265,266}}</string>
+				<string>{{303,660},{291,292}}</string>
 				<key>offset</key>
 				<string>{0,-2}</string>
 				<key>rotated</key>
-				<true />
+				<false />
 				<key>sourceSize</key>
 				<string>{401,455}</string>
 			</dict>
 			<key>compass_3.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{484,0},{384,453}}</string>
+				<string>{{510,0},{420,470}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<true />
 				<key>sourceSize</key>
-				<string>{401,455}</string>
+				<string>{420,470}</string>
 			</dict>
 			<key>Dialog.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{220,363},{472,213}}</string>
+				<string>{{510,420},{504,240}}</string>
 				<key>offset</key>
-				<string>{0,2}</string>
+				<string>{-1,0}</string>
 				<key>rotated</key>
-				<true />
+				<false />
 				<key>sourceSize</key>
-				<string>{472,216}</string>
+				<string>{510,240}</string>
 			</dict>
 			<key>LoginBox.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,363},{486,220}}</string>
+				<string>{{0,390},{510,257}}</string>
 				<key>offset</key>
-				<string>{0,0}</string>
+				<string>{0,-1}</string>
 				<key>rotated</key>
-				<true />
+				<false />
 				<key>sourceSize</key>
-				<string>{486,221}</string>
+				<string>{510,260}</string>
 			</dict>
 			<key>RegisterBox.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,0},{484,363}}</string>
+				<string>{{0,0},{510,390}}</string>
 				<key>offset</key>
-				<string>{0,2}</string>
+				<string>{0,0}</string>
 				<key>rotated</key>
 				<false />
 				<key>sourceSize</key>
-				<string>{484,366}</string>
+				<string>{510,390}</string>
 			</dict>
 		</dict>
 		<key>metadata</key>
@@ -80,14 +80,14 @@
 			<key>realTextureFileName</key>
 			<string>SceneLoginAndRegister.png</string>
 			<key>size</key>
-			<string>{992,849}</string>
+			<string>{1014,952}</string>
 		</dict>
 		<key>texture</key>
 		<dict>
 			<key>width</key>
-			<integer>992</integer>
+			<integer>1014</integer>
 			<key>height</key>
-			<integer>849</integer>
+			<integer>952</integer>
 		</dict>
 	</dict>
 </plist>

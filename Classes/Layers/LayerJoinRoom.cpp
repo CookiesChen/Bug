@@ -2,6 +2,7 @@
 #include "LayerJoinRoom.h"
 #include "LayerJoinRoomCard.h"
 #include "ServiceAPI.h"
+#include "SceneMenu.h"
 
 LayerBase* LayerJoinRoom::createLayer()
 {
@@ -10,12 +11,9 @@ LayerBase* LayerJoinRoom::createLayer()
 
 bool LayerJoinRoom::init()
 {
+    if (!LayerBase::init()) return false;
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
-
-    // 房间列表背景
-    auto background = Sprite::create("Graphics/Pictures/background.png");
-    background->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 
     // 菜单
     auto menu = Menu::create();
@@ -30,8 +28,8 @@ bool LayerJoinRoom::init()
 
     // 按钮
     auto backButton = MenuItemImage::create("Graphics/System/BtnBack.png", "Graphics/System/BtnBack_click.png", CC_CALLBACK_1(LayerJoinRoom::backMenu, this));
-    auto prepageButton = MenuItemImage::create("Graphics/System/BtnBack.png", "Graphics/System/BtnBack_click.png", CC_CALLBACK_1(LayerJoinRoom::changePage, this, false));
-    auto nextpageButton = MenuItemImage::create("Graphics/System/BtnBack.png", "Graphics/System/BtnBack_click.png", CC_CALLBACK_1(LayerJoinRoom::changePage, this, true));
+    auto prepageButton = MenuItemImage::create("Graphics/System/BtnLastPage.png", "Graphics/System/BtnLastPage_click.png", CC_CALLBACK_1(LayerJoinRoom::changePage, this, false));
+    auto nextpageButton = MenuItemImage::create("Graphics/System/BtnNextPage.png", "Graphics/System/BtnNextPage_click.png", CC_CALLBACK_1(LayerJoinRoom::changePage, this, true));
     auto backInputNo = MenuItemImage::create("Graphics/System/BtnBack.png", "Graphics/System/BtnBack_click.png", CC_CALLBACK_1(LayerJoinRoom::backMenu, this));
 
     auto quickjoin = MenuItemLabel::create(Label::createWithTTF("Join Game", "Fonts/arial.ttf", 30), CC_CALLBACK_1(LayerJoinRoom::quickJoin, this));
@@ -52,12 +50,11 @@ bool LayerJoinRoom::init()
     this->addChild(menu, 2);
     this->addChild(currentPage, 1);
     this->addChild(maxPage, 1);
-    this->addChild(background, 1);
 
     pageNum = 1;
 
     // 定时扫描
-    schedule(schedule_selector(LayerJoinRoom::getRoomList), 2.0f, kRepeatForever, 0);
+    schedule(schedule_selector(LayerJoinRoom::getRoomList), 1.0f, kRepeatForever, 0);
 
     return true;
 }
@@ -89,6 +86,7 @@ void LayerJoinRoom::getRoomList(float dt)
                 ModelRoom r;
                 r.Id = room["id"].GetInt();
                 r.OwnId = room["ownId"].GetString();
+                r.OwnName = room["ownName"].GetString();
                 r.Port = room["port"].GetInt();
                 r.Title = room["title"].GetString();
                 r.IsRandom = room["isRandom"].GetBool();
@@ -98,9 +96,9 @@ void LayerJoinRoom::getRoomList(float dt)
                 r.Password = room["password"].GetString();
                 r.Playing = room["playing"].GetBool();
                 r.Players.reserve(room["players"].GetArray().Size());
-                auto card = LayerJoinRoomCard::createLayerWithRoom(r);
-                card->setPosition(Vec2((visibleSize.width - card->getContentSize().width) / 2, visibleSize.height - 120 - index * card->getContentSize().height));
-                this->addChild(card, 1);
+
+                auto scene = (SceneMenu*)this->getParent();
+                scene->addCardLayer(r, index);
             }
             // 根据数据生成房间列表
         }

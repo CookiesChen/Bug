@@ -13,7 +13,7 @@ SceneBase* SceneGameRoom::createScene()
 
 bool SceneGameRoom::init()
 {
-    if (!Scene::init())
+    if (!SceneGameRoom::init())
     {
         return false;
     }
@@ -71,9 +71,9 @@ bool SceneGameRoom::init()
 }
 
 void SceneGameRoom::GetState() {
-    Singleton<ServiceGame>::GetInstance()->GetFrame([&](string res) -> void {
+    /*Singleton<ServiceGame>::GetInstance()->GetFrame([&](string res) -> void {
         msgLabel->setString(res);
-    });
+    });*/
 }
 
 
@@ -118,16 +118,12 @@ void SceneGameRoom::onKeyPressed(EventKeyboard::KeyCode code, Event* event) {
     case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
     case EventKeyboard::KeyCode::KEY_CAPITAL_A:
     case EventKeyboard::KeyCode::KEY_A:
-        //Singleton<ServiceGame>::GetInstance()->SendInput(1, 0 ,0);
-        LayerMove(0);
-        moveDirection = 'A';
+        Singleton<ServiceGame>::GetInstance()->SendInput(1, 0 ,0);
         break;
     case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
     case EventKeyboard::KeyCode::KEY_CAPITAL_D:
     case EventKeyboard::KeyCode::KEY_D:
-        //Singleton<ServiceGame>::GetInstance()->SendInput(2, 0, 0);
-        LayerMove(1);
-        moveDirection = 'D';
+        Singleton<ServiceGame>::GetInstance()->SendInput(2, 0, 0);
         break;
     case EventKeyboard::KeyCode::KEY_UP_ARROW:
     case EventKeyboard::KeyCode::KEY_CAPITAL_W:
@@ -151,38 +147,12 @@ void SceneGameRoom::onKeyReleased(EventKeyboard::KeyCode code, Event* event) {
     case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
     case EventKeyboard::KeyCode::KEY_A:
     case EventKeyboard::KeyCode::KEY_CAPITAL_A:
-        //Singleton<ServiceGame>::GetInstance()->SendInput(3, 0 , 0);
-        if (isMove && moveDirection == 'A') {
-            isMove = false;
-            layerplayer->stopPlayer();
-        }
+        Singleton<ServiceGame>::GetInstance()->SendInput(3, 0 , 0);
         break;
     case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
     case EventKeyboard::KeyCode::KEY_D:
     case EventKeyboard::KeyCode::KEY_CAPITAL_D:
-        //Singleton<ServiceGame>::GetInstance()->SendInput(4, 0 ,0 );
-        if (isMove && moveDirection == 'D') {
-            isMove = false;
-            layerplayer->stopPlayer();
-        }
-        break;
-    case EventKeyboard::KeyCode::KEY_UP_ARROW:
-    case EventKeyboard::KeyCode::KEY_CAPITAL_W:
-    case EventKeyboard::KeyCode::KEY_W:
-        //Singleton<ServiceGame>::GetInstance()->SendInput(2, 0, 0);
-        if (isMove && moveDirection == 'W') {
-            isMove = false;
-            layerplayer->stopPlayer();
-        }
-        break;
-    case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-    case EventKeyboard::KeyCode::KEY_CAPITAL_S:
-    case EventKeyboard::KeyCode::KEY_S:
-        //Singleton<ServiceGame>::GetInstance()->SendInput(2, 0, 0);
-        if (isMove && moveDirection == 'S') {
-            isMove = false;
-            layerplayer->stopPlayer();
-        }
+        Singleton<ServiceGame>::GetInstance()->SendInput(4, 0 ,0 );
         break;
     }
 }

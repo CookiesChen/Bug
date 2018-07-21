@@ -27,6 +27,7 @@ public:
     rapidjson::Document CreateRoom(string title, string password, string map, string mode, int maxPlayer);
     rapidjson::Document JoinRoom(int id, string password = "");
     rapidjson::Document SetReady(bool isReady);
+    rapidjson::Document SetPlay(bool isPlay);
     rapidjson::Document SetTeam(int team);
     rapidjson::Document SetRole(string role);
     rapidjson::Document QuitRoom();

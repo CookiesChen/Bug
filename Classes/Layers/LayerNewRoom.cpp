@@ -51,10 +51,12 @@ bool LayerNewRoom::init()
         "Graphics/System/CheckBoxNode_Disable.png");
     checkModePerson->setPosition(Vec2(labelMode->getPosition().x + 50, Height2));
     checkModePerson->addEventListener(CC_CALLBACK_2(LayerNewRoom::checkBoxPersonCallback, this));
-    checkModePerson->setSelected(false);
+    checkModePerson->setSelected(true);
+    this->mode = "personal";
     this->addChild(checkModePerson, 1);
     auto labelModePerson = Label::createWithTTF("Personal", "Fonts/arial.ttf", 20);
-    labelModePerson->setPosition(Vec2(checkModePerson->getPosition().x + checkModePerson->getContentSize().width + 50, Height2));
+    labelModePerson->setAnchorPoint(Vec2(0, 0.5));
+    labelModePerson->setPosition(Vec2(checkModePerson->getPosition().x + checkModePerson->getContentSize().width, Height2));
     this->addChild(labelModePerson, 1);
     // 团队模式
     checkModeTeam = ui::CheckBox::create("Graphics/System/CheckBox_Normal.png",
@@ -64,11 +66,12 @@ bool LayerNewRoom::init()
         "Graphics/System/CheckBoxNode_Disable.png");
     checkModeTeam->setPosition(Vec2(labelModePerson->getPosition().x + labelModePerson->getContentSize().width + 50, Height2));
     checkModeTeam->addEventListener(CC_CALLBACK_2(LayerNewRoom::checkBoxTeamCallback, this));
-    checkModeTeam->setSelected(true);
-    this->mode = "team";
+    checkModeTeam->setSelected(false);
+    checkModeTeam->setEnabled(false);
     this->addChild(checkModeTeam, 1);
-    auto labelModeTeam = Label::createWithTTF("Team", "Fonts/arial.ttf", 20);
-    labelModeTeam->setPosition(Vec2(checkModeTeam->getPosition().x + checkModeTeam->getContentSize().width + 50, Height2));
+    auto labelModeTeam = Label::createWithTTF("Team(Coming soon)", "Fonts/arial.ttf", 20);
+    labelModeTeam->setAnchorPoint(Vec2(0, 0.5));
+    labelModeTeam->setPosition(Vec2(checkModeTeam->getPosition().x + checkModeTeam->getContentSize().width, Height2));
     this->addChild(labelModeTeam, 1);
 
     // 地图选择
@@ -88,8 +91,24 @@ bool LayerNewRoom::init()
     checkMapJungle->setSelected(true);
     this->addChild(checkMapJungle, 1);
     auto labelMapJungle = Label::createWithTTF("Jungle", "Fonts/arial.ttf", 20);
-    labelMapJungle->setPosition(Vec2(checkMapJungle->getPosition().x + checkMapJungle->getContentSize().width + 50, Height3));
+    labelMapJungle->setAnchorPoint(Vec2(0, 0.5));
+    labelMapJungle->setPosition(Vec2(checkMapJungle->getPosition().x + checkMapJungle->getContentSize().width, Height3));
     this->addChild(labelMapJungle, 1);
+    // 海岛地图模式
+    checkMapIsland = ui::CheckBox::create("Graphics/System/CheckBox_Normal.png",
+        "Graphics/System/CheckBox_Press.png",
+        "Graphics/System/CheckBoxNode_Normal.png",
+        "Graphics/System/CheckBox_Disable.png",
+        "Graphics/System/CheckBoxNode_Disable.png");
+    checkMapIsland->setPosition(Vec2(labelMapJungle->getPosition().x + labelMapJungle->getContentSize().width + 50, Height3));
+    checkMapIsland->addEventListener(CC_CALLBACK_2(LayerNewRoom::checkBoxMapIslandCallback, this));
+    checkMapIsland->setSelected(false);
+    checkMapIsland->setEnabled(false);
+    this->addChild(checkMapIsland, 1);
+    auto labelMapIsland = Label::createWithTTF("Island(Coming soon)", "Fonts/arial.ttf", 20);
+    labelMapIsland->setAnchorPoint(Vec2(0, 0.5));
+    labelMapIsland->setPosition(Vec2(checkMapIsland->getPosition().x + checkMapIsland->getContentSize().width, Height3));
+    this->addChild(labelMapIsland, 1);
 
     // 随机角色
     float Height4 = visibleSize.height - 440;
@@ -135,7 +154,7 @@ bool LayerNewRoom::init()
             break;
         case ui::Widget::TouchEventType::ENDED:
             char str[50];
-            this->playerCount = this->slider->getPercent();
+            this->playerCount = this->slider->getPercent() + 2;
             sprintf(str, "%d", this->slider->getPercent() + 2);
             this->labelRoomPlayerCount->setString(str);
             break;
@@ -143,6 +162,7 @@ bool LayerNewRoom::init()
             break;
         }
     });
+    this->playerCount = 2;
     this->addChild(slider, 1);
 
 
@@ -162,6 +182,7 @@ bool LayerNewRoom::init()
     roomPassword->setTextHorizontalAlignment(TextHAlignment::LEFT);
     roomPassword->setTextVerticalAlignment(TextVAlignment::CENTER);
     roomPassword->setPosition(Vec2(labelRoomPassword->getPosition().x + 50, Height6));
+    roomPassword->setEnabled(false);
     this->addChild(roomPassword, 1);
 
     // 菜单
@@ -173,7 +194,7 @@ bool LayerNewRoom::init()
     buttonBack->setScale(0.5f);
     menu->addChild(buttonBack, 1);
     // 提交
-    auto buttonCommit = MenuItemImage::create("Graphics/System/BtnRegister.png", "Graphics/System/BtnRegister_click.png", CC_CALLBACK_1(LayerNewRoom::newRoom, this));
+    auto buttonCommit = MenuItemImage::create("Graphics/System/BtnCreate.png", "Graphics/System/BtnCreate_click.png", CC_CALLBACK_1(LayerNewRoom::newRoom, this));
     buttonCommit->setPosition(Vec2(visibleSize.width / 2, 100));
     buttonCommit->setScale(0.5f);
     menu->addChild(buttonCommit, 1);
@@ -214,6 +235,11 @@ void LayerNewRoom::checkBoxMapJungleCallback(cocos2d::Ref * ref, CheckBox::Event
     this->checkMapJungle->setSelected(true);
 }
 
+void LayerNewRoom::checkBoxMapIslandCallback(cocos2d::Ref * ref, CheckBox::EventType type)
+{
+    this->checkMapIsland->setSelected(true);
+}
+
 void LayerNewRoom::newRoom(Ref* pSender)
 {
     // todo 新建房间的API
@@ -234,11 +260,13 @@ void LayerNewRoom::newRoom(Ref* pSender)
         }
         else
         {
+            this->dialog("Error req");
             // 参数错误的提示
         }
     }
     else
     {
+        this->dialog("Error data");
         // 解析失败的提示
         return;
     }

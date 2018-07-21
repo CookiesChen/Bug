@@ -22,6 +22,7 @@ bool LayerLogin::init()
     account->setMaxLengthEnabled(true);
     account->setMaxLength(20);
     account->setSize(Size(250, 30));
+    account->setTextColor(Color4B::BLACK);
     account->setTextHorizontalAlignment(TextHAlignment::LEFT);
     account->setTextVerticalAlignment(TextVAlignment::CENTER);
 
@@ -32,6 +33,7 @@ bool LayerLogin::init()
     password->setMaxLength(20);
     password->setSize(Size(250, 30));
     password->setPasswordEnabled(true);
+    password->setTextColor(Color4B::BLACK);
     password->setTextHorizontalAlignment(TextHAlignment::LEFT);
     password->setTextVerticalAlignment(TextVAlignment::CENTER);
 
@@ -45,9 +47,9 @@ bool LayerLogin::init()
     // 背景框
     auto loginBox = Sprite::createWithSpriteFrameName("LoginBox.png");
     auto accountBackground = Sprite::create("Graphics/System/input.png");
-    accountBackground->setOpacity(20);
+    accountBackground->setScale(0.5);
     auto passwordBackground = Sprite::create("Graphics/System/input.png");
-    passwordBackground->setOpacity(20);
+    passwordBackground->setScale(0.5);
 
     account->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50));
     password->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));

@@ -23,6 +23,7 @@ class ModelRoom final
 public:
     int Id;
     string OwnId;
+    string OwnName;
     bool IsOwn;
     int Port;
     string Title;

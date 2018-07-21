@@ -17,10 +17,17 @@ enum Tag
     LayerFromNewUserToMenu,
     LayerFromMenuToNewUser,
 
+    LayerFromRoomToReady,
+    LayerFromReadyToRoom,
+
     // Scene
     SceneFromLoginAndRegisterToMenu,
     SceneFromMenuToLoginAndRegister,
     SceneFromMenuToRoom,
+
+    SceneFromRoomToMenu,
+    SceneFromRoomToGame,
+
 
 
     Reversed = 9999

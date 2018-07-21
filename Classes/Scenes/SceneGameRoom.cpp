@@ -13,7 +13,7 @@ SceneBase* SceneGameRoom::createScene()
 
 bool SceneGameRoom::init()
 {
-    if (!SceneGameRoom::init())
+    if (!SceneBase::init())
     {
         return false;
     }
@@ -118,12 +118,16 @@ void SceneGameRoom::onKeyPressed(EventKeyboard::KeyCode code, Event* event) {
     case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
     case EventKeyboard::KeyCode::KEY_CAPITAL_A:
     case EventKeyboard::KeyCode::KEY_A:
-        Singleton<ServiceGame>::GetInstance()->SendInput(1, 0 ,0);
+        //Singleton<ServiceGame>::GetInstance()->SendInput(1, 0 ,0);
+        LayerMove(0);
+        moveDirection = 'A';
         break;
     case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
     case EventKeyboard::KeyCode::KEY_CAPITAL_D:
     case EventKeyboard::KeyCode::KEY_D:
-        Singleton<ServiceGame>::GetInstance()->SendInput(2, 0, 0);
+        //Singleton<ServiceGame>::GetInstance()->SendInput(2, 0, 0);
+        LayerMove(1);
+        moveDirection = 'D';
         break;
     case EventKeyboard::KeyCode::KEY_UP_ARROW:
     case EventKeyboard::KeyCode::KEY_CAPITAL_W:
@@ -147,12 +151,26 @@ void SceneGameRoom::onKeyReleased(EventKeyboard::KeyCode code, Event* event) {
     case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
     case EventKeyboard::KeyCode::KEY_A:
     case EventKeyboard::KeyCode::KEY_CAPITAL_A:
-        Singleton<ServiceGame>::GetInstance()->SendInput(3, 0 , 0);
+        //Singleton<ServiceGame>::GetInstance()->SendInput(3, 0 , 0);
+        if (moveDirection == 'A') isMove = false;
         break;
     case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
     case EventKeyboard::KeyCode::KEY_D:
     case EventKeyboard::KeyCode::KEY_CAPITAL_D:
-        Singleton<ServiceGame>::GetInstance()->SendInput(4, 0 ,0 );
+        //Singleton<ServiceGame>::GetInstance()->SendInput(4, 0 ,0 );
+        if (moveDirection == 'D') isMove = false;
+        break;
+    case EventKeyboard::KeyCode::KEY_UP_ARROW:
+    case EventKeyboard::KeyCode::KEY_W:
+    case EventKeyboard::KeyCode::KEY_CAPITAL_W:
+        //Singleton<ServiceGame>::GetInstance()->SendInput(4, 0, 0);
+        if (moveDirection == 'W') isMove = false;
+        break;
+    case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+    case EventKeyboard::KeyCode::KEY_S:
+    case EventKeyboard::KeyCode::KEY_CAPITAL_S:
+        //Singleton<ServiceGame>::GetInstance()->SendInput(4, 0, 0);
+        if (moveDirection == 'S') isMove = false;
         break;
     }
 }

@@ -45,7 +45,7 @@ bool LayerRoom::init()
     buttonBack->setScale(0.5f);
     menu->addChild(buttonBack, 1);
     // 准备/开始
-    auto buttonReady = MenuItemImage::create("Graphics/System/BtnRegister.png", "Graphics/System/BtnRegister_click.png", CC_CALLBACK_1(LayerRoom::SetReady, this));
+    auto buttonReady = MenuItemImage::create("Graphics/System/BtnRegister.png", "Graphics/System/BtnRegister_click.png", CC_CALLBACK_1(LayerRoom::setReady, this));
     buttonReady->setPosition(Vec2(visibleSize.width / 2 - 100, 100));
     buttonReady->setScale(0.5f);
     menu->addChild(buttonReady, 1);
@@ -72,7 +72,7 @@ void LayerRoom::setReady(Ref* pSender)
 void LayerRoom::drawInfo()
 {
     labelTitle->setString(this->room.Title + "'s room");
-    labelPlayer->setString("Player " + to_string(this->room.players.size()) + "/" + to_string(this->room.MaxPalyer));
+    labelPlayer->setString("Player " + to_string(this->room.Players.size()) + "/" + to_string(this->room.MaxPalyer));
     drawPlayers();
 }
 
@@ -84,7 +84,7 @@ void LayerRoom::drawPlayers() {
     this->playerNode.clear();
 
     auto height = 240;
-    for (auto& player : this->room.players) {
+    for (auto& player : this->room.Players) {
         auto newPlayerNode = Node::create();
         // 用户名
         auto labelUserName = Label::createWithTTF("A room", "Fonts/arial.ttf", 38);

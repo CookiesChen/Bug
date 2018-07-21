@@ -50,10 +50,10 @@ bool ServiceRoom::refreshInfo()
     room.Mode = roomData["mode"].GetString();
     room.Password = roomData["password"].GetString();
     room.Playing = roomData["playing"].GetBool();
-    if (d["players"].IsNull) return false;
-    room.players.clear();
+    if (d["players"].IsNull()) return false;
+    room.Players.clear();
     for (auto& player : d["players"].GetArray()) {
-        playerInfo newPlayer;
+        PlayerInfo newPlayer;
         auto playerData = player["player"].GetObjectW();
         auto playerDataInfo = player["info"].GetObjectW();
         newPlayer.userId = playerData["userId"].GetString();
@@ -64,7 +64,7 @@ bool ServiceRoom::refreshInfo()
         newPlayer.userName = playerDataInfo["name"].GetString();
         newPlayer.avatar = playerDataInfo["avatar"].GetString();
         newPlayer.gender = playerDataInfo["gender"].GetInt();
-        room.players.push_back(newPlayer);
+        room.Players.push_back(newPlayer);
     }
     return true;
 }

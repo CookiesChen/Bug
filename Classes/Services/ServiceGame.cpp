@@ -34,8 +34,12 @@ void ServiceGame::SendInput(int input, float x, float y)
     rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
     document.AddMember("id", id, allocator);
     document.AddMember("input", input, allocator);
-    document.AddMember("x", to_string(x), allocator);
-    document.AddMember("y", to_string(y), allocator);
+    rapidjson::Value locX, locY;
+    locX.SetFloat(x);
+    locY.SetFloat(y);
+
+    document.AddMember("x", locX, allocator);
+    document.AddMember("y", locY, allocator);
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
     document.Accept(writer);

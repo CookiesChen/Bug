@@ -76,7 +76,7 @@ bool LayerNewUser::init()
     auto menu = Menu::create();
     menu->setPosition(origin);
     // 提交
-    auto buttonCommit = MenuItemImage::create("Graphics/System/BtnRegister.png", "Graphics/System/BtnRegister_click.png", CC_CALLBACK_1(LayerNewUser::setUserInfo, this));
+    auto buttonCommit = MenuItemImage::create("Graphics/System/BtnCreate.png", "Graphics/System/BtnCreate_click.png", CC_CALLBACK_1(LayerNewUser::setUserInfo, this));
     buttonCommit->setPosition(Vec2(visibleSize.width / 2, 100));
     buttonCommit->setScale(0.5f);
     menu->addChild(buttonCommit, 1);
@@ -112,7 +112,6 @@ void LayerNewUser::setUserInfo(Ref* pSender)
         if (strcmp(d["status"].GetString(), "success") == 0)
         {
             // 跳转到房间页面
-            this->dialog("Set user info success!");
             this->updateLayer(Tag::LayerFromNewUserToMenu);
         }
         else

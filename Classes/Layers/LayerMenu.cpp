@@ -17,12 +17,18 @@ bool LayerMenu::init()
     buttonNew = MenuItemImage::create("Graphics/System/BtnNewGame.png", "Graphics/System/BtnNewGame_click.png", CC_CALLBACK_1(LayerMenu::newRoom, this));
     logoutButton = MenuItemImage::create("Graphics/System/BtnLogOut.png", "Graphics/System/BtnLogOut_click.png", CC_CALLBACK_1(LayerMenu::logoutEvent, this));
     logoutButton->setScale(0.5);
-    labelUserName = Label::createWithTTF("", "Fonts/arial.ttf", 20);
+    labelUserName = Label::createWithTTF("", "Fonts/arial.ttf", 18);
+    auto nameBG = Sprite::create("Graphics/System/UserHead.png");
+
 
     buttonJoin->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
     buttonNew->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 100));
     logoutButton->setPosition(Vec2(visibleSize.width - 70, visibleSize.height - 50));
-    labelUserName->setPosition(Vec2(100, visibleSize.height - 50));
+    labelUserName->setAnchorPoint(Vec2(0, 1));
+    labelUserName->setPosition(Vec2(130, visibleSize.height - 40));
+    nameBG->setAnchorPoint(Vec2(0, 1));
+    nameBG->setPosition(Vec2(20, visibleSize.height - 15));
+    nameBG->setScale(0.85);
 
     auto menu = Menu::create();
     menu->setPosition(origin);
@@ -30,7 +36,8 @@ bool LayerMenu::init()
     menu->addChild(buttonNew);
     menu->addChild(logoutButton);
 
-    this->addChild(labelUserName, 1);
+    this->addChild(labelUserName, 2);
+    this->addChild(nameBG, 1);
     this->addChild(menu, 1);
 
     initUser();

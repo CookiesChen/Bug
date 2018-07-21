@@ -13,14 +13,20 @@ bool LayerNewRoom::init()
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
-    // 标题
-    auto labelTitle = Label::createWithTTF("Create a room", "Fonts/arial.ttf", 38);
-    labelTitle->setAnchorPoint(Vec2(0, 0));
-    labelTitle->setPosition(Vec2(visibleSize.width / 2 - 100, visibleSize.height - 100));
-    this->addChild(labelTitle, 1);
+
+    auto roomBG = Sprite::create("Graphics/System/RoomInfo.png");
+    roomBG->setPosition(visibleSize.width / 2, visibleSize.height / 2);
+    roomBG->setScale(1.6);
+    this->addChild(roomBG);
+    float LabelX = visibleSize.width / 2 - 200;
+    float Height1 = visibleSize.height - 220;
+    float Height2 = visibleSize.height - 280;
+    float Height3 = visibleSize.height - 340;
+    float Height4 = visibleSize.height - 400;
+    float Height5 = visibleSize.height - 460;
+    float Height6 = visibleSize.height - 520;
+    float Height7 = visibleSize.height - 580;
     // 房间名称
-    float LabelX = visibleSize.width / 2 - 300;
-    float Height1 = visibleSize.height - 200;
     auto labelRoomName = Label::createWithTTF("Room Name: ", "Fonts/arial.ttf", 20);
     labelRoomName->setAnchorPoint(Vec2(1, 0.5));
     labelRoomName->setPosition(Vec2(LabelX, Height1));
@@ -38,7 +44,6 @@ bool LayerNewRoom::init()
     this->addChild(roomName, 1);
 
     // 模式选择
-    float Height2 = visibleSize.height - 280;
     auto labelMode = Label::createWithTTF("Mode: ", "Fonts/arial.ttf", 20);
     labelMode->setAnchorPoint(Vec2(1, 0.5));
     labelMode->setPosition(Vec2(LabelX, Height2));
@@ -75,7 +80,6 @@ bool LayerNewRoom::init()
     this->addChild(labelModeTeam, 1);
 
     // 地图选择
-    float Height3 = visibleSize.height - 360;
     auto labelMap = Label::createWithTTF("Map: ", "Fonts/arial.ttf", 20);
     labelMap->setAnchorPoint(Vec2(1, 0.5));
     labelMap->setPosition(Vec2(LabelX, Height3));
@@ -111,7 +115,6 @@ bool LayerNewRoom::init()
     this->addChild(labelMapIsland, 1);
 
     // 随机角色
-    float Height4 = visibleSize.height - 440;
     auto labelRandom = Label::createWithTTF("Random Role: ", "Fonts/arial.ttf", 20);
     labelRandom->setAnchorPoint(Vec2(1, 0.5));
     labelRandom->setPosition(Vec2(LabelX, Height4));
@@ -129,7 +132,6 @@ bool LayerNewRoom::init()
     this->addChild(checkRandom, 1);
 
     // 房间人数
-    float Height5 = visibleSize.height - 520;
     labelRoomPlayer = Label::createWithTTF("Players Count: ", "Fonts/arial.ttf", 20);
     labelRoomPlayer->setAnchorPoint(Vec2(1, 0.5));
     labelRoomPlayer->setPosition(Vec2(LabelX, Height5));
@@ -167,7 +169,6 @@ bool LayerNewRoom::init()
 
 
     // 房间密码
-    float Height6 = visibleSize.height - 600;
     auto labelRoomPassword = Label::createWithTTF("Room Password: ", "Fonts/arial.ttf", 20);
     labelRoomPassword->setAnchorPoint(Vec2(1, 0.5));
     labelRoomPassword->setPosition(Vec2(LabelX, Height6));
@@ -190,12 +191,12 @@ bool LayerNewRoom::init()
     menu->setPosition(origin);
     // 返回菜单
     auto buttonBack = MenuItemImage::create("Graphics/System/BtnBack.png", "Graphics/System/BtnBack_click.png", CC_CALLBACK_1(LayerNewRoom::backMenu, this));
-    buttonBack->setPosition(Vec2(150, visibleSize.height - 50));
+    buttonBack->setPosition(Vec2(80, visibleSize.height - 50));
     buttonBack->setScale(0.5f);
     menu->addChild(buttonBack, 1);
     // 提交
     auto buttonCommit = MenuItemImage::create("Graphics/System/BtnCreate.png", "Graphics/System/BtnCreate_click.png", CC_CALLBACK_1(LayerNewRoom::newRoom, this));
-    buttonCommit->setPosition(Vec2(visibleSize.width / 2, 100));
+    buttonCommit->setPosition(Vec2(visibleSize.width / 2, Height7));
     buttonCommit->setScale(0.5f);
     menu->addChild(buttonCommit, 1);
 

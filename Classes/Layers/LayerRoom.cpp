@@ -12,6 +12,10 @@ bool LayerRoom::init()
 {
     visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
+    // 背景
+    auto background = Sprite::create("Graphics/Pictures/background.png");
+    background->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+    this->addChild(background);
 
     // todo 显示玩家信息和准备状态以及所选角色
     // todo 显示这个房间的游戏模式和地图
@@ -34,9 +38,8 @@ bool LayerRoom::init()
     buttonBack->setScale(0.5f);
     menu->addChild(buttonBack, 1);
     // 准备/开始
-    auto buttonReady = MenuItemImage::create("Graphics/System/BtnRegister.png", "Graphics/System/BtnRegister_click.png", CC_CALLBACK_1(LayerRoom::setReady, this));
-    buttonReady->setPosition(Vec2(visibleSize.width / 2 - 100, 100));
-    buttonReady->setScale(0.5f);
+    buttonReady = MenuItemImage::create("Graphics/System/BtnRegister.png", "Graphics/System/BtnRegister_click.png", CC_CALLBACK_1(LayerRoom::setReady, this));
+    buttonReady->setPosition(Vec2(visibleSize.width / 2, 100));
     menu->addChild(buttonReady, 1);
 
     this->addChild(menu, 1);
@@ -56,6 +59,7 @@ void LayerRoom::quitRoom(Ref* pSender)
 
 void LayerRoom::setReady(Ref* pSender)
 {
+    if (!this->getActive() || !this->buttonReady->isEnabled()) return;
     if (room.IsOwn == true) {
         auto res = Singleton<ServiceRoom>::GetInstance()->startGame();
         if (!res) {
@@ -81,12 +85,25 @@ void LayerRoom::drawInfo()
     labelTitle = Label::createWithTTF(this->room.Title, "Fonts/arial.ttf", 38);
     labelTitle->setPosition(Vec2(visibleSize.width / 2, Height1));
     this->addChild(labelTitle, 1);
+    // 地图
+    float Height2 = visibleSize.height - 150;
+    if (labelMap != nullptr) labelMap->removeFromParentAndCleanup(true);
+    labelMap = Label::createWithTTF("Map: " + this->room.GameMap, "Fonts/arial.ttf", 25);
+    labelMap->setPosition(Vec2(visibleSize.width / 2, Height2));
+    this->addChild(labelMap, 1);
+    // 模式
+    float Height3 = visibleSize.height - 200;
+    if (labelMode != nullptr) labelMode->removeFromParentAndCleanup(true);
+    labelMode = Label::createWithTTF("Map: " + this->room.Mode, "Fonts/arial.ttf", 25);
+    labelMode->setPosition(Vec2(visibleSize.width / 2, Height3));
+    this->addChild(labelMode, 1);
     // 玩家
-    float Height2 = visibleSize.height - 180;
+    float Height4 = visibleSize.height - 250;
     if (labelPlayer != nullptr) labelPlayer->removeFromParentAndCleanup(true);
-    labelPlayer = Label::createWithTTF("Player " + to_string(this->room.Players.size()) + "/" + to_string(this->room.MaxPalyer), "Fonts/arial.ttf", 38);
-    labelPlayer->setPosition(Vec2(visibleSize.width / 2, Height2));
+    labelPlayer = Label::createWithTTF("Player " + to_string(this->room.Players.size()) + "/" + to_string(this->room.MaxPalyer), "Fonts/arial.ttf", 28);
+    labelPlayer->setPosition(Vec2(visibleSize.width / 2, Height4));
     this->addChild(labelPlayer, 1);
+
 
     drawPlayers();
 }
@@ -98,9 +115,11 @@ void LayerRoom::drawPlayers() {
     }
     this->playerNode.clear();
 
-    float height = visibleSize.height - 240;
+    float height = visibleSize.height - 320;
+    bool allReady = true;
     for (auto& player : this->room.Players) {
         auto newPlayerNode = Node::create();
+        if (player.isReady == false) allReady = false;
         // 用户名
         auto labelUserName = Label::createWithTTF(player.userName, "Fonts/arial.ttf", 26);
         if (player.userId == Singleton<ServiceUser>::GetInstance()->GetUserId()) {
@@ -133,7 +152,13 @@ void LayerRoom::drawPlayers() {
         height -= 50;
     }
 
-
+    if (room.OwnId == Singleton<ServiceUser>::GetInstance()->GetUserId() && (!allReady || room.Players.size() < 2)) {
+        this->buttonReady->setEnabled(false);
+    }
+    else {
+        this->buttonReady->setEnabled(true);
+    }
+       
 }
 
 void LayerRoom::heart(float dt)

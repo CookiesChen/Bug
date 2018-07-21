@@ -14,13 +14,11 @@ bool LayerRoom::init()
     // 标题
     float Height1 = visibleSize.height - 100;
     labelTitle = Label::createWithTTF("A room", "Fonts/arial.ttf", 38);
-    labelTitle->setAnchorPoint(Vec2(0, 0));
     labelTitle->setPosition(Vec2(visibleSize.width / 2, Height1));
     this->addChild(labelTitle, 1);
     // 玩家
     float Height2 = visibleSize.height - 180;
     labelPlayer = Label::createWithTTF("Player 1/1", "Fonts/arial.ttf", 38);
-    labelPlayer->setAnchorPoint(Vec2(0, 0));
     labelPlayer->setPosition(Vec2(visibleSize.width / 2, Height2));
     this->addChild(labelPlayer, 1);
 

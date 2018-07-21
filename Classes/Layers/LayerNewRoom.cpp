@@ -2,6 +2,7 @@
 #include "LayerNewRoom.h"
 #include "ServiceAPI.h"
 #include "ServiceUser.h"
+#include "ServiceRoom.h"
 
 LayerBase* LayerNewRoom::createLayer()
 {
@@ -228,7 +229,8 @@ void LayerNewRoom::newRoom(Ref* pSender)
         if (strcmp(d["status"].GetString(), "success") == 0)
         {
             // 跳转到房间页面
-            this->updateScene();
+            Singleton<ServiceRoom>::GetInstance()->createRoom();
+            this->updateScene(Tag::SceneFromMenuToRoom);
         }
         else
         {

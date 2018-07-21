@@ -10,7 +10,7 @@ class ServiceGame
 public:
     void InitGame(int id, int port);
     void JoinRoom();
-    void SendInput(int input);
+    void SendInput(int input, float x, float y);
     void GetFrame(function<void(string)> callBack);
     void OutRoom();
 

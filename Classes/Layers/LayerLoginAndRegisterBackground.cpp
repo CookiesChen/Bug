@@ -12,6 +12,8 @@ bool LayerLoginAndRegisterBackground::init()
 
     auto background = Sprite::create("Graphics/Pictures/background.png");
     background->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
+    auto backLeaves = Sprite::create("Graphics/Pictures/back_leaves.png");
+    backLeaves->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
     float xScale = visibleSize.width / background->getContentSize().width;
     float yScale = visibleSize.height / background->getContentSize().height;
     background->setScale(xScale > yScale ? xScale : yScale);
@@ -31,6 +33,7 @@ bool LayerLoginAndRegisterBackground::init()
     this->addChild(compass_2, 2);
     this->addChild(compass_3, 1);
     this->addChild(background, 0);
+    this->addChild(backLeaves, 0);
 
     transitionCount = false;
 

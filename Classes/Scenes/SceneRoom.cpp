@@ -2,6 +2,7 @@
 #include "LayerRoom.h"
 #include "SceneMenu.h"
 #include "SceneGameRoom.h"
+#include "LayerBackground.h"
 
 Scene* SceneRoom::createScene()
 {
@@ -16,6 +17,11 @@ bool SceneRoom::init()
     }
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+    // 背景层
+    auto layerBackground = LayerBackground::createLayer();
+    this->addChild(layerBackground, 0, "Background");
+
 
     layerRoom = LayerRoom::createLayer();
     layerRoom->init();

@@ -15,10 +15,6 @@ bool LayerJoinRoom::init()
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
 
-    // 房间列表背景
-    auto background = Sprite::create("Graphics/Pictures/background.png");
-    background->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-
     // 菜单
     auto menu = Menu::create();
     menu->setPosition(origin);
@@ -54,7 +50,6 @@ bool LayerJoinRoom::init()
     this->addChild(menu, 2);
     this->addChild(currentPage, 1);
     this->addChild(maxPage, 1);
-    this->addChild(background, 1);
 
     pageNum = 1;
 

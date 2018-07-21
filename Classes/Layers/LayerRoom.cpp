@@ -12,10 +12,6 @@ bool LayerRoom::init()
 {
     visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
-    // 背景
-    auto background = Sprite::create("Graphics/Pictures/background.png");
-    background->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-    this->addChild(background);
 
     // todo 显示玩家信息和准备状态以及所选角色
     // todo 显示这个房间的游戏模式和地图

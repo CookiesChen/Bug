@@ -13,10 +13,6 @@ bool LayerNewRoom::init()
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
-    // 背景
-    auto background = Sprite::create("Graphics/Pictures/background.png");
-    background->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-    this->addChild(background);
     // 标题
     auto labelTitle = Label::createWithTTF("Create a room", "Fonts/arial.ttf", 38);
     labelTitle->setAnchorPoint(Vec2(0, 0));

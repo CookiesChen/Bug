@@ -8,6 +8,7 @@
 #include "SceneRoom.h"
 #include "ServiceUser.h"
 #include "LayerJoinRoomCard.h"
+#include "LayerBackground.h"
 Scene* SceneMenu::createScene()
 {
     return SceneMenu::create();
@@ -20,6 +21,9 @@ bool SceneMenu::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+    // 背景层
+    auto layerBackground = LayerBackground::createLayer();
+    this->addChild(layerBackground, 0, "Background");
 
     // 添加层
     layerMenu = LayerMenu::createLayer();

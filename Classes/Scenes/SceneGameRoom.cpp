@@ -90,12 +90,12 @@ void SceneGameRoom::onKeyPressed(EventKeyboard::KeyCode code, Event* event) {
     case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
     case EventKeyboard::KeyCode::KEY_CAPITAL_A:
     case EventKeyboard::KeyCode::KEY_A:
-        Singleton<ServiceGame>::GetInstance()->SendInput(1);
+        Singleton<ServiceGame>::GetInstance()->SendInput(1, 0 ,0);
         break;
     case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
     case EventKeyboard::KeyCode::KEY_CAPITAL_D:
     case EventKeyboard::KeyCode::KEY_D:
-        Singleton<ServiceGame>::GetInstance()->SendInput(2);
+        Singleton<ServiceGame>::GetInstance()->SendInput(2, 0, 0);
         break;
     }
 }
@@ -105,12 +105,12 @@ void SceneGameRoom::onKeyReleased(EventKeyboard::KeyCode code, Event* event) {
     case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
     case EventKeyboard::KeyCode::KEY_A:
     case EventKeyboard::KeyCode::KEY_CAPITAL_A:
-        Singleton<ServiceGame>::GetInstance()->SendInput(3);
+        Singleton<ServiceGame>::GetInstance()->SendInput(3, 0 , 0);
         break;
     case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
     case EventKeyboard::KeyCode::KEY_D:
     case EventKeyboard::KeyCode::KEY_CAPITAL_D:
-        Singleton<ServiceGame>::GetInstance()->SendInput(4);
+        Singleton<ServiceGame>::GetInstance()->SendInput(4, 0 ,0 );
         break;
     }
 }

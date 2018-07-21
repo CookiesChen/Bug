@@ -21,6 +21,7 @@ public:
 
     ModelRoom getRoom();
     bool IsInRoom();
+    bool createRoom();
     bool HavePassword();
 private:
     ModelRoom room;

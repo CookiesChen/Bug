@@ -27,14 +27,19 @@ void ServiceGame::JoinRoom()
     Singleton<Net>::GetInstance()->Send(req);
 }
 
-void ServiceGame::SendInput(int input)
+void ServiceGame::SendInput(int input, float x, float y)
 {
     rapidjson::Document document;
     document.SetObject();
     rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
     document.AddMember("id", id, allocator);
     document.AddMember("input", input, allocator);
+    rapidjson::Value locX, locY;
+    locX.SetFloat(x);
+    locY.SetFloat(y);
 
+    document.AddMember("x", locX, allocator);
+    document.AddMember("y", locY, allocator);
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
     document.Accept(writer);

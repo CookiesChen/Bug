@@ -8,7 +8,7 @@ Scene* SceneRoom::createScene()
 
 bool SceneRoom::init()
 {
-    if (!Scene::init())
+    if (!SceneBase::init())
     {
         return false;
     }
@@ -16,6 +16,7 @@ bool SceneRoom::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
     layerRoom = LayerRoom::createLayer();
+    layerRoom->init();
     this->addChild(layerRoom, 1);
 
     return true;

@@ -10,3 +10,4 @@ proj.win32/cookies.co
 
 # .vs
 .vs/
+*.dat

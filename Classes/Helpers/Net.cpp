@@ -11,7 +11,7 @@ Net::Net()
     curl_global_init(CURL_GLOBAL_ALL);
     std::chrono::milliseconds ms = std::chrono::duration_cast< std::chrono::milliseconds >(
         std::chrono::system_clock::now().time_since_epoch());
-    cookiesFile = "cookies" + to_string(ms.count()) + ".co";
+    cookiesFile = to_string(ms.count()) + ".dat";
 }
 
 Net::~Net()

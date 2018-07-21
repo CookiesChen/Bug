@@ -19,9 +19,9 @@ public:
     CREATE_FUNC(LayerMenu);
 
 private:
-    MenuItemLabel * buttonJoin;
-    MenuItemLabel * buttonNew;
-    MenuItemLabel * logoutButton;
+    MenuItemImage * buttonJoin;
+    MenuItemImage * buttonNew;
+    MenuItemImage * logoutButton;
 
     Label * labelUserName;
 };

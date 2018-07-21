@@ -11,7 +11,6 @@ LayerBase* LayerRoom::createLayer()
 bool LayerRoom::init()
 {
     visibleSize = Director::getInstance()->getVisibleSize();
-    auto origin = Director::getInstance()->getVisibleOrigin();
 
     // todo 显示玩家信息和准备状态以及所选角色
     // todo 显示这个房间的游戏模式和地图
@@ -25,20 +24,26 @@ bool LayerRoom::init()
     // todo 设置房间信息
     // todo 开始游戏
 
+    auto origin = Director::getInstance()->getVisibleOrigin();
     // 菜单
-    auto menu = Menu::create();
+    if (menu != nullptr) {
+        menu->removeAllChildrenWithCleanup(true);
+        menu->removeFromParentAndCleanup(true);
+    }
+    menu = Menu::create();
     menu->setPosition(origin);
     // 退出
-    auto buttonBack = MenuItemImage::create("Graphics/System/BtnBack.png", "Graphics/System/BtnBack_click.png", CC_CALLBACK_1(LayerRoom::quitRoom, this));
+    buttonBack = MenuItemImage::create("Graphics/System/BtnQuit.png", "Graphics/System/BtnQuit_click.png", CC_CALLBACK_1(LayerRoom::quitRoom, this));
     buttonBack->setPosition(Vec2(150, visibleSize.height - 50));
     buttonBack->setScale(0.5f);
     menu->addChild(buttonBack, 1);
     // 准备/开始
-    buttonReady = MenuItemImage::create("Graphics/System/BtnRegister.png", "Graphics/System/BtnRegister_click.png", CC_CALLBACK_1(LayerRoom::setReady, this));
+    buttonReady = MenuItemImage::create("Graphics/System/BtnReady.png", "Graphics/System/BtnReady_click.png", CC_CALLBACK_1(LayerRoom::setReady, this));
     buttonReady->setPosition(Vec2(visibleSize.width / 2, 100));
     menu->addChild(buttonReady, 1);
 
     this->addChild(menu, 1);
+
 
     schedule(schedule_selector(LayerRoom::heart), 1.5f, kRepeatForever, 0.0f);
     schedule(schedule_selector(LayerRoom::refreshData), 1.0f, kRepeatForever, 0.0f);
@@ -100,7 +105,16 @@ void LayerRoom::drawInfo()
     labelPlayer->setPosition(Vec2(visibleSize.width / 2, Height4));
     this->addChild(labelPlayer, 1);
 
-
+    if (room.OwnId != Singleton<ServiceUser>::GetInstance()->GetUserId()) {
+        if (this->isReady) {
+            buttonReady->setNormalImage(Sprite::create("Graphics/System/BtnReady_click.png"));
+            buttonReady->setSelectedImage(Sprite::create("Graphics/System/BtnReady_click.png"));
+        }
+        else {
+            buttonReady->setNormalImage(Sprite::create("Graphics/System/BtnReady.png"));
+            buttonReady->setSelectedImage(Sprite::create("Graphics/System/BtnReady_click.png"));
+        }
+    }
     drawPlayers();
 }
 
@@ -149,9 +163,13 @@ void LayerRoom::drawPlayers() {
     }
 
     if (room.OwnId == Singleton<ServiceUser>::GetInstance()->GetUserId() && (!allReady || room.Players.size() < 2)) {
+        buttonReady->setNormalImage(Sprite::create("Graphics/System/BtnStart_disabled.png"));
+        buttonReady->setSelectedImage(Sprite::create("Graphics/System/BtnStart_click.png"));
         this->buttonReady->setEnabled(false);
     }
-    else {
+    else if (room.OwnId == Singleton<ServiceUser>::GetInstance()->GetUserId()) {
+        buttonReady->setNormalImage(Sprite::create("Graphics/System/BtnStart.png"));
+        buttonReady->setSelectedImage(Sprite::create("Graphics/System/BtnStart_click.png"));
         this->buttonReady->setEnabled(true);
     }
        

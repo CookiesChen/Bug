@@ -28,8 +28,8 @@ bool LayerJoinRoom::init()
 
     // 按钮
     auto backButton = MenuItemImage::create("Graphics/System/BtnBack.png", "Graphics/System/BtnBack_click.png", CC_CALLBACK_1(LayerJoinRoom::backMenu, this));
-    auto prepageButton = MenuItemImage::create("Graphics/System/BtnBack.png", "Graphics/System/BtnBack_click.png", CC_CALLBACK_1(LayerJoinRoom::changePage, this, false));
-    auto nextpageButton = MenuItemImage::create("Graphics/System/BtnBack.png", "Graphics/System/BtnBack_click.png", CC_CALLBACK_1(LayerJoinRoom::changePage, this, true));
+    auto prepageButton = MenuItemImage::create("Graphics/System/BtnLastPage.png", "Graphics/System/BtnLastPage_click.png", CC_CALLBACK_1(LayerJoinRoom::changePage, this, false));
+    auto nextpageButton = MenuItemImage::create("Graphics/System/BtnNextPage.png", "Graphics/System/BtnNextPage_click.png", CC_CALLBACK_1(LayerJoinRoom::changePage, this, true));
     auto backInputNo = MenuItemImage::create("Graphics/System/BtnBack.png", "Graphics/System/BtnBack_click.png", CC_CALLBACK_1(LayerJoinRoom::backMenu, this));
 
     auto quickjoin = MenuItemLabel::create(Label::createWithTTF("Join Game", "Fonts/arial.ttf", 30), CC_CALLBACK_1(LayerJoinRoom::quickJoin, this));

@@ -27,7 +27,7 @@ bool LayerEmail::init()
     // 背景框
     auto box = Sprite::createWithSpriteFrameName("Dialog.png");
     auto codeBg = Sprite::create("Graphics/System/input.png");
-    codeBg->setOpacity(20);
+    codeBg->setScale(0.5);
 
     // 输入框
     code = TextField::create("", "Arial", 18);

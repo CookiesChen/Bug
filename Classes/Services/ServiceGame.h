@@ -5,13 +5,27 @@
 
 using namespace std;
 
+
+typedef struct {
+    int userId;
+    int input;
+    float x;
+    float y;
+    int dir;
+} frameCommand;
+
+typedef struct {
+    int FrameId;
+    vector<frameCommand> commands;
+} frameState;
+
 class ServiceGame
 {
 public:
     void InitGame(int id, int port);
     void JoinRoom();
-    void SendInput(int input, float x, float y);
-    void GetFrame(function<void(string)> callBack);
+    void SendInput(int command, float x, float y, int dir);
+    void GetFrame(function<void(vector<frameState>)> callBack);
     void OutRoom();
 
     bool GetJoinState();

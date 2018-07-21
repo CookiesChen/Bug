@@ -16,7 +16,7 @@ void ServiceGame::JoinRoom()
     rapidjson::Document document;
     document.SetObject();
     rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
-    document.AddMember("id", id, allocator);
+    document.AddMember("i", id, allocator);
 
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
@@ -27,19 +27,20 @@ void ServiceGame::JoinRoom()
     Singleton<Net>::GetInstance()->Send(req);
 }
 
-void ServiceGame::SendInput(int input, float x, float y)
+void ServiceGame::SendInput(int command, float x, float y, int dir)
 {
     rapidjson::Document document;
     document.SetObject();
     rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
-    document.AddMember("id", id, allocator);
-    document.AddMember("input", input, allocator);
-    rapidjson::Value locX, locY;
+    document.AddMember("i", this->id, allocator);
+    document.AddMember("c", command, allocator);
+    rapidjson::Value locX, locY, valDir;
     locX.SetFloat(x);
     locY.SetFloat(y);
-
+    valDir.SetInt(dir);
     document.AddMember("x", locX, allocator);
     document.AddMember("y", locY, allocator);
+    document.AddMember("d", valDir, allocator);
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
     document.Accept(writer);
@@ -49,62 +50,59 @@ void ServiceGame::SendInput(int input, float x, float y)
 }
 
 void ServiceGame::InitGame(int port, int id) {
-    frame = 0;
+    this->frame = -1;
     this->id = id;
     this->isJoin = false;
     this->isOut = false;
     this->port = port;
 }
 
-void ServiceGame::GetFrame(function<void(string)> callBack)
+void ServiceGame::GetFrame(function<void(vector<frameState>)> callBack)
 {
     while (true)
     {
-        DWORD t1, t2;
-        t1 = timeGetTime();
         string res = Singleton<Net>::GetInstance()->GetState();
-        t2 = timeGetTime();
-        stringstream ss;
-        ss << "Delay: " << (t2 - t1) * 1.0 << "ms\n";
-        log("get: %s\n", res.c_str());
-
         if (res.compare("join")) {
             this->isJoin = true;
             continue;
         }
-
         if (res.compare("out")) {
             this->isOut = true;
             continue;
         }
-
         rapidjson::Document d;
         d.Parse<0>(res.c_str());
-        if (!d["data"].IsArray()) continue;
-        int maxFrame = 0;
-        for (auto& frameState : d["data"].GetArray())
+        if (!d["d"].IsNull() && !d["d"].IsArray()) continue;
+        int maxFrame = frame;
+        vector<frameState> data;
+        for (auto& f : d["d"].GetArray())
         {
-            int i = frameState.GetObjectW()["frameID"].GetInt();
-            if (i > maxFrame)
-            {
+            int i = f.GetObjectW()["f"].GetInt();
+            if (i > maxFrame) {
+                frameState currentFrame;
                 maxFrame = i;
-                for (auto& str : frameState.GetObjectW()["commends"].GetArray())
+                for (auto& com : f.GetObjectW()["c"].GetArray())
                 {
-                    ss << "id: " << str["id"].GetInt() << '\n';
-                    ss << "input: " << str["input"].GetInt() << '\n';
+                    frameCommand currentCommand;
+                    currentCommand.userId = com["i"].GetInt();
+                    currentCommand.input = com["c"].GetInt();
+                    currentCommand.x = com["y"].GetInt();
+                    currentCommand.y = com["x"].GetInt();
+                    currentCommand.dir = com["d"].GetInt();
+                    currentFrame.commands.push_back(currentCommand);
                 }
+                data.push_back(currentFrame);
             }
         }
+        // 发送回执
         if (maxFrame > frame)
         {
             frame = maxFrame;
             rapidjson::Document document;
             document.SetObject();
             rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
-            document.AddMember("id", id, allocator);
-            document.AddMember("frame", frame, allocator);
-            CCLOG("send: %d\n", frame);
-            ss << frame << endl;
+            document.AddMember("i", id, allocator);
+            document.AddMember("f", frame, allocator);
 
             rapidjson::StringBuffer buffer;
             rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
@@ -113,7 +111,7 @@ void ServiceGame::GetFrame(function<void(string)> callBack)
             req.append(buffer.GetString());
             Singleton<Net>::GetInstance()->Send(req);
         }
-        callBack(ss.str());
+        callBack(data);
     }
 }
 

@@ -111,6 +111,9 @@
     <ClCompile Include="..\Classes\Layers\LayerBackground.cpp">
       <Filter>src\Layers</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Layers\LayerReady.cpp">
+      <Filter>src\Layers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -207,6 +210,9 @@
       <Filter>src\Services</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Layers\LayerBackground.h">
+      <Filter>src\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Layers\LayerReady.h">
       <Filter>src\Layers</Filter>
     </ClInclude>
   </ItemGroup>

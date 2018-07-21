@@ -17,6 +17,9 @@ enum Tag
     LayerFromNewUserToMenu,
     LayerFromMenuToNewUser,
 
+    LayerFromRoomToReady,
+    LayerFromReadyToRoom,
+
     // Scene
     SceneFromLoginAndRegisterToMenu,
     SceneFromMenuToLoginAndRegister,
@@ -24,6 +27,8 @@ enum Tag
 
     SceneFromRoomToMenu,
     SceneFromRoomToGame,
+
+
 
     Reversed = 9999
 };

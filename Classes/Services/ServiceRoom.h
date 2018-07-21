@@ -18,6 +18,7 @@ public:
     bool startGame();
     bool setInfo(string title, string password, string map, int maxPlayer);
     bool setOwn(string userId);
+    bool setPlay(bool isPlay);
     bool outSb(string userId);
 
     ModelRoom getRoom();

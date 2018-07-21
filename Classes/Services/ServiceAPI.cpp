@@ -193,6 +193,15 @@ rapidjson::Document ServiceAPI::SetReady(bool isReady)
     return d;
 }
 
+rapidjson::Document ServiceAPI::SetPlay(bool isPlay)
+{
+    auto res = Singleton<Net>::GetInstance()->Post(apiUrl + "/room/play/" + (isPlay ? "true" : "false"));
+    rapidjson::Document d;
+    d.Parse<0>(res.c_str());
+    return d;
+}
+
+
 rapidjson::Document ServiceAPI::SetTeam(int team)
 {
     auto res = Singleton<Net>::GetInstance()->Post(apiUrl + "/room/team/" + to_string(team));

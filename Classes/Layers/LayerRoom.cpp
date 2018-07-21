@@ -62,10 +62,8 @@ void LayerRoom::setReady(Ref* pSender)
 {
     if (!this->getActive() || !this->buttonReady->isEnabled()) return;
     if (room.IsOwn == true) {
-        auto res = Singleton<ServiceRoom>::GetInstance()->startGame();
-        if (!res) {
-            this->dialog("Can't start, because somebody is not ready or less players.");
-        }
+        Singleton<ServiceRoom>::GetInstance()->setPlay(true);
+        this->updateLayer(Tag::LayerFromRoomToReady);
     }
     else {
         auto res = Singleton<ServiceRoom>::GetInstance()->setReady(!isReady);
@@ -190,9 +188,18 @@ void LayerRoom::refreshData(float dt)
 {
     if (!this->getActive()) return;
     if (Singleton<ServiceRoom>::GetInstance()->IsInRoom()) {
-        Singleton<ServiceRoom>::GetInstance()->refreshInfo();
+        auto res = Singleton<ServiceRoom>::GetInstance()->refreshInfo();
+        if (!res) {
+            // 返回菜单
+            return;
+        }
         room = Singleton<ServiceRoom>::GetInstance()->getRoom();
-        drawInfo();
+        if (room.Playing) {
+            this->updateLayer(Tag::LayerFromRoomToReady);
+        }
+        else {
+            drawInfo();
+        }
     }
     else {
         // 返回菜单

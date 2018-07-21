@@ -30,7 +30,7 @@ bool LayerNewRoom::init()
     roomName->setPlaceHolder("Please Input Room Name");
     roomName->setText("my room");
     roomName->setMaxLengthEnabled(true);
-    roomName->setMaxLength(20);
+    roomName->setMaxLength(27);
     roomName->setAnchorPoint(Vec2(0, 0.5));
     roomName->setTextHorizontalAlignment(TextHAlignment::LEFT);
     roomName->setTextVerticalAlignment(TextVAlignment::CENTER);

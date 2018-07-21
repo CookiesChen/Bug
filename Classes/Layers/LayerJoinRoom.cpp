@@ -20,8 +20,8 @@ bool LayerJoinRoom::init()
     menu->setPosition(origin);
 
     // 页码显示
-    auto currentPage = Label::createWithTTF("0  /", "Fonts/arial.ttf", 20);
-    auto maxPage = Label::createWithTTF("0", "Fonts/arial.ttf", 20);
+    currentPage = Label::createWithTTF("0  /", "Fonts/arial.ttf", 20);
+    maxPage = Label::createWithTTF("0", "Fonts/arial.ttf", 20);
 
     currentPage->setPosition(Vec2(visibleSize.width / 2 - 10, visibleSize.height / 2 - 300));
     maxPage->setPosition(Vec2(visibleSize.width / 2 + 20, visibleSize.height / 2 - 300));
@@ -72,7 +72,8 @@ void LayerJoinRoom::getRoomList(float dt)
     auto d = Singleton<ServiceAPI>::GetInstance()->GetRoomsList(pageNum, 5);
     if (!d.HasParseError() && d.IsObject() && d.HasMember("status"))
     {
-        if (strcmp(d["status"].GetString(), "success") == 0)
+        string status(d["status"].GetString());
+        if (status == "success")
         {
             if (d["rooms"].IsNull())
             {
@@ -100,17 +101,23 @@ void LayerJoinRoom::getRoomList(float dt)
                 auto scene = (SceneMenu*)this->getParent();
                 scene->addCardLayer(r, index);
             }
+            int count = d["count"].GetInt();
+            if (count != 0)
+            {
+                currentPage->setString("1  /");
+                maxPage->setString(to_string((count + 5 - 1) / 5));
+            }
             // 根据数据生成房间列表
         }
         else
         {
-            // 参数错误的提示
+            this->dialog(string("Unknown status: ") + status);
         }
     }
     else
     {
+        this->dialog("Ooops, a system error occurs. Please check your Network.");
         // 解析失败的提示
-        return;
     }
 }
 

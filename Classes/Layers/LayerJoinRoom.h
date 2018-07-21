@@ -25,6 +25,8 @@ public:
     CREATE_FUNC(LayerJoinRoom);
 
 private:
+    Label* currentPage;
+    Label* maxPage;
     Size visibleSize;
     Vec2 origin;
     int pageNum;

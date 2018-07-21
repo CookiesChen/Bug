@@ -79,7 +79,6 @@ bool ServiceRoom::heart()
 {
     auto d = Singleton<ServiceAPI>::GetInstance()->RoomHeart();
     return d == "true" ? true : false;
-
 }
 
 

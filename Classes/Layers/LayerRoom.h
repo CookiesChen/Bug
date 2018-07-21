@@ -35,6 +35,8 @@ private:
     Label * labelMode;
     Label * labelPlayer;
     MenuItemImage * buttonReady;
+    MenuItemImage * buttonBack;
+    Menu * menu;
 };
 
 #endif // __LAYER_ROOM_H__s

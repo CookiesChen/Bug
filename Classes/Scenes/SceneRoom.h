@@ -17,6 +17,7 @@ public:
 private:
 
     LayerBase * layerRoom;
+    LayerBase * layerReady;
 };
 
 #endif //__SCENE_ROOM_H__s

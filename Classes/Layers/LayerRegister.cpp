@@ -59,10 +59,10 @@ bool LayerRegister::init()
     auto confirmBg = Sprite::create("Graphics/System/input.png");
     auto emailBg = Sprite::create("Graphics/System/input.png");
     registerBox->setScale(0.85f);
-    usernameBg->setOpacity(20);
-    passwordBg->setOpacity(20);
-    confirmBg->setOpacity(20);
-    emailBg->setOpacity(20);
+    usernameBg->setScale(0.5);
+    passwordBg->setScale(0.5);
+    emailBg->setScale(0.5);
+    confirmBg->setScale(0.5);
 
     // 按钮
     auto loginButton = MenuItemImage::create("Graphics/System/BtnBack.png", "Graphics/System/BtnBack_click.png", CC_CALLBACK_1(LayerRegister::turnToLogin, this));

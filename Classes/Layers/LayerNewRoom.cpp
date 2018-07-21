@@ -194,7 +194,7 @@ bool LayerNewRoom::init()
     buttonBack->setScale(0.5f);
     menu->addChild(buttonBack, 1);
     // 提交
-    auto buttonCommit = MenuItemImage::create("Graphics/System/BtnRegister.png", "Graphics/System/BtnRegister_click.png", CC_CALLBACK_1(LayerNewRoom::newRoom, this));
+    auto buttonCommit = MenuItemImage::create("Graphics/System/BtnCreate.png", "Graphics/System/BtnCreate_click.png", CC_CALLBACK_1(LayerNewRoom::newRoom, this));
     buttonCommit->setPosition(Vec2(visibleSize.width / 2, 100));
     buttonCommit->setScale(0.5f);
     menu->addChild(buttonCommit, 1);

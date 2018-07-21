@@ -116,6 +116,15 @@ bool ServiceRoom::startGame()
     return true;
 }
 
+
+bool ServiceRoom::setPlay(bool isPlay)
+{
+    auto d = Singleton<ServiceAPI>::GetInstance()->SetPlay(isPlay);
+    if (d.HasParseError() || !d.IsObject() || !d.HasMember("status")) return false;
+    if (strcmp(d["status"].GetString(), "success") != 0) return false;
+    return true;
+}
+
 bool ServiceRoom::setInfo(string title, string password, string map, int maxPlayer)
 {
     auto d = Singleton<ServiceAPI>::GetInstance()->SetRoomInfo(title, password, map, maxPlayer);

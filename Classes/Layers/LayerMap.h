@@ -6,9 +6,16 @@
 class LayerMap final : public LayerBase
 {
 public:
-    void movemap();
-private:
+    static LayerBase* createLayer();
+
+    virtual bool init() override;
+
+    float maxWidth;
+    float maxHeight;
     TMXTiledMap * map;
+
+    CREATE_FUNC(LayerMap);
+
 };
 
 #endif // !_LAYER_PLAYER_H

@@ -44,46 +44,86 @@ bool ServiceRoom::refreshInfo()
     room.OwnId = roomData["ownId"].GetString();
     room.IsOwn = Singleton<ServiceUser>::GetInstance()->GetUserId() == room.OwnId;
     room.Port = roomData["port"].GetInt();
+    room.IsRandom = roomData["isRandom"].GetBool();
+    room.GameMap = roomData["gameMap"].GetString();
+    room.MaxPalyer = roomData["maxPlayer"].GetInt();
+    room.Mode = roomData["mode"].GetString();
+    room.Password = roomData["password"].GetString();
+    room.Playing = roomData["playing"].GetBool();
+    if (d["players"].IsNull) return false;
+    room.players.clear();
+    for (auto& player : d["players"].GetArray()) {
+        playerInfo newPlayer;
+        auto playerData = player["player"].GetObjectW();
+        auto playerDataInfo = player["info"].GetObjectW();
+        newPlayer.userId = playerData["userId"].GetString();
+        newPlayer.gameId = playerData["gameId"].GetInt();
+        newPlayer.roleId = playerData["roleId"].GetString();
+        newPlayer.isReady = playerData["isReady"].GetString();
+        newPlayer.team = playerData["team"].GetInt();
+        newPlayer.userName = playerDataInfo["name"].GetString();
+        newPlayer.avatar = playerDataInfo["avatar"].GetString();
+        newPlayer.gender = playerDataInfo["gender"].GetInt();
+        room.players.push_back(newPlayer);
+    }
     return true;
 }
 
 bool ServiceRoom::heart()
 {
-    return false;
+    auto d = Singleton<ServiceAPI>::GetInstance()->RoomHeart();
+    return d == "true" ? true : false;
 
 }
 
 bool ServiceRoom::setTeam(int team)
 {
-    return false;
+    auto d = Singleton<ServiceAPI>::GetInstance()->SetTeam(team);
+    if (d.HasParseError() || !d.IsObject() || !d.HasMember("status")) return false;
+    if (strcmp(d["status"].GetString(), "success") != 0) return false;
+    return true;
 }
 bool ServiceRoom::setRole(string role)
 {
-    return false;
-
+    auto d = Singleton<ServiceAPI>::GetInstance()->SetRole(role);
+    if (d.HasParseError() || !d.IsObject() || !d.HasMember("status")) return false;
+    if (strcmp(d["status"].GetString(), "success") != 0) return false;
+    return true;
 }
 
 // 房主专用
 bool ServiceRoom::startGame()
 {
-
-    return false;
+    auto d = Singleton<ServiceAPI>::GetInstance()->startGame();
+    if (d.HasParseError() || !d.IsObject() || !d.HasMember("status")) return false;
+    if (strcmp(d["status"].GetString(), "success") != 0) return false;
+    return true;
 }
 
 bool ServiceRoom::setInfo(string title, string password, string map, int maxPlayer)
 {
-    return false;
-
+    auto d = Singleton<ServiceAPI>::GetInstance()->SetRoomInfo(title, password, map, maxPlayer);
+    if (d.HasParseError() || !d.IsObject() || !d.HasMember("status")) return false;
+    if (strcmp(d["status"].GetString(), "success") != 0) return false;
+    return true;
 }
 
 bool ServiceRoom::setOwn(string userId)
 {
-    return false;
-
+    auto d = Singleton<ServiceAPI>::GetInstance()->SetRoomOwn(userId);
+    if (d.HasParseError() || !d.IsObject() || !d.HasMember("status")) return false;
+    if (strcmp(d["status"].GetString(), "success") != 0) return false;
+    return true;
 }
 
 bool ServiceRoom::outSb(string userId)
 {
-    return false;
+    auto d = Singleton<ServiceAPI>::GetInstance()->OutSbfromRoom(userId);
+    if (d.HasParseError() || !d.IsObject() || !d.HasMember("status")) return false;
+    if (strcmp(d["status"].GetString(), "success") != 0) return false;
+    return true;
+}
 
+bool ServiceRoom::HavePassword() {
+    return this->room.Password == "password";
 }

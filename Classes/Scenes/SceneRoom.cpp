@@ -16,7 +16,7 @@ bool SceneRoom::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
     layerRoom = LayerRoom::createLayer();
-    
+    this->addChild(layerRoom, 1);
 
     return true;
 }

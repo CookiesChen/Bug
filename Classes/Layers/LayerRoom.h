@@ -2,6 +2,7 @@
 #define __LAYER_ROOM_H__
 
 #include "LayerBase.h"
+#include "ModelRoom.h"
 
 class LayerRoom final : public LayerBase
 {
@@ -10,12 +11,27 @@ public:
 
     virtual bool init() override;
 
-    void SetRoomId(string id);
+    void heart(float dt);
+
+    void refreshData(float dt);
+
+    void drawPlayers();
+
+    void drawInfo();
+
+    void quitRoom(Ref* pSender);
+
+    void setReady(Ref* pSender);
 
     CREATE_FUNC(LayerRoom);
 
 private:
-    string roomID;
+    Size visibleSize;
+    vector<Node*> playerNode;
+    bool isReady;
+    ModelRoom room;
+    Label * labelTitle;
+    Label * labelPlayer;
 };
 
 #endif // __LAYER_ROOM_H__s

@@ -103,6 +103,9 @@ bool LayerNewRoom::init()
         "Graphics/System/CheckBoxNode_Disable.png");
     checkRandom->setPosition(Vec2(labelRandom->getPosition().x + 50, Height4));
     checkRandom->setSelected(true);
+    //---
+    checkRandom->setEnabled(false);
+    //---
     this->addChild(checkRandom, 1);
 
     // 房间人数

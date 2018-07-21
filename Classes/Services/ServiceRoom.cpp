@@ -65,7 +65,7 @@ bool ServiceRoom::refreshInfo()
         newPlayer.userId = playerData["userId"].GetString();
         newPlayer.gameId = playerData["gameId"].GetInt();
         newPlayer.roleId = playerData["roleId"].GetString();
-        newPlayer.isReady = playerData["isReady"].GetString();
+        newPlayer.isReady = playerData["isReady"].GetBool();
         newPlayer.team = playerData["team"].GetInt();
         newPlayer.userName = playerDataInfo["name"].GetString();
         newPlayer.avatar = playerDataInfo["avatar"].GetString();
@@ -80,6 +80,16 @@ bool ServiceRoom::heart()
     auto d = Singleton<ServiceAPI>::GetInstance()->RoomHeart();
     return d == "true" ? true : false;
 
+}
+
+
+bool ServiceRoom::setReady(bool isReady)
+{
+    auto d = Singleton<ServiceAPI>::GetInstance()->SetReady(isReady);
+    if (d.HasParseError() || !d.IsObject() || !d.HasMember("status")) return false;
+    if (strcmp(d["status"].GetString(), "success") != 0) return false;
+    return true;
+    
 }
 
 bool ServiceRoom::setTeam(int team)

@@ -3,6 +3,7 @@
 
 #include "LayerBase.h"
 #include "SceneBase.h"
+#include "ModelRoom.h"
 
 class SceneMenu final : public SceneBase
 {
@@ -12,6 +13,8 @@ public:
     virtual bool init() override;
     virtual void updateLayer(Tag tag) override;
     virtual void updateScene(Tag tag) override;
+
+    void addCardLayer(ModelRoom r, int index);
 
     void updateUserInfo();
 

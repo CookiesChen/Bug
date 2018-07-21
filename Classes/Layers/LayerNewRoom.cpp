@@ -135,7 +135,7 @@ bool LayerNewRoom::init()
             break;
         case ui::Widget::TouchEventType::ENDED:
             char str[50];
-            this->playerCount = this->slider->getPercent();
+            this->playerCount = this->slider->getPercent() + 2;
             sprintf(str, "%d", this->slider->getPercent() + 2);
             this->labelRoomPlayerCount->setString(str);
             break;
@@ -143,6 +143,7 @@ bool LayerNewRoom::init()
             break;
         }
     });
+    this->playerCount = 2;
     this->addChild(slider, 1);
 
 
@@ -162,6 +163,7 @@ bool LayerNewRoom::init()
     roomPassword->setTextHorizontalAlignment(TextHAlignment::LEFT);
     roomPassword->setTextVerticalAlignment(TextVAlignment::CENTER);
     roomPassword->setPosition(Vec2(labelRoomPassword->getPosition().x + 50, Height6));
+    roomPassword->setEnabled(false);
     this->addChild(roomPassword, 1);
 
     // 菜单

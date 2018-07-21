@@ -22,6 +22,8 @@ enum Tag
     SceneFromMenuToLoginAndRegister,
     SceneFromMenuToRoom,
 
+    SceneFromRoomToMenu,
+    SceneFromRoomToGame,
 
     Reversed = 9999
 };

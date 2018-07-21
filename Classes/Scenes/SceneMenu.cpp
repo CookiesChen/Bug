@@ -7,7 +7,7 @@
 #include "SceneMenu.h"
 #include "SceneRoom.h"
 #include "ServiceUser.h"
-
+#include "LayerJoinRoomCard.h"
 Scene* SceneMenu::createScene()
 {
     return SceneMenu::create();
@@ -47,6 +47,13 @@ bool SceneMenu::init()
     }
 
     return true;
+}
+
+void SceneMenu::addCardLayer(ModelRoom r, int index) {
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    auto card = LayerJoinRoomCard::createLayerWithRoom(r);
+    card->setPosition(Vec2((visibleSize.width - card->getContentSize().width) / 2, visibleSize.height - 120 - index * card->getContentSize().height));
+    this->addChild(card, 20);
 }
 
 void SceneMenu::updateUserInfo()

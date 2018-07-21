@@ -1,5 +1,7 @@
 ﻿#include "SceneRoom.h"
 #include "LayerRoom.h"
+#include "SceneMenu.h"
+#include "SceneGameRoom.h"
 
 Scene* SceneRoom::createScene()
 {
@@ -28,5 +30,13 @@ void SceneRoom::updateLayer(Tag tag)
 
 void SceneRoom::updateScene(Tag tag)
 {
-
+    switch (tag)
+    {
+    case Tag::SceneFromRoomToGame:
+        Director::getInstance()->replaceScene(SceneGameRoom::createScene());
+        break;
+    case Tag::SceneFromRoomToMenu:
+        Director::getInstance()->replaceScene(SceneMenu::createScene());
+        break;
+    }
 }

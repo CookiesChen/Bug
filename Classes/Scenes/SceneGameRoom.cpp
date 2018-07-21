@@ -13,7 +13,7 @@ SceneBase* SceneGameRoom::createScene()
 
 bool SceneGameRoom::init()
 {
-    if (!Scene::init())
+    if (!SceneGameRoom::init())
     {
         return false;
     }

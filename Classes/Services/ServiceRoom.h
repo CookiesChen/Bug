@@ -10,6 +10,7 @@ public:
     bool refreshInfo();
     bool joinInRoom(int roomId, string password = "");
     bool setTeam(int team);
+    bool setReady(bool isReady);
     bool setRole(string role);
     bool quitRoom();
 

@@ -1,6 +1,7 @@
 ﻿#include "LayerRoom.h"
 #include "Helpers.h"
 #include "ServiceRoom.h"
+#include "ServiceUser.h"
 
 LayerBase* LayerRoom::createLayer()
 {
@@ -11,16 +12,6 @@ bool LayerRoom::init()
 {
     visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
-    // 标题
-    float Height1 = visibleSize.height - 100;
-    labelTitle = Label::createWithTTF("A room", "Fonts/arial.ttf", 38);
-    labelTitle->setPosition(Vec2(visibleSize.width / 2, Height1));
-    this->addChild(labelTitle, 1);
-    // 玩家
-    float Height2 = visibleSize.height - 180;
-    labelPlayer = Label::createWithTTF("Player 1/1", "Fonts/arial.ttf", 38);
-    labelPlayer->setPosition(Vec2(visibleSize.width / 2, Height2));
-    this->addChild(labelPlayer, 1);
 
     // todo 显示玩家信息和准备状态以及所选角色
     // todo 显示这个房间的游戏模式和地图
@@ -50,8 +41,8 @@ bool LayerRoom::init()
 
     this->addChild(menu, 1);
 
-    schedule(schedule_selector(LayerRoom::heart), 1.0f, kRepeatForever, 0);
-    schedule(schedule_selector(LayerRoom::refreshData), 2.0f, kRepeatForever, 0);
+    schedule(schedule_selector(LayerRoom::heart), 1.0f, kRepeatForever, 0.0f);
+    schedule(schedule_selector(LayerRoom::refreshData), 2.0f, kRepeatForever, 0.0f);
 
     return true;
 }
@@ -59,18 +50,44 @@ bool LayerRoom::init()
 
 void LayerRoom::quitRoom(Ref* pSender)
 {
-
+    Singleton<ServiceRoom>::GetInstance()->quitRoom();
+    this->updateScene(Tag::SceneFromRoomToMenu);
 }
 
 void LayerRoom::setReady(Ref* pSender)
 {
-
+    if (room.IsOwn == true) {
+        auto res = Singleton<ServiceRoom>::GetInstance()->startGame();
+        if (!res) {
+            this->dialog("Can't start, because somebody is not ready or less players.");
+        }
+    }
+    else {
+        auto res = Singleton<ServiceRoom>::GetInstance()->setReady(!isReady);
+        if (!res) {
+            this->dialog("Oop");
+        }
+        else {
+            this->isReady = !this->isReady;
+        }
+    }
 }
 
 void LayerRoom::drawInfo()
 {
-    labelTitle->setString(this->room.Title + "'s room");
-    labelPlayer->setString("Player " + to_string(this->room.Players.size()) + "/" + to_string(this->room.MaxPalyer));
+    // 标题
+    float Height1 = visibleSize.height - 100;
+    if (labelTitle != nullptr) labelTitle->removeFromParentAndCleanup(true);
+    labelTitle = Label::createWithTTF(this->room.Title, "Fonts/arial.ttf", 38);
+    labelTitle->setPosition(Vec2(visibleSize.width / 2, Height1));
+    this->addChild(labelTitle, 1);
+    // 玩家
+    float Height2 = visibleSize.height - 180;
+    if (labelPlayer != nullptr) labelPlayer->removeFromParentAndCleanup(true);
+    labelPlayer = Label::createWithTTF("Player " + to_string(this->room.Players.size()) + "/" + to_string(this->room.MaxPalyer), "Fonts/arial.ttf", 38);
+    labelPlayer->setPosition(Vec2(visibleSize.width / 2, Height2));
+    this->addChild(labelPlayer, 1);
+
     drawPlayers();
 }
 
@@ -81,36 +98,39 @@ void LayerRoom::drawPlayers() {
     }
     this->playerNode.clear();
 
-    auto height = 240;
+    float height = visibleSize.height - 240;
     for (auto& player : this->room.Players) {
         auto newPlayerNode = Node::create();
         // 用户名
-        auto labelUserName = Label::createWithTTF("A room", "Fonts/arial.ttf", 38);
+        auto labelUserName = Label::createWithTTF(player.userName, "Fonts/arial.ttf", 26);
+        if (player.userId == Singleton<ServiceUser>::GetInstance()->GetUserId()) {
+            labelUserName->setString(player.userName + "(Me)");
+        }
         labelUserName->setAnchorPoint(Vec2(1, 0));
         labelUserName->setPosition(Vec2(visibleSize.width / 2 - 100, height));
         newPlayerNode->addChild(labelUserName, 1);
         // 准备状态
         if (player.userId == this->room.OwnId) {
-            auto labelOwn = Label::createWithTTF("Own", "Fonts/arial.ttf", 38);
+            auto labelOwn = Label::createWithTTF("Own", "Fonts/arial.ttf", 26);
             labelOwn->setAnchorPoint(Vec2(1, 0));
             labelOwn->setPosition(Vec2(visibleSize.width / 2 + 100, height));
             newPlayerNode->addChild(labelOwn, 1);
         }
         else if (player.isReady) {
-            auto labelReady = Label::createWithTTF("Ready", "Fonts/arial.ttf", 38);
+            auto labelReady = Label::createWithTTF("Ready", "Fonts/arial.ttf", 26);
             labelReady->setAnchorPoint(Vec2(1, 0));
             labelReady->setPosition(Vec2(visibleSize.width / 2 + 100, height));
             newPlayerNode->addChild(labelReady, 1);
         }
         else {
-            auto labelReady = Label::createWithTTF("Waiting", "Fonts/arial.ttf", 38);
+            auto labelReady = Label::createWithTTF("Waiting", "Fonts/arial.ttf", 26);
             labelReady->setAnchorPoint(Vec2(1, 0));
             labelReady->setPosition(Vec2(visibleSize.width / 2 + 100, height));
             newPlayerNode->addChild(labelReady, 1);
         }
         this->playerNode.push_back(newPlayerNode);
         this->addChild(newPlayerNode, 1);
-        height += 50;
+        height -= 50;
     }
 
 

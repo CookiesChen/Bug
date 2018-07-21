@@ -2,6 +2,7 @@
 #include "LayerJoinRoom.h"
 #include "LayerJoinRoomCard.h"
 #include "ServiceAPI.h"
+#include "SceneMenu.h"
 
 LayerBase* LayerJoinRoom::createLayer()
 {
@@ -10,6 +11,7 @@ LayerBase* LayerJoinRoom::createLayer()
 
 bool LayerJoinRoom::init()
 {
+    if (!LayerBase::init()) return false;
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
 
@@ -98,9 +100,9 @@ void LayerJoinRoom::getRoomList(float dt)
                 r.Password = room["password"].GetString();
                 r.Playing = room["playing"].GetBool();
                 r.Players.reserve(room["players"].GetArray().Size());
-                auto card = LayerJoinRoomCard::createLayerWithRoom(r);
-                card->setPosition(Vec2((visibleSize.width - card->getContentSize().width) / 2, visibleSize.height - 120 - index * card->getContentSize().height));
-                this->addChild(card, 1);
+
+                auto scene = (SceneMenu*)this->getParent();
+                scene->addCardLayer(r, index);
             }
             // 根据数据生成房间列表
         }

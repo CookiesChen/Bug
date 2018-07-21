@@ -115,6 +115,7 @@ void LayerEmail::verify(Ref * pSender)
         string status(d["status"].GetString());
         if (status == "success")
         {
+            Singleton<ServiceUser>::GetInstance()->SetNikename("new_user");
             this->updateScene(Tag::SceneFromLoginAndRegisterToMenu);
         }
         else if (status == "not_login")

@@ -22,18 +22,25 @@ public:
     void checkBoxPersonCallback(cocos2d::Ref * ref, CheckBox::EventType type);
     void checkBoxTeamCallback(cocos2d::Ref * ref, CheckBox::EventType type);
     void checkBoxMapJungleCallback(cocos2d::Ref * ref, CheckBox::EventType type);
+    void checkBoxMapIslandCallback(cocos2d::Ref * ref, CheckBox::EventType type);
     
     CREATE_FUNC(LayerNewRoom);
 
 private:
     CheckBox* checkModePerson;
     CheckBox* checkModeTeam;
-    CheckBox* checkRandom;
+
     CheckBox* checkMapJungle;
+    CheckBox* checkMapIsland;
+
+    CheckBox* checkRandom;
+
     TextField* roomName;
     TextField* roomPassword;
+
     Label* labelRoomPlayer;
     Label* labelRoomPlayerCount;
+
     Slider* slider;
     int playerCount;
     string mode;

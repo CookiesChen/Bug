@@ -59,7 +59,7 @@ bool LayerJoinRoom::init()
     pageNum = 1;
 
     // 定时扫描
-    schedule(schedule_selector(LayerJoinRoom::getRoomList), 2.0f, kRepeatForever, 0);
+    schedule(schedule_selector(LayerJoinRoom::getRoomList), 1.0f, kRepeatForever, 0);
 
     return true;
 }
@@ -91,6 +91,7 @@ void LayerJoinRoom::getRoomList(float dt)
                 ModelRoom r;
                 r.Id = room["id"].GetInt();
                 r.OwnId = room["ownId"].GetString();
+                r.OwnName = room["ownName"].GetString();
                 r.Port = room["port"].GetInt();
                 r.Title = room["title"].GetString();
                 r.IsRandom = room["isRandom"].GetBool();

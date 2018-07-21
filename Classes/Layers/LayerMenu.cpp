@@ -13,6 +13,10 @@ bool LayerMenu::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
 
+    // 背景
+    auto background = Sprite::create("Graphics/Pictures/background.png");
+    background->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+
     buttonJoin = MenuItemLabel::create(Label::createWithTTF("Join Game", "Fonts/arial.ttf", 30), CC_CALLBACK_1(LayerMenu::joinRoom, this));
     buttonNew = MenuItemLabel::create(Label::createWithTTF("New Game", "Fonts/arial.ttf", 30), CC_CALLBACK_1(LayerMenu::newRoom, this));
     logoutButton = MenuItemLabel::create(Label::createWithTTF("Logout", "Fonts/arial.ttf", 20), CC_CALLBACK_1(LayerMenu::logoutEvent, this));
@@ -28,6 +32,7 @@ bool LayerMenu::init()
     menu->addChild(buttonJoin);
     menu->addChild(buttonNew);
     menu->addChild(logoutButton);
+    this->addChild(background);
 
     this->addChild(labelUserName, 1);
     this->addChild(menu, 1);

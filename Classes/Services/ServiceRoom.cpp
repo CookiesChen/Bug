@@ -14,6 +14,12 @@ bool ServiceRoom::IsInRoom()
     return this->isInRoom;
 }
 
+bool ServiceRoom::createRoom()
+{
+    this->isInRoom = true;
+    return true;
+}
+
 bool ServiceRoom::joinInRoom(int roomId, string password)
 {
     auto d = Singleton<ServiceAPI>::GetInstance()->JoinRoom(roomId, password);

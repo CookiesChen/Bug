@@ -48,7 +48,7 @@
 				<key>sourceSize</key>
 				<string>{510,240}</string>
 			</dict>
-			<key>LonInBox.png</key>
+			<key>LoginBox.png</key>
 			<dict>
 				<key>frame</key>
 				<string>{{0,390},{510,257}}</string>

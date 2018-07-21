@@ -45,7 +45,7 @@ bool SceneLoginAndRegister::init()
 
     labelVersion = Label::createWithSystemFont("Connecting to server...", "微软雅黑", 20);
     labelVersion->setAnchorPoint(Vec2(0, 0));
-    labelVersion->setPosition(Vec2(0, 0));
+    labelVersion->setPosition(Vec2(10, 10));
     this->addChild(labelVersion, 1);
 
     auto violetLogo = MenuItemImage::create("Graphics/Pictures/violet.png", "Graphics/Pictures/violet.png", CC_CALLBACK_1(SceneLoginAndRegister::website, this));

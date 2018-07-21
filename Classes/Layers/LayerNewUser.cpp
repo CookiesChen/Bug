@@ -12,10 +12,6 @@ bool LayerNewUser::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
     float LabelX = visibleSize.width / 2 - 300;
-    // 背景
-    auto background = Sprite::create("Graphics/Pictures/background.png");
-    background->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-    this->addChild(background);
     // 欢迎语
     float Height1 = visibleSize.height - 100;
     auto labelWelcome = Label::createWithTTF("Welcome to Bug World", "Fonts/arial.ttf", 30);

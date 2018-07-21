@@ -5,6 +5,8 @@
 #include <WinSock2.h>
 #include <stdio.h>
 #include <windows.h>
+#include <string>
+
 #define BUF_SIZE 4096
 
 using namespace std;
@@ -25,7 +27,7 @@ public:
 private:
     static size_t writeString(void* buffer, size_t size, size_t nmemb, void* lpVoid);
 
-    static char* cookiesFile;
+    string cookiesFile;
     SOCKET sock;
     sockaddr_in servAddr; // 服务器地址
 };

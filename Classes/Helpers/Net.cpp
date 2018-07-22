@@ -71,8 +71,8 @@ void Net::InitSocket(int port)
     // 服务器地址信息
     memset(&servAddr, 0, sizeof(servAddr));
     servAddr.sin_family = PF_INET;
-    // servAddr.sin_addr.s_addr = inet_addr("111.230.240.70");
-    servAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    servAddr.sin_addr.s_addr = inet_addr("111.230.240.70");
+    // servAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
     servAddr.sin_port = htons(port);
 }
 

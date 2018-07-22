@@ -27,6 +27,18 @@ bool SceneLoginAndRegister::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+    // 添加界面动画缓存
+    auto leaves = Animation::create();
+    for (int i = 0; i < 51; i++) {
+        char szName[100] = { 0 };
+        sprintf(szName, "Graphics/Pictures/Leaves/Armature_newAnimation_%d.png", i);
+        leaves->addSpriteFrameWithFile(szName);
+    }
+    leaves->setDelayPerUnit(1.0f / 51.0f);
+    leaves->setRestoreOriginalFrame(true);
+
+    AnimationCache::getInstance()->addAnimation(leaves, "leaves");
+
     // 添加层
     layerEmail = LayerEmail::createLayer();
     layerLogin = LayerLogin::createLayer();

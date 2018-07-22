@@ -88,6 +88,11 @@ bool LayerJoinRoomCard::init()
     auto btn = MenuItemImage::create("Graphics/System/BtnJoin.png", "Graphics/System/BtnJoin_click.png", CC_CALLBACK_1(LayerJoinRoomCard::join, this));
     btn->setScale(0.4);
     btn->setPosition(Vec2(width / 2 + 220, height / 2));
+    if (room.Players.size() == room.MaxPalyer || room.Playing)
+    {
+        btn->setNormalImage(Sprite::create("Graphics/System/BtnJoin_click.png"));
+        btn->setEnabled(false);
+    }
     auto menu = Menu::create(btn, nullptr);
     menu->setPosition(Vec2::ZERO);
 

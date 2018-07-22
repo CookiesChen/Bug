@@ -68,6 +68,7 @@ void LayerReady::waitTime(float dt)
                 p.team = player.team;
                 p.hp = 100;
                 p.sp = 100;
+                p.dead = false;
                 if (player.userId == Singleton<ServiceUser>::GetInstance()->GetUserId()) {
                     gameId = player.gameId;
                     Singleton<ServicePlayer>::GetInstance()->SetPlayer(p);

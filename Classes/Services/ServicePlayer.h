@@ -26,12 +26,16 @@ public:
 
     void PlayerAttack();
     void OthersAttack(vector<frameCommand> fcv);
+    void SetDeadPlayerById(int id);
 
 private:
     ModelPlayer Player;
     vector<ModelPlayer> other;
     Vector<SpriteFrame*> moveVector;
+    Vector<SpriteFrame*> attackVector;
     float v;
+
+    int dir_s;
 };
 
 #endif // __SERVICE_PLAYER_H__

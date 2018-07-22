@@ -11,7 +11,7 @@ using namespace std;
 class ModelPlayer final
 {
 public:
-    ModelPlayer() : hp(100), sp(100) {}
+    ModelPlayer() : hp(100), sp(100), dead(false) {}
 
     Sprite* sprite;
 
@@ -28,6 +28,7 @@ public:
     int hp;
     int sp;
     int moving;
+    bool dead;
 };
 
 #endif

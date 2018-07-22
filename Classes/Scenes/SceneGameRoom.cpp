@@ -35,17 +35,10 @@ bool SceneGameRoom::init()
     addKeyboardListener();
 
 
-    /*msgLabel = Label::createWithTTF("Msg", "Fonts/arial.ttf", 30);
-
-    msgLabel->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-
-    this->addChild(msgLabel);
-
-    srand((unsigned)time(NULL));
-
-    id = rand() % 60000;
-
-    Singleton<ServiceGame>::GetInstance()->InitGame(30082, id);*/
+    msgLabel = Label::createWithTTF("Msg", "Fonts/arial.ttf", 30);
+    msgLabel->setAnchorPoint(Vec2::ZERO);
+    msgLabel->setPosition(Vec2::ZERO);
+    this->addChild(msgLabel, 99);
 
     schedule(schedule_selector(SceneGameRoom::JoinGame), 1.0f, kRepeatForever, 0);
 
@@ -122,6 +115,7 @@ void SceneGameRoom::GetState()
                 ((LayerMapMini*)layerMapMini)->setMap(fx, fy, 1 - fs.FrameId / 200);
             }
             Singleton<ServicePlayer>::GetInstance()->MoveOthers(fs.commands);
+            Singleton<ServicePlayer>::GetInstance()->OthersAttack(fs.commands);
         }
     });
 }
@@ -175,7 +169,8 @@ void SceneGameRoom::send(float dt)
     float x = layermap->player->getPosition().x - layermap->map->getPosition().x;
     float y = layermap->player->getPosition().y - layermap->map->getPosition().y;
     Singleton<ServicePlayer>::GetInstance()->SetXYandDir(x, y, dir);
-    Singleton<ServiceGame>::GetInstance()->SendInput(0, x, y, dir);
+    Singleton<ServiceGame>::GetInstance()->SendInput(input['J'], x, y, dir);
+    input['J'] = false;
 }
 
 void SceneGameRoom::onKeyPressed(EventKeyboard::KeyCode code, Event* event)
@@ -205,6 +200,7 @@ void SceneGameRoom::onKeyPressed(EventKeyboard::KeyCode code, Event* event)
     case EventKeyboard::KeyCode::KEY_CAPITAL_J:
     case EventKeyboard::KeyCode::KEY_J:
         Singleton<ServicePlayer>::GetInstance()->PlayerAttack();
+        input['J'] = true;
         break;
     case EventKeyboard::KeyCode::KEY_CAPITAL_K:
     case EventKeyboard::KeyCode::KEY_K:
@@ -247,7 +243,6 @@ void SceneGameRoom::onKeyReleased(EventKeyboard::KeyCode code, Event* event)
         break;
     case EventKeyboard::KeyCode::KEY_CAPITAL_J:
     case EventKeyboard::KeyCode::KEY_J:
-        input['J'] = false;
         break;
     case EventKeyboard::KeyCode::KEY_CAPITAL_K:
     case EventKeyboard::KeyCode::KEY_K:
@@ -328,4 +323,18 @@ void SceneGameRoom::update(float time)
     }
     layerPoint.y = layerPoint.y - visibleSize.height / 2;
     layermap->setPosition(-layerPoint);
+
+    for (auto &p : Singleton<ServicePlayer>::GetInstance()->GetOtherPlayer())
+    {
+        if (!p.dead && p.hp <= 0) {
+            msgLabel->setString(p.userName + " deads.");
+            Singleton<ServicePlayer>::GetInstance()->SetDeadPlayerById(p.Id);
+        }
+    }
+    auto p = Singleton<ServicePlayer>::GetInstance()->GetPlayer();
+    if (!p.dead && p.hp <= 0)
+    {
+        Singleton<ServicePlayer>::GetInstance()->SetDeadPlayerById(p.Id);
+        this->dialog("You die.");
+    }
 }

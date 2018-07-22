@@ -30,6 +30,7 @@ private:
     Size visibleSize;
 
     Label * msgLabel;
+    Label * gameOverLabel;
     int id;
     int port;
 

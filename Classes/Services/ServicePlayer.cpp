@@ -7,12 +7,19 @@ void ServicePlayer::SetPlayer(ModelPlayer p)
 
 void ServicePlayer::SetPlayerSprite(Sprite * s)
 {
+    dir_s = 200;
     this->Player.sprite = s;
     for (int i = 0; i < 24; i++)
     {
         char szName[100] = { 0 };
         sprintf(szName, "Graphics/Pictures/Uang/Armature_BugMove_%d.png", i);
         moveVector.pushBack(SpriteFrame::create(szName, Rect(0, 0, 473, 620)));
+    }
+    for (int i = 0; i < 17; i++)
+    {
+        char szName[100] = { 0 };
+        sprintf(szName, "Graphics/Pictures/UangAttack/Armature_BugAttack_%d.png", i);
+        attackVector.pushBack(SpriteFrame::create(szName, Rect(0, 0, 473, 620)));
     }
 }
 
@@ -57,6 +64,7 @@ void ServicePlayer::SetXYandDir(float x, float y, int dir)
 
 void ServicePlayer::MovePlayer(int dir)
 {
+    Player.moving = 1;
     Player.sprite->getPhysicsBody()->setVelocityLimit(v);
     switch (dir)
     {
@@ -87,10 +95,11 @@ void ServicePlayer::MovePlayer(int dir)
     case 360:
         Player.sprite->getPhysicsBody()->setVelocity(Vec2::ZERO);
         Player.sprite->stopActionByTag(0);
+        Player.moving = 0;
         return;
     }
     Player.sprite->runAction(RotateTo::create(0.0f, dir));
-    if (Player.sprite->getActionByTag(0) == NULL)
+    if (Player.sprite->getActionByTag(0) == nullptr)
     {
         auto move = Animation::createWithSpriteFrames(moveVector);
         move->setDelayPerUnit(0.8f / 24.0f);
@@ -107,7 +116,7 @@ void ServicePlayer::MoveOthers(vector<frameCommand> fcv)
     {
         for (auto &p : other)
         {
-            if (p.Id == fc.userId)
+            if (p.Id == fc.userId && p.hp > 0)
             {
                 p.moving = abs(p.x - fc.x) > 1 || abs(p.y - fc.y) > 1;
                 p.x = fc.x;
@@ -149,10 +158,17 @@ void ServicePlayer::SetLowVelocity()
 
 void ServicePlayer::PlayerAttack()
 {
+    if (Player.hp <= 0 || Player.moving || Player.sprite->getActionByTag(1) != nullptr) return;
+    auto attack = Animation::createWithSpriteFrames(attackVector);
+    attack->setDelayPerUnit(0.8f / 24.0f);
+    attack->setRestoreOriginalFrame(true);
+    auto action = Animate::create(attack);
+    action->setTag(1);
+    Player.sprite->runAction(action);
     // todo 动画
     for (auto &p : other)
     {
-        if (abs(p.x - Player.x) < 100 && abs(p.y - Player.y) < 100)
+        if (abs(p.x - Player.x) < dir_s && abs(p.y - Player.y) < dir_s)
         {
             p.hp -= 10;
         }
@@ -162,4 +178,53 @@ void ServicePlayer::PlayerAttack()
 void ServicePlayer::OthersAttack(vector<frameCommand> fcv)
 {
     // todo动画
+    for (auto &fc : fcv)
+    {
+        if (fc.input == 1)
+        {
+            for (auto &p : other)
+            {
+                if (p.Id != fc.userId)
+                {
+                    if (p.hp > 0 && abs(p.x - fc.x) < dir_s && abs(p.y - fc.y) < dir_s)
+                    {
+                        p.hp -= 10;
+                    }
+                }
+                else
+                {
+                    if (p.hp <= 0 || p.moving || p.sprite->getActionByTag(1) != nullptr) continue;
+                    auto attack = Animation::createWithSpriteFrames(attackVector);
+                    attack->setDelayPerUnit(0.8f / 24.0f);
+                    attack->setRestoreOriginalFrame(true);
+                    auto action = Animate::create(attack);
+                    action->setTag(1);
+                    p.sprite->runAction(action);
+                }
+            }
+            if (Player.hp > 0 && Player.Id != fc.userId && abs(Player.x - fc.x) < dir_s && abs(Player.y - fc.y) < dir_s)
+            {
+                Player.hp -= 10;
+            }
+        }
+    }
+}
+
+void ServicePlayer::SetDeadPlayerById(int id)
+{
+    if (Player.Id == id)
+    {
+        Player.dead = true;
+        Player.sprite->removeFromParentAndCleanup(true);
+        return;
+    }
+    for (auto &p : other)
+    {
+        if (p.Id == id)
+        {
+            p.dead = true;
+            p.sprite->removeFromParentAndCleanup(true);
+            return;
+        }
+    }
 }

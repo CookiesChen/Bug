@@ -1,17 +1,16 @@
-﻿#include "LayerMap.h"
+﻿#include "LayerMapMini.h"
 
-LayerBase* LayerMap::createLayer()
+LayerBase* LayerMapMini::createLayer()
 {
-    return LayerMap::create();
+    return LayerMapMini::create();
 }
 
-bool LayerMap::init()
+bool LayerMapMini::init()
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
 
-    
-    this->addChild(map, 1);
+   
 
     return true;
 }

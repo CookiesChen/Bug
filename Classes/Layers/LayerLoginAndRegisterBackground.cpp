@@ -18,6 +18,17 @@ bool LayerLoginAndRegisterBackground::init()
     float yScale = visibleSize.height / background->getContentSize().height;
     background->setScale(xScale > yScale ? xScale : yScale);
 
+    // 界面动画
+    leaves1 = Sprite::create("Graphics/Pictures/Leaves/Armature_newAnimation_0.png");
+    leaves2 = Sprite::create("Graphics/Pictures/Leaves/Armature_newAnimation_0.png");
+    leaves3 = Sprite::create("Graphics/Pictures/Leaves/Armature_newAnimation_0.png");
+    leaves1->setPosition(Vec2(visibleSize.width / 2, visibleSize.height));
+    leaves2->runAction(RotateTo::create(0.0f, 90));
+    leaves2->setPosition(Vec2(visibleSize.width, visibleSize.height - 200));
+    leaves3->runAction(RotateTo::create(0.0f, 270));
+    leaves3->setPosition(Vec2(0, 0));
+
+
     // 罗盘
     compass_1 = Sprite::createWithSpriteFrameName("compass_1.png");
     compass_2 = Sprite::createWithSpriteFrameName("compass_2.png");
@@ -27,16 +38,18 @@ bool LayerLoginAndRegisterBackground::init()
     compass_2->setPosition(Vec2(visibleSize.width / 2, origin.y + 20));
     compass_3->setPosition(Vec2(visibleSize.width / 2, origin.y + 20));
 
-    // todo 背景图
-
     this->addChild(compass_1, 3);
     this->addChild(compass_2, 2);
     this->addChild(compass_3, 1);
     this->addChild(background, 0);
     this->addChild(backLeaves, 0);
+    this->addChild(leaves1, 0);
+    this->addChild(leaves2, 0);
+    this->addChild(leaves3, 0);
 
     transitionCount = false;
 
+    schedule(schedule_selector(LayerLoginAndRegisterBackground::animation), 1.5f, kRepeatForever, 0);
     return true;
 }
 
@@ -57,3 +70,9 @@ void LayerLoginAndRegisterBackground::transition()
     transitionCount = !transitionCount;
 }
 
+void LayerLoginAndRegisterBackground::animation(float time) {
+    auto leavesAnimation = AnimationCache::getInstance()->getAnimation("leaves");
+    leaves1->runAction(Animate::create(leavesAnimation));
+    leaves2->runAction(Animate::create(leavesAnimation));
+    leaves3->runAction(Animate::create(leavesAnimation));
+}

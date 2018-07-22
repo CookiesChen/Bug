@@ -23,7 +23,6 @@ void ServiceGame::JoinRoom()
     document.Accept(writer);
     string req = "0";
     req.append(buffer.GetString());
-    Singleton<Net>::GetInstance()->InitSocket(this->port);
     Singleton<Net>::GetInstance()->Send(req);
 }
 
@@ -55,18 +54,20 @@ void ServiceGame::InitGame(int id, int port) {
     this->isJoin = false;
     this->isOut = false;
     this->port = port;
+    Singleton<Net>::GetInstance()->InitSocket(this->port);
 }
 
 void ServiceGame::GetFrame(function<void(vector<frameState>)> callBack)
 {
     while (true)
     {
-        string res = Singleton<Net>::GetInstance()->GetState();
-        if (res.compare("join")) {
+        string res(Singleton<Net>::GetInstance()->GetState());
+        log("%s\n", res.c_str());
+        if (res == "join") {
             this->isJoin = true;
             continue;
         }
-        if (res.compare("out")) {
+        if (res == "out") {
             this->isOut = true;
             continue;
         }
@@ -86,8 +87,8 @@ void ServiceGame::GetFrame(function<void(vector<frameState>)> callBack)
                     frameCommand currentCommand;
                     currentCommand.userId = com["i"].GetInt();
                     currentCommand.input = com["c"].GetInt();
-                    currentCommand.x = com["y"].GetInt();
-                    currentCommand.y = com["x"].GetInt();
+                    currentCommand.x = com["x"].GetInt();
+                    currentCommand.y = com["y"].GetInt();
                     currentCommand.dir = com["d"].GetInt();
                     currentFrame.commands.push_back(currentCommand);
                 }

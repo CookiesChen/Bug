@@ -103,12 +103,7 @@ bool SceneGameRoom::init()
 
 void SceneGameRoom::GetState()
 {
-    while (!Singleton<ServiceGame>::GetInstance()->GetJoinState()) {
-        Sleep(500);
-        log("Try Again");
-    }
     Singleton<ServiceGame>::GetInstance()->GetFrame([&](vector<frameState> fsv) -> void {
-        log("frame: %d", fsv.size());
         for (auto &fs : fsv)
         {
             Singleton<ServicePlayer>::GetInstance()->MoveOthers(fs.commands);

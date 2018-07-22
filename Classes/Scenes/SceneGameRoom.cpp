@@ -47,7 +47,7 @@ bool SceneGameRoom::init()
 
     schedule(schedule_selector(SceneGameRoom::JoinGame), 1.0f, kRepeatForever, 0);
 
-    // auto t = new std::thread(&SceneGameRoom::GetState, this);
+    auto t = new std::thread(&SceneGameRoom::GetState, this);
 
     layermap = (LayerMap*) LayerMap::createLayer();
     layerMapMini = LayerMapMini::createLayer();
@@ -98,9 +98,6 @@ bool SceneGameRoom::init()
 
 void SceneGameRoom::GetState()
 {
-    while (!Singleton<ServiceGame>::GetInstance()->GetJoinState()) {
-        Sleep(500);
-    }
     Singleton<ServiceGame>::GetInstance()->GetFrame([&](vector<frameState> fsv) -> void {
         for (auto &fs : fsv)
         {

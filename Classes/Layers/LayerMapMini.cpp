@@ -14,8 +14,8 @@ bool LayerMapMini::init()
     mapBack->setScale(0.3);
     mapBack->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 80));
     this->addChild(mapBack, 1);
-    setMap(8,8, 0.7);
-    setPlayer(12, 12);
+    setMap(0.5,0.3, 0.7);
+    setPlayer(0.5, 0.7);
 
     return true;
 }
@@ -23,9 +23,13 @@ bool LayerMapMini::init()
 void LayerMapMini::setPlayer(float x, float y)
 {
     if (player != nullptr) player->removeFromParentAndCleanup(true);
-    player = Sprite::create("Graphics/System/SliderNode_Press.png");
-    player->setPosition(x, y);
-    this->addChild(player);
+    player = Sprite::create("Graphics/System/playerPoint.png");
+    float xBegin = 828;
+    float yBegin = 622;
+    x = xBegin + x * 193;
+    y = yBegin + y * 137;
+    player->setPosition(Vec2(x, y));
+    this->addChild(player, 20);
 }
 
 
@@ -39,6 +43,10 @@ void LayerMapMini::setMap(float x, float y, float pre)
     //多边形定点个数;
     Vec2 points[720];
     //圆心，相对坐标;
+    float xBegin = 0;
+    float yBegin = 0;
+    x = xBegin + (x - 0.5) * 193;
+    y = yBegin + (y - 0.5) * 137;
     Vec2 center(x, y);
     //半径;
     float R = 100 * pre;

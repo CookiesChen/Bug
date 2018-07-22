@@ -6,6 +6,7 @@
 #include "SceneGameRoom.h"
 #include "ServiceGame.h"
 #include "ServicePlayer.h"
+#include "LayerMapMini.h"
 
 Scene* SceneGameRoom::createPhysicsScene()
 {
@@ -49,6 +50,8 @@ bool SceneGameRoom::init()
     auto t = new std::thread(&SceneGameRoom::GetState, this);
 
     layermap = (LayerMap*) LayerMap::createLayer();
+    layerMapMini = LayerMapMini::createLayer();
+    this->addChild(layerMapMini,10);
     layermap->setContentSize(layermap->map->getContentSize());
 
     // 随机初始位置

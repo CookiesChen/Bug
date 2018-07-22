@@ -32,6 +32,7 @@ private:
     int port;
 
     LayerMap* layermap;
+    LayerBase* layerMapMini;
     Scene* physicsScene;
 
     Vec2 offset;

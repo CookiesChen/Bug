@@ -45,7 +45,7 @@ void SceneRoom::updateLayer(Tag tag)
         layerReady->setActive(true);
         ((LayerReady*)layerReady)->beginReady();
         layerRoom->setVisible(false);
-        layerRoom->setActive(true);
+        layerRoom->setActive(false);
         break;
     case Tag::LayerFromReadyToRoom:
         layerReady->setVisible(false);

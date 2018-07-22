@@ -213,7 +213,8 @@ void LayerRoom::refreshData(float dt)
     if (Singleton<ServiceRoom>::GetInstance()->IsInRoom()) {
         auto res = Singleton<ServiceRoom>::GetInstance()->refreshInfo();
         if (!res) {
-            // 返回菜单
+            Singleton<ServiceRoom>::GetInstance()->quitRoom();
+            this->updateScene(Tag::SceneFromRoomToMenu);
             return;
         }
         room = Singleton<ServiceRoom>::GetInstance()->getRoom();
@@ -226,5 +227,7 @@ void LayerRoom::refreshData(float dt)
     }
     else {
         // 返回菜单
+        Singleton<ServiceRoom>::GetInstance()->quitRoom();
+        this->updateScene(Tag::SceneFromRoomToMenu);
     }
 }

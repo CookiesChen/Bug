@@ -165,10 +165,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Layers\LayerNewRoom.cpp" />
     <ClCompile Include="..\Classes\Layers\LayerNewUser.cpp" />
     <ClCompile Include="..\Classes\Layers\LayerReady.cpp" />
-    <ClCompile Include="..\Classes\Layers\LayerPlayer.cpp" />
     <ClCompile Include="..\Classes\Layers\LayerRegister.cpp" />
     <ClCompile Include="..\Classes\Layers\LayerRole.cpp" />
     <ClCompile Include="..\Classes\Layers\LayerRoom.cpp" />
+    <ClCompile Include="..\Classes\Models\ModelPlayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\SceneGameRoom.cpp" />
     <ClCompile Include="..\Classes\Scenes\SceneBase.cpp" />
     <ClCompile Include="..\Classes\Scenes\SceneLoginAndRegister.cpp" />
@@ -200,7 +200,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Layers\LayerNewRoom.h" />
     <ClInclude Include="..\Classes\Layers\LayerNewUser.h" />
     <ClInclude Include="..\Classes\Layers\LayerReady.h" />
-    <ClInclude Include="..\Classes\Layers\LayerPlayer.h" />
     <ClInclude Include="..\Classes\Layers\LayerRegister.h" />
     <ClInclude Include="..\Classes\Layers\LayerRole.h" />
     <ClInclude Include="..\Classes\Layers\LayerRoom.h" />

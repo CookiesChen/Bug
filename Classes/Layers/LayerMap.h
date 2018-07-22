@@ -2,6 +2,7 @@
 #define _LAYER_MAP_H__
 
 #include "LayerBase.h"
+#include "ModelPlayer.h"
 
 class LayerMap final : public LayerBase
 {
@@ -13,6 +14,7 @@ public:
     float maxWidth;
     float maxHeight;
     TMXTiledMap * map;
+    ModelPlayer* player;
 
     CREATE_FUNC(LayerMap);
 

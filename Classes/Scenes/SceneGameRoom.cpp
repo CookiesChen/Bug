@@ -115,6 +115,7 @@ void SceneGameRoom::updateMiniMap(float dt)
         if ((px - fx)  * (px - fx) + (py - fy) * (py - fy) > dis) {
             auto p = Singleton<ServicePlayer>::GetInstance()->GetPlayer();
             p.hp--;
+            Singleton<ServiceGame>::GetInstance()->SendInput(2, 0, 0, 0);
             Singleton<ServicePlayer>::GetInstance()->SetPlayer(p);
         }
         ((LayerMapMini*)layerMapMini)->setMap(fx, fy, dis);

@@ -114,6 +114,7 @@ void ServicePlayer::MoveOthers(vector<frameCommand> fcv)
 {
     for (auto &fc : fcv)
     {
+        if (fc.input == 2) continue;
         for (auto &p : other)
         {
             if (p.Id == fc.userId && p.hp > 0)
@@ -197,6 +198,16 @@ void ServicePlayer::OthersAttack(vector<frameCommand> fcv)
             if (Player.hp > 0 && Player.Id != fc.userId && abs(Player.x - fc.x) < dir_s && abs(Player.y - fc.y) < dir_s)
             {
                 Player.hp -= 10;
+            }
+        }
+        else if (fc.input == 2)
+        {
+            for (auto &p : other)
+            {
+                if (p.Id == fc.userId)
+                {
+                    p.hp--;
+                }
             }
         }
     }

@@ -15,13 +15,17 @@ bool LayerMapMini::init()
     mapBack->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 80));
     this->addChild(mapBack, 1);
     setMap(8,8, 0.7);
+    setPlayer(12, 12);
 
     return true;
 }
 
 void LayerMapMini::setPlayer(float x, float y)
 {
-    // auto player =
+    if (player != nullptr) player->removeFromParentAndCleanup(true);
+    player = Sprite::create("Graphics/System/SliderNode_Press.png");
+    player->setPosition(x, y);
+    this->addChild(player);
 }
 
 

@@ -19,6 +19,7 @@ public:
 private:
     Node * mapBack;
     ClippingNode * clipper;
+    Sprite* player;
 };
 
 #endif // !_LAYER_MAP_MINI_H__

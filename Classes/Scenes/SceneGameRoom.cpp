@@ -98,6 +98,9 @@ bool SceneGameRoom::init()
 
 void SceneGameRoom::GetState()
 {
+    while (!Singleton<ServiceGame>::GetInstance()->GetJoinState()) {
+        Sleep(500);
+    }
     Singleton<ServiceGame>::GetInstance()->GetFrame([&](vector<frameState> fsv) -> void {
         for (auto &fs : fsv)
         {

@@ -116,7 +116,8 @@ void ServicePlayer::MoveOthers(vector<frameCommand> fcv)
                 p.x = fc.x;
                 p.y = fc.y;
                 p.dir = fc.dir;
-                p.sprite->setPosition(Vec2(p.x - Player.x, p.y - Player.y));
+                log("test: p(%d,%d) Player(%d,%d) Player.sprite(%d,%d)", p.x, p.y, Player.x, Player.y, Player.sprite->getPosition().x, Player.sprite->getPosition().y);
+                p.sprite->setPosition(Vec2(p.x - Player.x + Player.sprite->getPosition().x, p.y - Player.y + Player.sprite->getPosition().y));
                 p.sprite->setRotation(p.dir);
                 if (p.moving)
                 {

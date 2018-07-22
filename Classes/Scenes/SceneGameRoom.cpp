@@ -3,10 +3,12 @@
 #include "SimpleAudioEngine.h"
 
 #include "Helpers.h"
+#include "LayerMapMini.h"
+#include "LayerState.h"
 #include "SceneGameRoom.h"
 #include "ServiceGame.h"
 #include "ServicePlayer.h"
-#include "LayerMapMini.h"
+
 
 Scene* SceneGameRoom::createPhysicsScene()
 {
@@ -47,12 +49,15 @@ bool SceneGameRoom::init()
 
     schedule(schedule_selector(SceneGameRoom::JoinGame), 1.0f, kRepeatForever, 0);
 
-    // auto t = new std::thread(&SceneGameRoom::GetState, this);
+    auto t = new std::thread(&SceneGameRoom::GetState, this);
 
     layermap = (LayerMap*) LayerMap::createLayer();
-    layerMapMini = LayerMapMini::createLayer();
-    this->addChild(layerMapMini,10);
     layermap->setContentSize(layermap->map->getContentSize());
+
+    layerMapMini = LayerMapMini::createLayer();
+    layerState = LayerState::createLayer();
+    this->addChild(layerMapMini, 10);
+    this->addChild(layerState, 11);
 
     // 随机初始位置
     auto randomx = random(1, 9) / 10.0f * layermap->maxWidth;
@@ -98,9 +103,6 @@ bool SceneGameRoom::init()
 
 void SceneGameRoom::GetState()
 {
-    while (!Singleton<ServiceGame>::GetInstance()->GetJoinState()) {
-        Sleep(500);
-    }
     Singleton<ServiceGame>::GetInstance()->GetFrame([&](vector<frameState> fsv) -> void {
         for (auto &fs : fsv)
         {
@@ -121,6 +123,7 @@ void SceneGameRoom::JoinGame(float dt)
     {
         // 重连中
         // msgLabel->setString("joining...");
+        log("try");
         Singleton<ServiceGame>::GetInstance()->JoinRoom();
     }
 }
@@ -191,8 +194,8 @@ void SceneGameRoom::onKeyPressed(EventKeyboard::KeyCode code, Event* event)
         break;
     }
     int dir = move();
-    float x = layermap->map->getPosition().x;
-    float y = layermap->map->getPosition().y;
+    float x = layermap->player->getPosition().x - layermap->map->getPosition().x;
+    float y = layermap->player->getPosition().y - layermap->map->getPosition().y;
     Singleton<ServicePlayer>::GetInstance()->SetXYandDir(x, y, dir);
     Singleton<ServiceGame>::GetInstance()->SendInput(0, x, y, dir);
 }
@@ -238,8 +241,8 @@ void SceneGameRoom::onKeyReleased(EventKeyboard::KeyCode code, Event* event)
         break;
     }
     int dir = move();
-    float x = layermap->map->getPosition().x;
-    float y = layermap->map->getPosition().y;
+    float x = layermap->player->getPosition().x - layermap->map->getPosition().x;
+    float y = layermap->player->getPosition().y - layermap->map->getPosition().y;
     auto p = Singleton<ServicePlayer>::GetInstance()->GetPlayer();
     if (x != p.x || y != p.y || dir != p.dir)
     {

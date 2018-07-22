@@ -95,10 +95,15 @@ string Net::GetState()
     int addrLen = sizeof(fromAddr);
     char buffer[BUF_SIZE] = { 0 };
     int strLen = recvfrom(sock, buffer, BUF_SIZE, 0, &fromAddr, &addrLen);
+    while (strLen == -1) {
+        strLen = recvfrom(sock, buffer, BUF_SIZE, 0, &fromAddr, &addrLen);
+        Sleep(100);
+    }
     if (strLen > BUF_SIZE) {
         return "";
     }
     buffer[strLen] = 0;
+    cocos2d::log("%s", buffer);
     return string(buffer);
 }
 

@@ -57,6 +57,7 @@ void ServiceGame::InitGame(int id, int port) {
     Singleton<Net>::GetInstance()->InitSocket(this->port);
 }
 
+
 void ServiceGame::GetFrame(function<void(vector<frameState>)> callBack)
 {
     while (true)

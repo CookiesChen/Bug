@@ -35,7 +35,7 @@ bool SceneGameRoom::init()
     addKeyboardListener();
 
 
-    msgLabel = Label::createWithTTF("Msg", "Fonts/arial.ttf", 30);
+    msgLabel = Label::createWithTTF("", "Fonts/arial.ttf", 30);
     msgLabel->setAnchorPoint(Vec2::ZERO);
     msgLabel->setPosition(Vec2::ZERO);
     this->addChild(msgLabel, 99);
@@ -171,7 +171,7 @@ void SceneGameRoom::ExitGame(float dt)
 // 添加键盘事件监听器
 void SceneGameRoom::addKeyboardListener()
 {
-    auto keyboardListener = EventListenerKeyboard::create();
+    keyboardListener = EventListenerKeyboard::create();
     keyboardListener->onKeyPressed = CC_CALLBACK_2(SceneGameRoom::onKeyPressed, this);
     keyboardListener->onKeyReleased = CC_CALLBACK_2(SceneGameRoom::onKeyReleased, this);
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyboardListener, this);
@@ -184,8 +184,15 @@ void SceneGameRoom::send(float dt)
     float x = layermap->player->getPosition().x - layermap->map->getPosition().x;
     float y = layermap->player->getPosition().y - layermap->map->getPosition().y;
     Singleton<ServicePlayer>::GetInstance()->SetXYandDir(x, y, dir);
-    Singleton<ServiceGame>::GetInstance()->SendInput(input['J'], x, y, dir);
-    input['J'] = false;
+    if (input['J'])
+    {
+        Singleton<ServiceGame>::GetInstance()->SendInput(1, x, y, dir);
+        input['J'] = false;
+    }
+    else
+    {
+        Singleton<ServiceGame>::GetInstance()->SendInput(0, x, y, dir);
+    }
 }
 
 void SceneGameRoom::onKeyPressed(EventKeyboard::KeyCode code, Event* event)
@@ -350,6 +357,7 @@ void SceneGameRoom::update(float time)
     if (!p.dead && p.hp <= 0)
     {
         Singleton<ServicePlayer>::GetInstance()->SetDeadPlayerById(p.Id);
+        this->getEventDispatcher()->removeEventListener(keyboardListener);
         this->dialog("You die.");
     }
 }

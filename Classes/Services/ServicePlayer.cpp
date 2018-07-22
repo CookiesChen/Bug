@@ -165,14 +165,6 @@ void ServicePlayer::PlayerAttack()
     auto action = Animate::create(attack);
     action->setTag(1);
     Player.sprite->runAction(action);
-    // todo 动画
-    for (auto &p : other)
-    {
-        if (abs(p.x - Player.x) < dir_s && abs(p.y - Player.y) < dir_s)
-        {
-            p.hp -= 10;
-        }
-    }
 }
 
 void ServicePlayer::OthersAttack(vector<frameCommand> fcv)
@@ -215,7 +207,6 @@ void ServicePlayer::SetDeadPlayerById(int id)
     if (Player.Id == id)
     {
         Player.dead = true;
-        Player.sprite->removeFromParentAndCleanup(true);
         return;
     }
     for (auto &p : other)

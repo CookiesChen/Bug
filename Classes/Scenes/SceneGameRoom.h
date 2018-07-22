@@ -31,6 +31,7 @@ private:
 
     Label * msgLabel;
     Label * gameOverLabel;
+    EventListenerKeyboard* keyboardListener;
     int id;
     int port;
 

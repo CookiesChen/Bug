@@ -11,7 +11,6 @@ public:
 
     virtual bool init() override;
 
-    void heart(float dt);
 
     void refreshData(float dt);
 
@@ -34,6 +33,7 @@ private:
     Label * labelMap;
     Label * labelMode;
     Label * labelPlayer;
+    Label * labelWaiting;
     MenuItemImage * buttonReady;
     MenuItemImage * buttonBack;
     Menu * menu;

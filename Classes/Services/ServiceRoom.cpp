@@ -2,7 +2,8 @@
 #include "ServiceUser.h"
 #include "Helpers.h"
 #include "ServiceAPI.h"
-
+#include <thread>
+#include "cocos2d.h"
 
 ModelRoom ServiceRoom::getRoom()
 {
@@ -17,6 +18,7 @@ bool ServiceRoom::IsInRoom()
 bool ServiceRoom::createRoom()
 {
     this->isInRoom = true;
+    startHeart();
     return true;
 }
 
@@ -26,6 +28,7 @@ bool ServiceRoom::joinInRoom(int roomId, string password)
     if (d.HasParseError() || !d.IsObject() || !d.HasMember("status")) return false;
     if (strcmp(d["status"].GetString(), "success") != 0) return false;
     this->isInRoom = true;
+    startHeart();
     return true;
 }
 
@@ -148,6 +151,33 @@ bool ServiceRoom::outSb(string userId)
     return true;
 }
 
-bool ServiceRoom::HavePassword() {
+bool ServiceRoom::HavePassword()
+{
     return this->room.Password == "password";
+}
+
+void ServiceRoom::startHeart()
+{
+    isStopHeart = false;
+    auto t = new std::thread(&ServiceRoom::heartLoop, this);
+}
+
+void ServiceRoom::heartLoop()
+{
+    while (1) {
+        Sleep(1599);
+        if (IsInRoom() && !isStopHeart) {
+            heart();
+            cocos2d::log("heart");
+        }
+        else {
+            isStopHeart = false;
+            break;
+        }
+    }
+}
+
+void ServiceRoom::stopHeart()
+{
+    this->isStopHeart = true;
 }

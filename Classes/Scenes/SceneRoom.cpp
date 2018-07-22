@@ -26,7 +26,7 @@ bool SceneRoom::init()
 
     layerRoom = LayerRoom::createLayer();
     layerReady = LayerReady::createLayer();
-    layerRoom->init();
+
     this->addChild(layerRoom, 1);
     this->addChild(layerReady, 1);
 
@@ -45,7 +45,7 @@ void SceneRoom::updateLayer(Tag tag)
         layerReady->setActive(true);
         ((LayerReady*)layerReady)->beginReady();
         layerRoom->setVisible(false);
-        layerRoom->setActive(false);
+        layerRoom->setActive(true);
         break;
     case Tag::LayerFromReadyToRoom:
         layerReady->setVisible(false);

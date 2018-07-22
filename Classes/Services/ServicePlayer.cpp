@@ -146,3 +146,20 @@ void ServicePlayer::SetLowVelocity()
 {
     v = 300;
 }
+
+void ServicePlayer::PlayerAttack()
+{
+    // todo 动画
+    for (auto &p : other)
+    {
+        if (abs(p.x - Player.x) < 100 && abs(p.y - Player.y) < 100)
+        {
+            p.hp -= 10;
+        }
+    }
+}
+
+void ServicePlayer::OthersAttack(vector<frameCommand> fcv)
+{
+    // todo动画
+}

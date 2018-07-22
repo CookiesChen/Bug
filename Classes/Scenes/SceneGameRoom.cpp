@@ -207,7 +207,7 @@ void SceneGameRoom::onKeyPressed(EventKeyboard::KeyCode code, Event* event)
         break;
     case EventKeyboard::KeyCode::KEY_CAPITAL_J:
     case EventKeyboard::KeyCode::KEY_J:
-        input['J'] = true;
+        Singleton<ServicePlayer>::GetInstance()->PlayerAttack();
         break;
     case EventKeyboard::KeyCode::KEY_CAPITAL_K:
     case EventKeyboard::KeyCode::KEY_K:

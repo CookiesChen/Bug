@@ -11,6 +11,8 @@ using namespace std;
 class ModelPlayer final
 {
 public:
+    ModelPlayer() : hp(100), sp(100) {}
+
     Sprite* sprite;
 
     int Id;

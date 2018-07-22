@@ -21,6 +21,8 @@ typedef struct
 class ModelRoom final
 {
 public:
+    int fireX;
+    int fireY;
     int Id;
     string OwnId;
     string OwnName;

@@ -1,6 +1,7 @@
 ﻿#include "Helpers.h"
 #include "LayerRegister.h"
 #include "ServiceAPI.h"
+#include "ServiceUser.h"
 
 LayerBase* LayerRegister::createLayer()
 {
@@ -129,6 +130,7 @@ void LayerRegister::registerEvent(Ref* pSender)
         string status(d["status"].GetString());
         if (status == "success")
         {
+            Singleton<ServiceUser>::GetInstance()->SetEmail(email->getString());
             this->updateLayer(Tag::LayerFromLoginOrRegisterToEmail);
         }
         else if (status == "invalid_email")

@@ -24,6 +24,7 @@ public:
 
 private:
     int move();
+    void send(float dt);
 
     Size visibleSize;
 

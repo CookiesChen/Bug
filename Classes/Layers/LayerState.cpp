@@ -1,4 +1,6 @@
-﻿#include "LayerState.h"
+﻿#include "Helpers.h"
+#include "LayerState.h"
+#include "ServicePlayer.h"
 
 LayerBase* LayerState::createLayer()
 {
@@ -39,5 +41,21 @@ bool LayerState::init()
     this->addChild(spBar, 0);
     this->addChild(hpBar, 0);
 
+    this->schedule(schedule_selector(LayerState::update), 1.0f / 20, kRepeatForever, 0);
+
     return true;
+}
+
+void LayerState::update(float dt)
+{
+    int hp = Singleton<ServicePlayer>::GetInstance()->GetPlayer().hp;
+    int sp = Singleton<ServicePlayer>::GetInstance()->GetPlayer().sp;
+    if (hp != hpBar->getPercentage())
+    {
+        hpBar->setPercentage(hp);
+    }
+    if (sp != spBar->getPercentage())
+    {
+        spBar->setPercentage(sp);
+    }
 }

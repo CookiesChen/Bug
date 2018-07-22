@@ -83,6 +83,7 @@ void ServiceGame::GetFrame(function<void(vector<frameState>)> callBack)
             int i = frameD["f"].GetInt();
             if (i > maxFrame) {
                 frameState currentFrame;
+                currentFrame.FrameId = i;
                 maxFrame = i;
                 for (auto& com : frameD["c"].GetArray())
                 {

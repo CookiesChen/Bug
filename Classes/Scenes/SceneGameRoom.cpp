@@ -96,7 +96,7 @@ bool SceneGameRoom::init()
 
     this->addChild(layermap);
 
-    schedule(schedule_selector(SceneGameRoom::updateMiniMap), 1.0f, kRepeatForever, 0);
+    schedule(schedule_selector(SceneGameRoom::updateMiniMap), 0.5f, kRepeatForever, 0);
 
     schedule(schedule_selector(SceneGameRoom::update), 1.0f / 60.0f, kRepeatForever, 0);
     schedule(schedule_selector(SceneGameRoom::send), 1.0f / 20, kRepeatForever, 0);
@@ -106,6 +106,14 @@ bool SceneGameRoom::init()
 
 void SceneGameRoom::updateMiniMap(float dt)
 {
+    int frame = Singleton<ServiceGame>::GetInstance()->frame;
+    if (frame < 10000) {
+        float fx = (Singleton<ServiceGame>::GetInstance())->fireX;
+        float fy = (Singleton<ServiceGame>::GetInstance())->fireY;
+        (Singleton<ServiceGame>::GetInstance())->fireDis = 2.0f - (frame / 5000.0f);
+        log("%f", (Singleton<ServiceGame>::GetInstance())->fireDis);
+        ((LayerMapMini*)layerMapMini)->setMap(fx, fy, (Singleton<ServiceGame>::GetInstance())->fireDis);
+    }
     float x = layermap->player->getPosition().x - layermap->map->getPosition().x;
     float y = layermap->player->getPosition().y - layermap->map->getPosition().y;
     ((LayerMapMini*)layerMapMini)->setPlayer(x / 5120.0f, y / 3840.0f);
@@ -116,11 +124,6 @@ void SceneGameRoom::GetState()
     Singleton<ServiceGame>::GetInstance()->GetFrame([&](vector<frameState> fsv) -> void {
         for (auto &fs : fsv)
         {
-            if (fs.FrameId % 100 == 0 && fs.FrameId < 2000) {
-                float fx = (Singleton<ServiceGame>::GetInstance())->fireX;
-                float fy = (Singleton<ServiceGame>::GetInstance())->fireY;
-                ((LayerMapMini*)layerMapMini)->setMap(fx, fy, 1 - fs.FrameId / 200);
-            }
             Singleton<ServicePlayer>::GetInstance()->MoveOthers(fs.commands);
         }
     });
@@ -204,7 +207,7 @@ void SceneGameRoom::onKeyPressed(EventKeyboard::KeyCode code, Event* event)
         break;
     case EventKeyboard::KeyCode::KEY_CAPITAL_J:
     case EventKeyboard::KeyCode::KEY_J:
-        input['J'] = true;
+        Singleton<ServicePlayer>::GetInstance()->PlayerAttack();
         break;
     case EventKeyboard::KeyCode::KEY_CAPITAL_K:
     case EventKeyboard::KeyCode::KEY_K:

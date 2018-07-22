@@ -10,14 +10,16 @@ public:
 
     virtual bool init() override;
 
-    void setMap(int pre);
+    void setMap(float x, float y, float pre);
 
+    void setPlayer(float x, float y);
 
     CREATE_FUNC(LayerMapMini);
 
 private:
     Node * mapBack;
     ClippingNode * clipper;
+    Sprite* player;
 };
 
 #endif // !_LAYER_MAP_MINI_H__

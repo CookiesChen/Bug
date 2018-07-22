@@ -23,7 +23,7 @@ public:
     CREATE_FUNC(SceneGameRoom);
 
 private:
-    void move();
+    int move();
 
     Size visibleSize;
 
@@ -32,6 +32,7 @@ private:
     int port;
 
     LayerMap* layermap;
+    LayerBase* layerMapMini;
     Scene* physicsScene;
 
     Vec2 offset;

@@ -30,6 +30,7 @@ private:
     Size visibleSize;
     Vec2 origin;
     int pageNum;
+    int maxPageNum;
 };
 
 #endif // __LAYER_JOIN_ROOM_H__

@@ -44,7 +44,7 @@ void LayerReady::waitTime(float dt)
         auto room = Singleton<ServiceRoom>::GetInstance()->getRoom();
 
         // 如果是房主
-        if (room.OwnId != Singleton<ServiceUser>::GetInstance()->GetUserId()) {
+        if (room.OwnId == Singleton<ServiceUser>::GetInstance()->GetUserId()) {
             Singleton<ServiceRoom>::GetInstance()->startGame();
         }
         if (!room.Playing) {

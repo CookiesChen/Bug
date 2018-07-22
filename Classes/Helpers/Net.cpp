@@ -17,6 +17,7 @@ Net::Net()
 Net::~Net()
 {
     curl_global_cleanup();
+    remove(cookiesFile.c_str());
 }
 
 string Net::Get(string url, string query)

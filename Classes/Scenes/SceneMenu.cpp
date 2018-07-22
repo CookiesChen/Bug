@@ -61,6 +61,15 @@ void SceneMenu::addCardLayer(ModelRoom r, int index) {
     cards.push_back(card);
 }
 
+void SceneMenu::removeAllCardLayer()
+{
+    for (auto& card : cards)
+    {
+        this->removeChild(card);
+    }
+    cards.clear();
+}
+
 void SceneMenu::updateUserInfo()
 {
     if (Singleton<ServiceUser>::GetInstance()->RefreshInfo())

@@ -2,6 +2,7 @@
 #include "Helpers.h"
 #include "ServiceRoom.h"
 #include "ServiceUser.h"
+#include <thread>
 
 LayerBase* LayerRoom::createLayer()
 {
@@ -32,6 +33,10 @@ bool LayerRoom::init()
     roomBG->setScale(1.6);
     this->addChild(roomBG);
 
+    labelWaiting = Label::create("Joining...", "fonts/Marker Felt.ttf", 40);
+    labelWaiting->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+    this->addChild(labelWaiting, 2);
+
     menu = Menu::create();
     menu->setPosition(origin);
     // 退出
@@ -47,11 +52,12 @@ bool LayerRoom::init()
     this->addChild(menu, 1);
 
 
-    schedule(schedule_selector(LayerRoom::heart), 1.5f, kRepeatForever, 0.0f);
+    // schedule(schedule_selector(LayerRoom::heart), 1.5f, kRepeatForever, 0.0f);
     schedule(schedule_selector(LayerRoom::refreshData), 1.0f, kRepeatForever, 0.0f);
 
     return true;
 }
+
 
 
 void LayerRoom::quitRoom(Ref* pSender)
@@ -79,6 +85,10 @@ void LayerRoom::setReady(Ref* pSender)
 
 void LayerRoom::drawInfo()
 {
+    if (labelWaiting != nullptr) {
+        labelWaiting->removeFromParentAndCleanup(true);
+        labelWaiting = nullptr;
+    }
     // 标题]
     float LeftX = visibleSize.width / 2 - 340;
     float RightX = visibleSize.width / 2 + 230;
@@ -197,24 +207,14 @@ void LayerRoom::drawPlayers() {
        
 }
 
-void LayerRoom::heart(float dt)
-{
-    if (!this->getActive()) return;
-    if (Singleton<ServiceRoom>::GetInstance()->IsInRoom()) {
-        Singleton<ServiceRoom>::GetInstance()->heart();
-    }
-    else {
-        // 返回菜单
-    }
-}
-
 void LayerRoom::refreshData(float dt)
 {
     if (!this->getActive()) return;
     if (Singleton<ServiceRoom>::GetInstance()->IsInRoom()) {
         auto res = Singleton<ServiceRoom>::GetInstance()->refreshInfo();
         if (!res) {
-            // 返回菜单
+            Singleton<ServiceRoom>::GetInstance()->quitRoom();
+            this->updateScene(Tag::SceneFromRoomToMenu);
             return;
         }
         room = Singleton<ServiceRoom>::GetInstance()->getRoom();
@@ -227,5 +227,7 @@ void LayerRoom::refreshData(float dt)
     }
     else {
         // 返回菜单
+        Singleton<ServiceRoom>::GetInstance()->quitRoom();
+        this->updateScene(Tag::SceneFromRoomToMenu);
     }
 }

@@ -96,10 +96,19 @@ bool SceneGameRoom::init()
 
     this->addChild(layermap);
 
+    schedule(schedule_selector(SceneGameRoom::updateMiniMap), 1.0f, kRepeatForever, 0);
+
     schedule(schedule_selector(SceneGameRoom::update), 1.0f / 60.0f, kRepeatForever, 0);
     schedule(schedule_selector(SceneGameRoom::send), 1.0f / 20, kRepeatForever, 0);
 
     return true;
+}
+
+void SceneGameRoom::updateMiniMap(float dt)
+{
+    float x = layermap->player->getPosition().x - layermap->map->getPosition().x;
+    float y = layermap->player->getPosition().y - layermap->map->getPosition().y;
+    ((LayerMapMini*)layerMapMini)->setPlayer(x / 5120.0f, y / 3840.0f);
 }
 
 void SceneGameRoom::GetState()
@@ -107,6 +116,11 @@ void SceneGameRoom::GetState()
     Singleton<ServiceGame>::GetInstance()->GetFrame([&](vector<frameState> fsv) -> void {
         for (auto &fs : fsv)
         {
+            if (fs.FrameId % 100 == 0 && fs.FrameId < 2000) {
+                float fx = (Singleton<ServiceGame>::GetInstance())->fireX;
+                float fy = (Singleton<ServiceGame>::GetInstance())->fireY;
+                ((LayerMapMini*)layerMapMini)->setMap(fx, fy, 1 - fs.FrameId / 200);
+            }
             Singleton<ServicePlayer>::GetInstance()->MoveOthers(fs.commands);
         }
     });

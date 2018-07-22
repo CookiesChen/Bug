@@ -168,7 +168,6 @@ void ServiceRoom::heartLoop()
         Sleep(1599);
         if (IsInRoom() && !isStopHeart) {
             heart();
-            cocos2d::log("heart");
         }
         else {
             isStopHeart = false;

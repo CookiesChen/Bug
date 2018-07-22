@@ -113,12 +113,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Layers\LayerReady.cpp">
       <Filter>src\Layers</Filter>
-    </ClCompile>    
-	<ClCompile Include="..\Classes\Layers\LayerMap.cpp">
+    </ClCompile>
+    <ClCompile Include="..\Classes\Layers\LayerMap.cpp">
       <Filter>src\Layers</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Layers\LayerPlayer.cpp">
       <Filter>src\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Services\ServicePlayer.cpp">
+      <Filter>src\Services</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -220,12 +223,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Layers\LayerReady.h">
       <Filter>src\Layers</Filter>
-    </ClInclude> 
-	<ClInclude Include="..\Classes\Layers\LayerMap.h">
+    </ClInclude>
+    <ClInclude Include="..\Classes\Layers\LayerMap.h">
       <Filter>src\Layers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Layers\LayerPlayer.h">
       <Filter>src\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Models\ModelPlayer.h">
+      <Filter>src\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Services\ServicePlayer.h">
+      <Filter>src\Services</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -176,6 +176,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Scenes\SceneRoom.cpp" />
     <ClCompile Include="..\Classes\Services\ServiceAPI.cpp" />
     <ClCompile Include="..\Classes\Services\ServiceGame.cpp" />
+    <ClCompile Include="..\Classes\Services\ServicePlayer.cpp" />
     <ClCompile Include="..\Classes\Services\ServiceRoom.cpp" />
     <ClCompile Include="..\Classes\Services\ServiceUser.cpp" />
     <ClCompile Include="main.cpp" />
@@ -203,6 +204,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Layers\LayerRegister.h" />
     <ClInclude Include="..\Classes\Layers\LayerRole.h" />
     <ClInclude Include="..\Classes\Layers\LayerRoom.h" />
+    <ClInclude Include="..\Classes\Models\ModelPlayer.h" />
     <ClInclude Include="..\Classes\Models\ModelRoom.h" />
     <ClInclude Include="..\Classes\Resources\Tag.h" />
     <ClInclude Include="..\Classes\Models\ModelUser.h" />
@@ -213,6 +215,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Scenes\SceneRoom.h" />
     <ClInclude Include="..\Classes\Services\ServiceAPI.h" />
     <ClInclude Include="..\Classes\Services\ServiceGame.h" />
+    <ClInclude Include="..\Classes\Services\ServicePlayer.h" />
     <ClInclude Include="..\Classes\Services\ServiceRoom.h" />
     <ClInclude Include="..\Classes\Services\ServiceUser.h" />
     <ClInclude Include="main.h" />

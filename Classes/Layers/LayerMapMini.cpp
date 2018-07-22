@@ -14,8 +14,8 @@ bool LayerMapMini::init()
     mapBack->setScale(0.3);
     mapBack->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 80));
     this->addChild(mapBack, 1);
-    setMap(0.5,0.3, 0.7);
-    setPlayer(0.5, 0.7);
+    setMap(0.5,0.5,1);
+    setPlayer(0.5, 0.5);
 
     return true;
 }
@@ -36,10 +36,10 @@ void LayerMapMini::setPlayer(float x, float y)
 void LayerMapMini::setMap(float x, float y, float pre)
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
-    auto s = Director::getInstance()->getWinSize();
+    if (clipper != nullptr) clipper->removeFromParentAndCleanup(true);
     //自画一个形状来录stencil
-    DrawNode *stencil = DrawNode::create();
-    stencil->setAnchorPoint(Point(0.5, 0.5));
+    auto stencil = DrawNode::create();
+    stencil->setAnchorPoint(Vec2(0.5, 0.5));
     //多边形定点个数;
     Vec2 points[720];
     //圆心，相对坐标;
@@ -59,7 +59,6 @@ void LayerMapMini::setMap(float x, float y, float pre)
     //画多边形;
     stencil->drawPolygon(points, sizeof(points) / sizeof(points[0]), Color4F(0, 1, 0, 0), 1, Color4F(1, 0, 0, 1));
     //裁剪node
-    if (clipper != nullptr) clipper->removeFromParentAndCleanup(true);
     clipper = ClippingNode::create();
     clipper->setAnchorPoint(Point(0.5, 0.5));
     clipper->setStencil(stencil);

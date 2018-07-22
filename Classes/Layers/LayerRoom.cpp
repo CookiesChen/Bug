@@ -41,7 +41,7 @@ bool LayerRoom::init()
     menu->setPosition(origin);
     // 退出
     buttonBack = MenuItemImage::create("Graphics/System/BtnQuit.png", "Graphics/System/BtnQuit_click.png", CC_CALLBACK_1(LayerRoom::quitRoom, this));
-    buttonBack->setPosition(Vec2(150, visibleSize.height - 50));
+    buttonBack->setPosition(Vec2(100, visibleSize.height - 50));
     buttonBack->setScale(0.5f);
     menu->addChild(buttonBack, 1);
     // 准备/开始

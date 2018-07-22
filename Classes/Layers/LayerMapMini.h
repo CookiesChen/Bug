@@ -1,5 +1,5 @@
-﻿#ifndef _LAYER_MAP_H__
-#define _LAYER_MAP_H__
+﻿#ifndef _LAYER_MAP_MINI_H__
+#define _LAYER_MAP_MINI_H__
 
 #include "LayerBase.h"
 
@@ -18,4 +18,4 @@ public:
 
 };
 
-#endif // !_LAYER_PLAYER_H
+#endif // !_LAYER_MAP_MINI_H__

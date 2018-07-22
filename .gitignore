@@ -1,13 +1,22 @@
 # Bug
 
 # Cocos2d Files
-cocos2d/
+!cocos2d/
+
+cocos2d/*
+!cocos2d/cocos/
+
+cocos2d/cocos/*
+!cocos2d/cocos/2d/
+
+cocos2d/cocos/2d/*
+!cocos2d/cocos/2d/CCFastTMXLayer.*
 
 # proj.win32
 proj.win32/Debug.*/
 proj.win32/Release.*/
 proj.win32/cookies.co
-
 # .vs
 .vs/
 *.dat
+

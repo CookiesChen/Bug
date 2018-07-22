@@ -7,12 +7,17 @@
 class ServicePlayer final
 {
 public:
+    void SetMap(Node* m);
     void SetPlayer(ModelPlayer p);
+    void SetPlayerSprite(Sprite* s);
     void ClearOther();
     void AddOther(ModelPlayer p);
     ModelPlayer GetPlayer();
     vector<ModelPlayer> GetOtherPlayer();
+    void MovePlayer(int dir);
+
 private:
+    Node* map;
     ModelPlayer Player;
     vector<ModelPlayer> other;
 };

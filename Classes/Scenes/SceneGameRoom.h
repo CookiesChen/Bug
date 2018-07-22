@@ -1,16 +1,13 @@
 ﻿#ifndef __SCENE_GAME_ROOM_H__
 #define __SCENE_GAME_ROOM_H__
 
-#include "LayerBase.h"
-#include "SceneBase.h"
-#include "cocos2d.h"
 #include "LayerMap.h"
-#include "LayerPlayer.h"
+#include "SceneBase.h"
 
 class SceneGameRoom final : public SceneBase
 {
 public:
-    static SceneBase * createScene();
+    static Scene * createPhysicsScene();
 
     virtual bool init() override;
     virtual void updateLayer(Tag tag) override;
@@ -22,11 +19,11 @@ public:
     void GetState();
     void JoinGame(float dt);
     void ExitGame(float dt);
-    void LayerMove(int direction);
 
     CREATE_FUNC(SceneGameRoom);
 
 private:
+    void move();
 
     Size visibleSize;
 
@@ -34,19 +31,13 @@ private:
     int id;
     int port;
 
-    LayerPlayer* layerplayer;
-
     LayerMap* layermap;
+    Scene* physicsScene;
 
-    LayerBase* layerMapMini;
+    Vec2 offset;
+    Vec2 playerPos;
 
-    float offset = 5.0f;
-    float offset_x;
-    float offset_y;
-    bool isMove;
-    bool isLayerMove;
-    char moveDirection;
-
+    map<char, bool> input;
 };
 
 #endif // __SCENE_GAME_ROOM_H__

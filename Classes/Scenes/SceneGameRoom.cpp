@@ -44,6 +44,7 @@ bool SceneGameRoom::init()
     auto t = new std::thread(&SceneGameRoom::GetState, this);*/
 
     layermap = LayerMap::create();
+    layermap->setContentSize(layermap->map->getContentSize());
     layerplayer = LayerPlayer::create();
 
     // 随机初始位置

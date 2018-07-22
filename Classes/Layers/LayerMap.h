@@ -12,7 +12,7 @@ public:
 
     float maxWidth;
     float maxHeight;
-    TMXTiledMap * map;
+    experimental::TMXTiledMap * map;
 
     CREATE_FUNC(LayerMap);
 

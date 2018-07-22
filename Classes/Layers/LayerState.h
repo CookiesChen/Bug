@@ -14,6 +14,7 @@ public:
 
 private:
     ProgressTimer* hpBar;
+    ProgressTimer* spBar;
 };
 
 #endif // _LAYER_STATE_H__

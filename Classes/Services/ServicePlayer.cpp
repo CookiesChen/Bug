@@ -1,9 +1,18 @@
 ﻿#include "ServicePlayer.h"
 
-void ServicePlayer::SetPlayer(ModelPlayer* p, Node* n)
+void ServicePlayer::SetMap(Node * m)
+{
+    this->map = m;
+}
+
+void ServicePlayer::SetPlayer(ModelPlayer p)
 {
     this->Player = p;
-    n->addChild(p, 10);
+}
+
+void ServicePlayer::SetPlayerSprite(Sprite * s)
+{
+    this->Player.sprite = s;
 }
 
 void ServicePlayer::ClearOther()
@@ -11,17 +20,17 @@ void ServicePlayer::ClearOther()
     this->other.clear();
 }
 
-void ServicePlayer::AddOther(ModelPlayer* p)
+void ServicePlayer::AddOther(ModelPlayer p)
 {
     this->other.push_back(p);
 }
 
-ModelPlayer* ServicePlayer::GetPlayer()
+ModelPlayer ServicePlayer::GetPlayer()
 {
     return this->Player;
 }
 
-vector<ModelPlayer*> ServicePlayer::GetOtherPlayer()
+vector<ModelPlayer> ServicePlayer::GetOtherPlayer()
 {
     return this->other;
 }
@@ -29,40 +38,40 @@ vector<ModelPlayer*> ServicePlayer::GetOtherPlayer()
 void ServicePlayer::MovePlayer(int dir)
 {
     int v = 300;
-    Player->getPhysicsBody()->setVelocityLimit(v);
+    Player.sprite->getPhysicsBody()->setVelocityLimit(v);
     switch (dir)
     {
     case 0:
-        Player->getPhysicsBody()->setVelocity(Vec2(0, v));
+        Player.sprite->getPhysicsBody()->setVelocity(Vec2(0, v));
         break;
     case 45:
-        Player->getPhysicsBody()->setVelocity(Vec2(v, v));
+        Player.sprite->getPhysicsBody()->setVelocity(Vec2(v, v));
         break;
     case 90:
-        Player->getPhysicsBody()->setVelocity(Vec2(v, 0));
+        Player.sprite->getPhysicsBody()->setVelocity(Vec2(v, 0));
         break;
     case 135:
-        Player->getPhysicsBody()->setVelocity(Vec2(v, -v));
+        Player.sprite->getPhysicsBody()->setVelocity(Vec2(v, -v));
         break;
     case 180:
-        Player->getPhysicsBody()->setVelocity(Vec2(0, -v));
+        Player.sprite->getPhysicsBody()->setVelocity(Vec2(0, -v));
         break;
     case 225:
-        Player->getPhysicsBody()->setVelocity(Vec2(-v, -v));
+        Player.sprite->getPhysicsBody()->setVelocity(Vec2(-v, -v));
         break;
     case 270:
-        Player->getPhysicsBody()->setVelocity(Vec2(-v, 0));
+        Player.sprite->getPhysicsBody()->setVelocity(Vec2(-v, 0));
         break;
     case 315:
-        Player->getPhysicsBody()->setVelocity(Vec2(-v, v));
+        Player.sprite->getPhysicsBody()->setVelocity(Vec2(-v, v));
         break;
     case 360:
-        Player->getPhysicsBody()->setVelocity(Vec2::ZERO);
-        Player->stopActionByTag(0);
+        Player.sprite->getPhysicsBody()->setVelocity(Vec2::ZERO);
+        Player.sprite->stopActionByTag(0);
         return;
     }
-    Player->runAction(RotateTo::create(0.0f, dir));
-    if (Player->getActionByTag(0) == NULL)
+    Player.sprite->runAction(RotateTo::create(0.0f, dir));
+    if (Player.sprite->getActionByTag(0) == NULL)
     {
         auto move = Animation::create();
         for (int i = 0; i < 24; i++)
@@ -75,6 +84,6 @@ void ServicePlayer::MovePlayer(int dir)
         move->setRestoreOriginalFrame(true);
         auto action = RepeatForever::create(Animate::create(move));
         action->setTag(0);
-        Player->runAction(action);
+        Player.sprite->runAction(action);
     }
 }

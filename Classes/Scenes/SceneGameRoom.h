@@ -19,7 +19,6 @@ public:
     void GetState();
     void JoinGame(float dt);
     void ExitGame(float dt);
-    void LayerMove(int direction);
 
     CREATE_FUNC(SceneGameRoom);
 
@@ -35,12 +34,8 @@ private:
     LayerMap* layermap;
     Scene* physicsScene;
 
-    float offset = 5.0f;
-    float offset_x;
-    float offset_y;
-    bool isMove;
-    bool isLayerMove;
-    char moveDirection;
+    Vec2 offset;
+    Vec2 playerPos;
 
     map<char, bool> input;
 };

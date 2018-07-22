@@ -12,7 +12,7 @@ bool LayerMap::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
 
-    map = TMXTiledMap::create("Map/Jungle.tmx");
+    map = experimental::TMXTiledMap::create("Map/Jungle.tmx");
     map->setScale(Director::getInstance()->getContentScaleFactor());
     map->setPosition(Vec2::ZERO);
     maxWidth = map->getContentSize().width;
@@ -26,7 +26,7 @@ bool LayerMap::init()
 
     this->addChild(map, 3);
 
-    player = ModelPlayer::create("Graphics/Pictures/Uang/Armature_BugMove_0.png");
+    player = Sprite::create("Graphics/Pictures/Uang/Armature_BugMove_0.png");
     player->setScale(0.2f);
     player->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
     auto playerBody = PhysicsBody::createBox(player->getContentSize(), PhysicsMaterial(100.0f, 1.0f, 0.0f));
@@ -36,7 +36,9 @@ bool LayerMap::init()
     playerBody->setDynamic(true);
     player->setPhysicsBody(playerBody);
 
-    Singleton<ServicePlayer>::GetInstance()->SetPlayer(player, this);
+    this->addChild(player, 10);
+
+    Singleton<ServicePlayer>::GetInstance()->SetPlayerSprite(player);
 
     return true;
 }

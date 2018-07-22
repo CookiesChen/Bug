@@ -29,9 +29,6 @@ bool SceneGameRoom::init()
     visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    offset_x = 0;
-    offset_y = 0;
-
     addKeyboardListener();
 
 
@@ -52,6 +49,7 @@ bool SceneGameRoom::init()
     auto t = new std::thread(&SceneGameRoom::GetState, this);*/
 
     layermap = (LayerMap*) LayerMap::createLayer();
+    layermap->setContentSize(layermap->map->getContentSize());
 
     // 随机初始位置
     auto randomx = random(1, 9) / 10.0f * layermap->maxWidth;
@@ -145,7 +143,6 @@ void SceneGameRoom::addKeyboardListener()
 
 void SceneGameRoom::onKeyPressed(EventKeyboard::KeyCode code, Event* event)
 {
-    isMove = true;
     switch (code)
     {
     case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
@@ -185,28 +182,24 @@ void SceneGameRoom::onKeyReleased(EventKeyboard::KeyCode code, Event* event)
     case EventKeyboard::KeyCode::KEY_CAPITAL_A:
         //Singleton<ServiceGame>::GetInstance()->SendInput(3, 0 , 0);
         input['A'] = false;
-        if (moveDirection == 'A') isMove = false;
         break;
     case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
     case EventKeyboard::KeyCode::KEY_D:
     case EventKeyboard::KeyCode::KEY_CAPITAL_D:
         //Singleton<ServiceGame>::GetInstance()->SendInput(4, 0 ,0 );
         input['D'] = false;
-        if (moveDirection == 'D') isMove = false;
         break;
     case EventKeyboard::KeyCode::KEY_UP_ARROW:
     case EventKeyboard::KeyCode::KEY_W:
     case EventKeyboard::KeyCode::KEY_CAPITAL_W:
         //Singleton<ServiceGame>::GetInstance()->SendInput(4, 0, 0);
         input['W'] = false;
-        if (moveDirection == 'W') isMove = false;
         break;
     case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
     case EventKeyboard::KeyCode::KEY_S:
     case EventKeyboard::KeyCode::KEY_CAPITAL_S:
         //Singleton<ServiceGame>::GetInstance()->SendInput(4, 0, 0);
         input['S'] = false;
-        if (moveDirection == 'S') isMove = false;
         break;
     }
     move();
@@ -220,29 +213,6 @@ void SceneGameRoom::updateLayer(Tag tag)
 void SceneGameRoom::updateScene(Tag tag)
 {
 
-}
-
-void SceneGameRoom::LayerMove(int direction)
-{
-    switch (direction)
-    {
-    case 0:
-        offset_x = offset;
-        offset_y = 0;
-        break;
-    case 1:
-        offset_x = -offset;
-        offset_y = 0;
-        break;
-    case 2:
-        offset_x = 0;
-        offset_y = -offset;
-        break;
-    case 3:
-        offset_x = 0;
-        offset_y = offset;
-        break;
-    }
 }
 
 void SceneGameRoom::move()
@@ -290,11 +260,35 @@ void SceneGameRoom::move()
 
 void SceneGameRoom::update(float time)
 {
-    /*auto layerpoint = layerplayer->player->getPosition();
-    if ((visibleSize.width / 2 <= layerpoint.x && layerpoint.x <= layermap->maxWidth - visibleSize.width / 2 && offset_x != 0)
-        || (visibleSize.height / 2 <= layerpoint.y && layerpoint.y <= layermap->maxHeight - visibleSize.height / 2 && offset_y != 0))
+    Vec2 layerPoint;
+    float randomx = layermap->player->getPosition().x;
+    float randomy = layermap->player->getPosition().y;
+
+    if (randomx <= layermap->maxWidth - visibleSize.width / 2 && visibleSize.width / 2 <= randomx)
     {
-        layermap->setPosition(layermap->getPosition() + Vec2(offset_x, offset_y));
-        layerplayer->setPosition(layerplayer->getPosition() + Vec2(offset_x, offset_y));
-    }*/
+        layerPoint.x = randomx;
+    }
+    else if (randomx <= layermap->maxWidth - visibleSize.width / 2)
+    {
+        layerPoint.x = visibleSize.width / 2;
+    }
+    else
+    {
+        layerPoint.x = layermap->maxWidth - visibleSize.width / 2;
+    }
+    layerPoint.x = layerPoint.x - visibleSize.width / 2;
+    if (randomy <= layermap->maxHeight - visibleSize.height / 2 && visibleSize.height / 2 <= randomy)
+    {
+        layerPoint.y = randomy;
+    }
+    else if (randomy <= layermap->maxHeight - visibleSize.height / 2)
+    {
+        layerPoint.y = visibleSize.height / 2;
+    }
+    else
+    {
+        layerPoint.y = layermap->maxHeight - visibleSize.height / 2;
+    }
+    layerPoint.y = layerPoint.y - visibleSize.height / 2;
+    layermap->setPosition(-layerPoint);
 }

@@ -120,9 +120,6 @@
     <ClCompile Include="..\Classes\Services\ServicePlayer.cpp">
       <Filter>src\Services</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Models\ModelPlayer.cpp">
-      <Filter>src\Models</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">

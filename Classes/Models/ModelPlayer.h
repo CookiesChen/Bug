@@ -8,10 +8,10 @@
 using namespace cocos2d;
 using namespace std;
 
-class ModelPlayer final : public Sprite
+class ModelPlayer final
 {
 public:
-    static ModelPlayer* create(const string& file);
+    Sprite* sprite;
 
     string Id;
     string roleId;

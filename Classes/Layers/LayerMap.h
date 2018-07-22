@@ -13,8 +13,8 @@ public:
 
     float maxWidth;
     float maxHeight;
-    TMXTiledMap * map;
-    ModelPlayer* player;
+    Sprite* player;
+    experimental::TMXTiledMap * map;
 
     CREATE_FUNC(LayerMap);
 

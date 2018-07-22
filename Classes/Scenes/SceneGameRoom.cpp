@@ -14,7 +14,7 @@ Scene* SceneGameRoom::createPhysicsScene()
     auto physicsScene = Scene::createWithPhysics();
     physicsScene->getPhysicsWorld()->setAutoStep(true);
     physicsScene->getPhysicsWorld()->setGravity(Vec2::ZERO);
-    physicsScene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+    //physicsScene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
     auto scene = SceneGameRoom::create();
     physicsScene->addChild(scene);
     return physicsScene;

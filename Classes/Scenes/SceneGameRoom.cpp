@@ -47,7 +47,7 @@ bool SceneGameRoom::init()
 
     schedule(schedule_selector(SceneGameRoom::JoinGame), 1.0f, kRepeatForever, 0);
 
-    auto t = new std::thread(&SceneGameRoom::GetState, this);
+    // auto t = new std::thread(&SceneGameRoom::GetState, this);
 
     layermap = (LayerMap*) LayerMap::createLayer();
     layerMapMini = LayerMapMini::createLayer();
@@ -174,6 +174,21 @@ void SceneGameRoom::onKeyPressed(EventKeyboard::KeyCode code, Event* event)
     case EventKeyboard::KeyCode::KEY_S:
         input['S'] = true;
         break;
+    case EventKeyboard::KeyCode::KEY_CAPITAL_J:
+    case EventKeyboard::KeyCode::KEY_J:
+        input['J'] = true;
+        break;
+    case EventKeyboard::KeyCode::KEY_CAPITAL_K:
+    case EventKeyboard::KeyCode::KEY_K:
+        input['K'] = true;
+        break;
+    case EventKeyboard::KeyCode::KEY_CAPITAL_L:
+    case EventKeyboard::KeyCode::KEY_L:
+        input['L'] = true;
+        break;
+    case EventKeyboard::KeyCode::KEY_LEFT_SHIFT:
+        Singleton<ServicePlayer>::GetInstance()->SetHighVelocity();
+        break;
     }
     int dir = move();
     float x = layermap->map->getPosition().x;
@@ -205,6 +220,21 @@ void SceneGameRoom::onKeyReleased(EventKeyboard::KeyCode code, Event* event)
     case EventKeyboard::KeyCode::KEY_S:
     case EventKeyboard::KeyCode::KEY_CAPITAL_S:
         input['S'] = false;
+        break;
+    case EventKeyboard::KeyCode::KEY_CAPITAL_J:
+    case EventKeyboard::KeyCode::KEY_J:
+        input['J'] = false;
+        break;
+    case EventKeyboard::KeyCode::KEY_CAPITAL_K:
+    case EventKeyboard::KeyCode::KEY_K:
+        input['K'] = false;
+        break;
+    case EventKeyboard::KeyCode::KEY_CAPITAL_L:
+    case EventKeyboard::KeyCode::KEY_L:
+        input['L'] = false;
+        break;
+    case EventKeyboard::KeyCode::KEY_LEFT_SHIFT:
+        Singleton<ServicePlayer>::GetInstance()->SetLowVelocity();
         break;
     }
     int dir = move();

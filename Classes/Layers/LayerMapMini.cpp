@@ -17,7 +17,6 @@ bool LayerMapMini::init()
     setMap(8,8, 0.7);
     setPlayer(12, 12);
 
-
     return true;
 }
 

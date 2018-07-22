@@ -15,6 +15,7 @@ public:
     virtual void updateScene(Tag tag) override;
 
     void addCardLayer(ModelRoom r, int index);
+    void removeAllCardLayer();
 
     void updateUserInfo();
 

@@ -96,18 +96,43 @@ void LayerJoinRoom::getRoomList(float dt)
                 r.Mode = room["mode"].GetString();
                 r.Password = room["password"].GetString();
                 r.Playing = room["playing"].GetBool();
-                r.Players.reserve(room["players"].GetArray().Size());
+                for (size_t i = 0; i < room["players"].GetArray().Size(); i++)
+                {
+                    r.Players.push_back(PlayerInfo());
+                }
 
                 auto scene = (SceneMenu*)this->getParent();
+                scene->removeAllCardLayer();
                 scene->addCardLayer(r, index);
             }
             int count = d["count"].GetInt();
+            maxPageNum = (count + 5 - 1) / 5;
             if (count != 0)
             {
-                currentPage->setString("1  /");
-                maxPage->setString(to_string((count + 5 - 1) / 5));
+                currentPage->setString(to_string(pageNum) + "  /");
+                maxPage->setString(to_string(maxPageNum));
+            }
+            else
+            {
+                auto scene = (SceneMenu*) this->getParent();
+                scene->removeAllCardLayer();
+                currentPage->setString("0  /");
+                maxPage->setString("0");
             }
             // 根据数据生成房间列表
+        }
+        else if (status == "null")
+        {
+            auto scene = (SceneMenu*) this->getParent();
+            scene->removeAllCardLayer();
+            currentPage->setString("0  /");
+            maxPage->setString("0");
+        }
+        else if (status == "bad_req")
+        {
+            auto scene = (SceneMenu*) this->getParent();
+            scene->removeAllCardLayer();
+            this->dialog("Request failed.");
         }
         else
         {
@@ -122,7 +147,18 @@ void LayerJoinRoom::getRoomList(float dt)
 }
 
 void LayerJoinRoom::changePage(Ref* pSender, bool ifnext) {
-
+    if (ifnext)
+    {
+        if (pageNum == maxPageNum) return;
+        pageNum++;
+        this->getRoomList(0.f);
+    }
+    else
+    {
+        if (pageNum == 1) return;
+        pageNum--;
+        this->getRoomList(0.f);
+    }
 }
 
 void LayerJoinRoom::quickJoin(Ref* pSender) {

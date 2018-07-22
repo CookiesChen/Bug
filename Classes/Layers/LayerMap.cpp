@@ -65,7 +65,7 @@ bool LayerMap::init()
     player = Sprite::create("Graphics/Pictures/Uang/Armature_BugMove_0.png");
     player->setScale(0.2f);
     player->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-    auto playerBody = PhysicsBody::createBox(player->getContentSize(), PhysicsMaterial(100.0f, 0.0f, 0.0f));
+    auto playerBody = PhysicsBody::createBox(player->getContentSize()* 0.7, PhysicsMaterial(100.0f, 0.0f, 0.0f));
     playerBody->setCategoryBitmask(0x00000001);
     playerBody->setCollisionBitmask(0xFFFFFFFF);
     playerBody->setContactTestBitmask(0x80000000);

@@ -117,9 +117,6 @@
     <ClCompile Include="..\Classes\Layers\LayerMap.cpp">
       <Filter>src\Layers</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Layers\LayerPlayer.cpp">
-      <Filter>src\Layers</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Services\ServicePlayer.cpp">
       <Filter>src\Services</Filter>
     </ClCompile>
@@ -228,9 +225,6 @@
       <Filter>src\Layers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Layers\LayerMap.h">
-      <Filter>src\Layers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Layers\LayerPlayer.h">
       <Filter>src\Layers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Models\ModelPlayer.h">

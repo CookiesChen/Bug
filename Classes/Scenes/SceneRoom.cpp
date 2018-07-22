@@ -61,7 +61,7 @@ void SceneRoom::updateScene(Tag tag)
     switch (tag)
     {
     case Tag::SceneFromRoomToGame:
-        Director::getInstance()->replaceScene(SceneGameRoom::createScene());
+        Director::getInstance()->replaceScene(SceneGameRoom::createPhysicsScene());
         break;
     case Tag::SceneFromRoomToMenu:
         Director::getInstance()->replaceScene(SceneMenu::createScene());

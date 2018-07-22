@@ -2,13 +2,17 @@
 #define __PLAYER_MODEL_H__
 
 #include <string>
-#include <stdio.h>
 
+#include "cocos2d.h"
+
+using namespace cocos2d;
 using namespace std;
 
 class ModelPlayer final
 {
 public:
+    Sprite* sprite;
+
     string Id;
     string roleId;
     string team;

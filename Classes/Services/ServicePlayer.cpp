@@ -1,10 +1,5 @@
 ﻿#include "ServicePlayer.h"
 
-void ServicePlayer::SetMap(Node * m)
-{
-    this->map = m;
-}
-
 void ServicePlayer::SetPlayer(ModelPlayer p)
 {
     this->Player = p;
@@ -25,6 +20,18 @@ void ServicePlayer::AddOther(ModelPlayer p)
     this->other.push_back(p);
 }
 
+void ServicePlayer::SetOtherSpriteById(int id, Sprite * s)
+{
+    for (auto &i : other)
+    {
+        if (i.Id == id)
+        {
+            i.sprite = s;
+            break;
+        }
+    }
+}
+
 ModelPlayer ServicePlayer::GetPlayer()
 {
     return this->Player;
@@ -35,9 +42,15 @@ vector<ModelPlayer> ServicePlayer::GetOtherPlayer()
     return this->other;
 }
 
+void ServicePlayer::SetXYandDir(float x, float y, int dir)
+{
+    Player.x = x;
+    Player.y = y;
+    Player.dir = dir;
+}
+
 void ServicePlayer::MovePlayer(int dir)
 {
-    int v = 300;
     Player.sprite->getPhysicsBody()->setVelocityLimit(v);
     switch (dir)
     {
@@ -86,4 +99,40 @@ void ServicePlayer::MovePlayer(int dir)
         action->setTag(0);
         Player.sprite->runAction(action);
     }
+}
+
+void ServicePlayer::MoveOthers(vector<frameCommand> fcv)
+{
+    for (auto &fc : fcv)
+    {
+        for (auto &p : other)
+        {
+            if (p.Id == fc.userId)
+            {
+                if (p.x != fc.x || p.y != fc.y)
+                {
+                    p.moving = 1;
+                }
+                p.x = fc.x;
+                p.y = fc.y;
+                p.dir = fc.dir;
+                p.sprite->setPosition(Vec2(p.x - Player.x, p.y - Player.y));
+                p.sprite->setRotation(p.dir);
+                if (p.moving)
+                {
+                    // todo 动画
+                }
+            }
+        }
+    }
+}
+
+void ServicePlayer::SetHighVelocity()
+{
+    v = 500;
+}
+
+void ServicePlayer::SetLowVelocity()
+{
+    v = 300;
 }

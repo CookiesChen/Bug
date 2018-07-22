@@ -13,7 +13,7 @@ class ModelPlayer final
 public:
     Sprite* sprite;
 
-    string Id;
+    int Id;
     string roleId;
     string team;
     string userId;

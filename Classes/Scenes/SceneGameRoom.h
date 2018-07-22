@@ -35,7 +35,10 @@ private:
     int port;
 
     LayerPlayer* layerplayer;
+
     LayerMap* layermap;
+
+    LayerBase* layerMapMini;
 
     float offset = 5.0f;
     float offset_x;

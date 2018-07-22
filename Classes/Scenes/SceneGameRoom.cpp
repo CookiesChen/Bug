@@ -5,6 +5,7 @@
 #include "Helpers.h"
 #include "SceneGameRoom.h"
 #include "ServiceGame.h"
+#include "LayerMapMini.h"
 
 SceneBase* SceneGameRoom::createScene()
 {
@@ -42,6 +43,9 @@ bool SceneGameRoom::init()
     schedule(schedule_selector(SceneGameRoom::JoinGame), 1.0f, kRepeatForever, 0);
 
     auto t = new std::thread(&SceneGameRoom::GetState, this);*/
+
+    layerMapMini = LayerMapMini::create();
+    this->addChild(layerMapMini, 10);
 
     layermap = LayerMap::create();
     layermap->setContentSize(layermap->map->getContentSize());

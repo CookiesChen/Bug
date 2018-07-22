@@ -94,7 +94,7 @@ bool LayerMap::init()
         spriteBody->setDynamic(true);
         sprite->setPhysicsBody(spriteBody);
 
-        this->addChild(sprite, 10);
+        map->addChild(sprite, 3);
         Singleton<ServicePlayer>::GetInstance()->SetOtherSpriteById(p.Id, sprite);
     }
 

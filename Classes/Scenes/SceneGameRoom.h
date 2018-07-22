@@ -19,6 +19,7 @@ public:
     void GetState();
     void JoinGame(float dt);
     void ExitGame(float dt);
+    void updateMiniMap(float dt);
 
     CREATE_FUNC(SceneGameRoom);
 

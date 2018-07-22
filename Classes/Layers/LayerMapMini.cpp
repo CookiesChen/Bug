@@ -22,7 +22,7 @@ bool LayerMapMini::init()
 
 void LayerMapMini::setPlayer(float x, float y)
 {
-    auto player =
+    // auto player =
 }
 
 

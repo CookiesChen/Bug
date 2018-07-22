@@ -24,6 +24,9 @@ public:
     void SetHighVelocity();
     void SetLowVelocity();
 
+    void PlayerAttack();
+    void OthersAttack(vector<frameCommand> fcv);
+
 private:
     ModelPlayer Player;
     vector<ModelPlayer> other;

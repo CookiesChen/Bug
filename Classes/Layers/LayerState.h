@@ -9,6 +9,7 @@ public:
     static LayerBase* createLayer();
 
     virtual bool init() override;
+    void update(float dt);
 
     CREATE_FUNC(LayerState);
 

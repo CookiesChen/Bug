@@ -110,7 +110,7 @@ void SceneGameRoom::updateMiniMap(float dt)
     if (frame < 10000) {
         float fx = (Singleton<ServiceGame>::GetInstance())->fireX;
         float fy = (Singleton<ServiceGame>::GetInstance())->fireY;
-        float dis = 2.0f - (frame / 1000.0f);
+        float dis = 2.0f - (frame / 5000.0f);
         (Singleton<ServiceGame>::GetInstance())->fireDis = dis;
         log("%f", dis);
         float px = Singleton<ServicePlayer>::GetInstance()->GetPlayer().x;

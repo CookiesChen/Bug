@@ -49,7 +49,7 @@ void ServiceGame::SendInput(int command, float x, float y, int dir)
     Singleton<Net>::GetInstance()->Send(req);
 }
 
-void ServiceGame::InitGame(int port, int id) {
+void ServiceGame::InitGame(int id, int port) {
     this->frame = -1;
     this->id = id;
     this->isJoin = false;

@@ -33,6 +33,7 @@ private:
 
     LayerMap* layermap;
     LayerBase* layerMapMini;
+    LayerBase* layerState;
     Scene* physicsScene;
 
     Vec2 offset;

@@ -41,6 +41,11 @@ bool LayerMap::init()
     this->addChild(player, 10);
     Singleton<ServicePlayer>::GetInstance()->SetPlayerSprite(player);
 
+    float x = player->getPosition().x - map->getPosition().x;
+    float y = player->getPosition().y - map->getPosition().y;
+    Singleton<ServicePlayer>::GetInstance()->SetXYandDir(x, y, 0);
+    Singleton<ServiceGame>::GetInstance()->SendInput(0, x, y, 0);
+
     auto others = Singleton<ServicePlayer>::GetInstance()->GetOtherPlayer();
     for (auto &p : others)
     {

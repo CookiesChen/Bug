@@ -123,6 +123,9 @@
     <ClCompile Include="..\Classes\Layers\LayerMapMini.cpp">
       <Filter>src\Layers</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Layers\LayerState.cpp">
+      <Filter>src\Layers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -234,6 +237,9 @@
       <Filter>src\Services</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Layers\LayerMapMini.h">
+      <Filter>src\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Layers\LayerState.h">
       <Filter>src\Layers</Filter>
     </ClInclude>
   </ItemGroup>

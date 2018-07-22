@@ -2,6 +2,8 @@
 #include "Helpers.h"
 #include "ServiceRoom.h"
 #include "ServiceUser.h"
+#include "ServiceGame.h"
+#include "ServiceUser.h"
 
 LayerBase* LayerReady::createLayer()
 {
@@ -54,6 +56,13 @@ void LayerReady::waitTime(float dt)
         }
         if (room.Port != -1) {
             unschedule(schedule_selector(LayerReady::waitTime));
+            auto gameId = 0;
+            for (auto& player : room.Players) {
+                if (player.userId == Singleton<ServiceUser>::GetInstance()->GetUserId()) {
+                    gameId = player.gameId;
+                }
+            }
+            // Singleton<ServiceGame>::GetInstance()->InitGame( room.Port);
             this->updateScene(Tag::SceneFromRoomToGame);
         }
     }

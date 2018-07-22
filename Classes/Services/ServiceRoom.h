@@ -6,7 +6,11 @@
 class ServiceRoom final
 {
 public:
+    void startHeart();
+    void heartLoop();
+    void stopHeart();
     bool heart();
+
     bool refreshInfo();
     bool joinInRoom(int roomId, string password = "");
     bool setTeam(int team);
@@ -28,6 +32,7 @@ public:
 private:
     ModelRoom room;
     bool isInRoom;
+    bool isStopHeart;
 };
 
 #endif // __SERVICE_ROOM_H__

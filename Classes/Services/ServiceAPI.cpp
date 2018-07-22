@@ -1,7 +1,8 @@
 ﻿#include "Helpers.h"
 #include "ServiceAPI.h"
 
-const string ServiceAPI::apiUrl = "http://127.0.0.1:30081";
+// const string ServiceAPI::apiUrl = "http://127.0.0.1:30081";
+const string ServiceAPI::apiUrl = "http://111.230.240.70:30081";
 
 rapidjson::Document ServiceAPI::Login(string username, string password)
 {

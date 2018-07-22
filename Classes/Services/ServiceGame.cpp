@@ -57,6 +57,7 @@ void ServiceGame::InitGame(int id, int port) {
     Singleton<Net>::GetInstance()->InitSocket(this->port);
 }
 
+
 void ServiceGame::GetFrame(function<void(vector<frameState>)> callBack)
 {
     while (true)
@@ -78,11 +79,12 @@ void ServiceGame::GetFrame(function<void(vector<frameState>)> callBack)
         vector<frameState> data;
         for (auto& f : d["d"].GetArray())
         {
-            int i = f.GetObjectW()["f"].GetInt();
+            auto frameD = f.GetObjectW();
+            int i = frameD["f"].GetInt();
             if (i > maxFrame) {
                 frameState currentFrame;
                 maxFrame = i;
-                for (auto& com : f.GetObjectW()["c"].GetArray())
+                for (auto& com : frameD["c"].GetArray())
                 {
                     frameCommand currentCommand;
                     currentCommand.userId = com["i"].GetInt();

@@ -97,6 +97,7 @@ bool SceneGameRoom::init()
     this->addChild(layermap);
 
     schedule(schedule_selector(SceneGameRoom::update), 1.0f / 60.0f, kRepeatForever, 0);
+    schedule(schedule_selector(SceneGameRoom::send), 1.0f / 20, kRepeatForever, 0);
 
     return true;
 }
@@ -153,6 +154,16 @@ void SceneGameRoom::addKeyboardListener()
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyboardListener, this);
 }
 
+void SceneGameRoom::send(float dt)
+{
+    if (Singleton<ServiceGame>::GetInstance()->GetJoinState() == false) return;
+    int dir = move();
+    float x = layermap->player->getPosition().x - layermap->map->getPosition().x;
+    float y = layermap->player->getPosition().y - layermap->map->getPosition().y;
+    Singleton<ServicePlayer>::GetInstance()->SetXYandDir(x, y, dir);
+    Singleton<ServiceGame>::GetInstance()->SendInput(0, x, y, dir);
+}
+
 void SceneGameRoom::onKeyPressed(EventKeyboard::KeyCode code, Event* event)
 {
     switch (code)
@@ -193,11 +204,7 @@ void SceneGameRoom::onKeyPressed(EventKeyboard::KeyCode code, Event* event)
         Singleton<ServicePlayer>::GetInstance()->SetHighVelocity();
         break;
     }
-    int dir = move();
-    float x = layermap->player->getPosition().x - layermap->map->getPosition().x;
-    float y = layermap->player->getPosition().y - layermap->map->getPosition().y;
-    Singleton<ServicePlayer>::GetInstance()->SetXYandDir(x, y, dir);
-    Singleton<ServiceGame>::GetInstance()->SendInput(0, x, y, dir);
+    Singleton<ServicePlayer>::GetInstance()->MovePlayer(move());
 }
 
 void SceneGameRoom::onKeyReleased(EventKeyboard::KeyCode code, Event* event)
@@ -240,15 +247,7 @@ void SceneGameRoom::onKeyReleased(EventKeyboard::KeyCode code, Event* event)
         Singleton<ServicePlayer>::GetInstance()->SetLowVelocity();
         break;
     }
-    int dir = move();
-    float x = layermap->player->getPosition().x - layermap->map->getPosition().x;
-    float y = layermap->player->getPosition().y - layermap->map->getPosition().y;
-    auto p = Singleton<ServicePlayer>::GetInstance()->GetPlayer();
-    if (x != p.x || y != p.y || dir != p.dir)
-    {
-        Singleton<ServicePlayer>::GetInstance()->SetXYandDir(x, y, dir);
-        Singleton<ServiceGame>::GetInstance()->SendInput(0, x, y, dir);
-    }
+    Singleton<ServicePlayer>::GetInstance()->MovePlayer(move());
 }
 
 void SceneGameRoom::updateLayer(Tag tag)
@@ -279,7 +278,6 @@ int SceneGameRoom::move()
     else if (input['S']) dir = 180;
     else if (input['D']) dir = 90;
     else dir = 360;
-    Singleton<ServicePlayer>::GetInstance()->MovePlayer(dir);
     return dir;
 }
 

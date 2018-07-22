@@ -27,6 +27,7 @@ public:
 private:
     ModelPlayer Player;
     vector<ModelPlayer> other;
+    Vector<SpriteFrame*> moveVector;
     float v;
 };
 

@@ -8,6 +8,12 @@ void ServicePlayer::SetPlayer(ModelPlayer p)
 void ServicePlayer::SetPlayerSprite(Sprite * s)
 {
     this->Player.sprite = s;
+    for (int i = 0; i < 24; i++)
+    {
+        char szName[100] = { 0 };
+        sprintf(szName, "Graphics/Pictures/Uang/Armature_BugMove_%d.png", i);
+        moveVector.pushBack(SpriteFrame::create(szName, Rect(0, 0, 473, 620)));
+    }
 }
 
 void ServicePlayer::ClearOther()
@@ -86,13 +92,7 @@ void ServicePlayer::MovePlayer(int dir)
     Player.sprite->runAction(RotateTo::create(0.0f, dir));
     if (Player.sprite->getActionByTag(0) == NULL)
     {
-        auto move = Animation::create();
-        for (int i = 0; i < 24; i++)
-        {
-            char szName[100] = { 0 };
-            sprintf(szName, "Graphics/Pictures/Uang/Armature_BugMove_%d.png", i);
-            move->addSpriteFrameWithFile(szName);
-        }
+        auto move = Animation::createWithSpriteFrames(moveVector);
         move->setDelayPerUnit(0.8f / 24.0f);
         move->setRestoreOriginalFrame(true);
         auto action = RepeatForever::create(Animate::create(move));
@@ -109,19 +109,28 @@ void ServicePlayer::MoveOthers(vector<frameCommand> fcv)
         {
             if (p.Id == fc.userId)
             {
-                if (p.x != fc.x || p.y != fc.y)
-                {
-                    p.moving = 1;
-                }
+                p.moving = abs(p.x - fc.x) > 1 || abs(p.y - fc.y) > 1;
                 p.x = fc.x;
                 p.y = fc.y;
-                p.dir = fc.dir;
-                log("test: p(%d,%d) Player(%d,%d) Player.sprite(%d,%d)", p.x, p.y, Player.x, Player.y, Player.sprite->getPosition().x, Player.sprite->getPosition().y);
-                p.sprite->setPosition(Vec2(p.x - Player.x + Player.sprite->getPosition().x, p.y - Player.y + Player.sprite->getPosition().y));
-                p.sprite->setRotation(p.dir);
+                if (fc.dir != 360) p.dir = fc.dir;
                 if (p.moving)
                 {
-                    // todo 动画
+                    p.sprite->setPosition(Vec2(p.x - Player.x + Player.sprite->getPosition().x, p.y - Player.y + Player.sprite->getPosition().y));
+                }
+                p.sprite->setRotation(p.dir);
+                if (p.moving && p.sprite->getActionByTag(0) == nullptr)
+                {
+                    auto move = Animation::createWithSpriteFrames(moveVector);
+                    move->setDelayPerUnit(0.8f / 24.0f);
+                    move->setRestoreOriginalFrame(true);
+                    auto action = RepeatForever::create(Animate::create(move));
+                    action->setTag(0);
+                    p.sprite->runAction(action);
+                }
+                else if (p.moving == false)
+                {
+                    p.sprite->stopActionByTag(0);
+                    p.sprite->getPhysicsBody()->setVelocity(Vec2::ZERO);
                 }
             }
         }

@@ -87,8 +87,8 @@ void ServiceGame::GetFrame(function<void(vector<frameState>)> callBack)
                     frameCommand currentCommand;
                     currentCommand.userId = com["i"].GetInt();
                     currentCommand.input = com["c"].GetInt();
-                    currentCommand.x = com["x"].GetInt();
-                    currentCommand.y = com["y"].GetInt();
+                    currentCommand.x = com["x"].GetFloat();
+                    currentCommand.y = com["y"].GetFloat();
                     currentCommand.dir = com["d"].GetInt();
                     currentFrame.commands.push_back(currentCommand);
                 }

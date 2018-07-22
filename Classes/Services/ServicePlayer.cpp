@@ -51,7 +51,6 @@ void ServicePlayer::SetXYandDir(float x, float y, int dir)
 
 void ServicePlayer::MovePlayer(int dir)
 {
-    int v = 300;
     Player.sprite->getPhysicsBody()->setVelocityLimit(v);
     switch (dir)
     {
@@ -126,4 +125,14 @@ void ServicePlayer::MoveOthers(vector<frameCommand> fcv)
             }
         }
     }
+}
+
+void ServicePlayer::SetHighVelocity()
+{
+    v = 500;
+}
+
+void ServicePlayer::SetLowVelocity()
+{
+    v = 300;
 }

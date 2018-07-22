@@ -16,7 +16,6 @@ bool LayerMapMini::init()
     this->addChild(mapBack, 1);
     setMap(8,8, 0.7);
 
-
     return true;
 }
 

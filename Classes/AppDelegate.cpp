@@ -116,6 +116,7 @@ void AppDelegate::applicationDidEnterBackground()
 #elif USE_SIMPLE_AUDIO_ENGINE
     SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
     SimpleAudioEngine::getInstance()->pauseAllEffects();
+
 #endif
 }
 

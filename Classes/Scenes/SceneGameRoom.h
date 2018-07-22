@@ -23,7 +23,7 @@ public:
     CREATE_FUNC(SceneGameRoom);
 
 private:
-    void move();
+    int move();
 
     Size visibleSize;
 

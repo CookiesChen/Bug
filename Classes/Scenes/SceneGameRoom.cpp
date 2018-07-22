@@ -42,11 +42,11 @@ bool SceneGameRoom::init()
 
     id = rand() % 60000;
 
-    Singleton<ServiceGame>::GetInstance()->InitGame(30082, id);
+    Singleton<ServiceGame>::GetInstance()->InitGame(30082, id);*/
 
     schedule(schedule_selector(SceneGameRoom::JoinGame), 1.0f, kRepeatForever, 0);
 
-    auto t = new std::thread(&SceneGameRoom::GetState, this);*/
+    auto t = new std::thread(&SceneGameRoom::GetState, this);
 
     layermap = (LayerMap*) LayerMap::createLayer();
     layermap->setContentSize(layermap->map->getContentSize());
@@ -95,9 +95,12 @@ bool SceneGameRoom::init()
 
 void SceneGameRoom::GetState()
 {
-    /*Singleton<ServiceGame>::GetInstance()->GetFrame([&](string res) -> void {
-        msgLabel->setString(res);
-    });*/
+    Singleton<ServiceGame>::GetInstance()->GetFrame([&](vector<frameState> fsv) -> void {
+        for (auto &fs : fsv)
+        {
+            Singleton<ServicePlayer>::GetInstance()->MoveOthers(fs.commands);
+        }
+    });
 }
 
 
@@ -105,13 +108,13 @@ void SceneGameRoom::JoinGame(float dt)
 {
     if (Singleton<ServiceGame>::GetInstance()->GetJoinState() == true)
     {   // 已经加入房间
-        msgLabel->setString("join room success!");
+        // msgLabel->setString("join room success!");
         this->unschedule(schedule_selector(SceneGameRoom::JoinGame));
     }
     else
     {
         // 重连中
-        msgLabel->setString("joining...");
+        // msgLabel->setString("joining...");
         Singleton<ServiceGame>::GetInstance()->JoinRoom();
     }
 }
@@ -148,29 +151,29 @@ void SceneGameRoom::onKeyPressed(EventKeyboard::KeyCode code, Event* event)
     case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
     case EventKeyboard::KeyCode::KEY_CAPITAL_A:
     case EventKeyboard::KeyCode::KEY_A:
-        //Singleton<ServiceGame>::GetInstance()->SendInput(1, 0 ,0);
         input['A'] = true;
         break;
     case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
     case EventKeyboard::KeyCode::KEY_CAPITAL_D:
     case EventKeyboard::KeyCode::KEY_D:
-        //Singleton<ServiceGame>::GetInstance()->SendInput(2, 0, 0);
         input['D'] = true;
         break;
     case EventKeyboard::KeyCode::KEY_UP_ARROW:
     case EventKeyboard::KeyCode::KEY_CAPITAL_W:
     case EventKeyboard::KeyCode::KEY_W:
-        //Singleton<ServiceGame>::GetInstance()->SendInput(2, 0, 0);
         input['W'] = true;
         break;
     case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
     case EventKeyboard::KeyCode::KEY_CAPITAL_S:
     case EventKeyboard::KeyCode::KEY_S:
-        //Singleton<ServiceGame>::GetInstance()->SendInput(2, 0, 0);
         input['S'] = true;
         break;
     }
-    move();
+    int dir = move();
+    float x = layermap->map->getPosition().x;
+    float y = layermap->map->getPosition().y;
+    Singleton<ServicePlayer>::GetInstance()->SetXYandDir(x, y, dir);
+    Singleton<ServiceGame>::GetInstance()->SendInput(0, x, y, dir);
 }
 
 void SceneGameRoom::onKeyReleased(EventKeyboard::KeyCode code, Event* event)
@@ -180,29 +183,33 @@ void SceneGameRoom::onKeyReleased(EventKeyboard::KeyCode code, Event* event)
     case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
     case EventKeyboard::KeyCode::KEY_A:
     case EventKeyboard::KeyCode::KEY_CAPITAL_A:
-        //Singleton<ServiceGame>::GetInstance()->SendInput(3, 0 , 0);
         input['A'] = false;
         break;
     case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
     case EventKeyboard::KeyCode::KEY_D:
     case EventKeyboard::KeyCode::KEY_CAPITAL_D:
-        //Singleton<ServiceGame>::GetInstance()->SendInput(4, 0 ,0 );
         input['D'] = false;
         break;
     case EventKeyboard::KeyCode::KEY_UP_ARROW:
     case EventKeyboard::KeyCode::KEY_W:
     case EventKeyboard::KeyCode::KEY_CAPITAL_W:
-        //Singleton<ServiceGame>::GetInstance()->SendInput(4, 0, 0);
         input['W'] = false;
         break;
     case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
     case EventKeyboard::KeyCode::KEY_S:
     case EventKeyboard::KeyCode::KEY_CAPITAL_S:
-        //Singleton<ServiceGame>::GetInstance()->SendInput(4, 0, 0);
         input['S'] = false;
         break;
     }
-    move();
+    int dir = move();
+    float x = layermap->map->getPosition().x;
+    float y = layermap->map->getPosition().y;
+    auto p = Singleton<ServicePlayer>::GetInstance()->GetPlayer();
+    if (x != p.x || y != p.y || dir != p.dir)
+    {
+        Singleton<ServicePlayer>::GetInstance()->SetXYandDir(x, y, dir);
+        Singleton<ServiceGame>::GetInstance()->SendInput(0, x, y, dir);
+    }
 }
 
 void SceneGameRoom::updateLayer(Tag tag)
@@ -215,47 +222,26 @@ void SceneGameRoom::updateScene(Tag tag)
 
 }
 
-void SceneGameRoom::move()
+int SceneGameRoom::move()
 {
     int count = input['W'] + input['A'] + input['S'] + input['D'];
-    if (count >= 3 || input['W'] + input['S'] == 2 || input['A'] + input['D'] == 2) return;
+    if (count >= 3 || input['W'] + input['S'] == 2 || input['A'] + input['D'] == 2)
+    {
+        return Singleton<ServicePlayer>::GetInstance()->GetPlayer().dir;
+    }
     int v = 300;
-    if (input['W'] && input['A'])
-    {
-        Singleton<ServicePlayer>::GetInstance()->MovePlayer(315);
-    }
-    else if (input['W'] && input['D'])
-    {
-        Singleton<ServicePlayer>::GetInstance()->MovePlayer(45);
-    }
-    else if (input['S'] && input['A'])
-    {
-        Singleton<ServicePlayer>::GetInstance()->MovePlayer(225);
-    }
-    else if (input['S'] && input['D'])
-    {
-        Singleton<ServicePlayer>::GetInstance()->MovePlayer(135);
-    }
-    else if (input['W'])
-    {
-        Singleton<ServicePlayer>::GetInstance()->MovePlayer(0);
-    }
-    else if (input['A'])
-    {
-        Singleton<ServicePlayer>::GetInstance()->MovePlayer(270);
-    }
-    else if (input['S'])
-    {
-        Singleton<ServicePlayer>::GetInstance()->MovePlayer(180);
-    }
-    else if (input['D'])
-    {
-        Singleton<ServicePlayer>::GetInstance()->MovePlayer(90);
-    }
-    else // 停止移动
-    {
-        Singleton<ServicePlayer>::GetInstance()->MovePlayer(360);
-    }
+    int dir = 360;
+    if (input['W'] && input['A']) dir = 315;
+    else if (input['W'] && input['D']) dir = 45;
+    else if (input['S'] && input['A']) dir = 225;
+    else if (input['S'] && input['D']) dir = 135;
+    else if (input['W']) dir = 0;
+    else if (input['A']) dir = 270;
+    else if (input['S']) dir = 180;
+    else if (input['D']) dir = 90;
+    else dir = 360;
+    Singleton<ServicePlayer>::GetInstance()->MovePlayer(dir);
+    return dir;
 }
 
 void SceneGameRoom::update(float time)

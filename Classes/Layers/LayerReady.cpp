@@ -82,8 +82,7 @@ void LayerReady::waitTime(float dt)
             }
             Singleton<ServiceRoom>::GetInstance()->stopHeart();
             Singleton<ServiceGame>::GetInstance()->InitGame(gameId, room.Port);
-            Singleton<ServiceGame>::GetInstance()->fireX = room.fireX / 100.0f;
-            Singleton<ServiceGame>::GetInstance()->fireY = room.fireY / 100.0f;
+            srand(room.randSeed);
             this->updateScene(Tag::SceneFromRoomToGame);
         }
     }

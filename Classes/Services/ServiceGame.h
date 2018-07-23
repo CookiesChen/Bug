@@ -30,9 +30,13 @@ public:
 
     bool GetJoinState();
     bool GetOutState();
-    float fireDis;
+
     float fireX;
     float fireY;
+    float fireXN;
+    float fireYN;
+    float fireDis;
+    int fireC;
     int frame;
 private:
     int id;

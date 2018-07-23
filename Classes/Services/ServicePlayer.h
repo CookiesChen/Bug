@@ -5,6 +5,7 @@
 
 #include "ModelPlayer.h"
 #include "ServiceGame.h"
+#include "cocos2d.h"
 
 class ServicePlayer final
 {
@@ -26,6 +27,9 @@ public:
 
     void PlayerAttack();
     void OthersAttack(vector<frameCommand> fcv);
+
+    void SetData(vector<frameState> data);
+    void DealData();
     void SetDeadPlayerById(int id);
 
 private:
@@ -33,8 +37,9 @@ private:
     vector<ModelPlayer> other;
     Vector<SpriteFrame*> moveVector;
     Vector<SpriteFrame*> attackVector;
+    list<frameState> frameData;
     float v;
-
+    std::mutex mtx;
     int dir_s;
 };
 

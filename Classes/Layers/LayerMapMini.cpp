@@ -1,4 +1,7 @@
 ﻿#include "LayerMapMini.h"
+#include "Helpers.h"
+#include "ServiceGame.h"
+#define SCALESIZE 0.3
 
 LayerBase* LayerMapMini::createLayer()
 {
@@ -10,62 +13,94 @@ bool LayerMapMini::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
 
-    mapBack = Sprite::create("Map/minimapdark.png");
-    mapBack->setScale(0.3);
-    mapBack->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 80));
-    this->addChild(mapBack, 1);
-    setMap(0.5,0.5,1);
-    setPlayer(0.5, 0.5);
+    auto mapDark = Sprite::create("Map/miniMapDark.png");
+    mapDark->setScale(SCALESIZE);
+    mapMiniSize = mapDark->getContentSize() * mapDark->getScale();
+    centerPoint.x = visibleSize.width - mapMiniSize.width / 2 - 20;
+    centerPoint.y = visibleSize.height - mapMiniSize.height / 2 - 10;
+    mapDark->setPosition(centerPoint);
+    this->addChild(mapDark, 1);
+
+
+    // 初始毒圈
+    float dis = sqrt(MAPWIDTH * MAPWIDTH + MAPHEIGHT * MAPHEIGHT) / 2;
+    setMap(MAPWIDTH / 2, MAPHEIGHT / 2, dis, 0);
+    setMap(MAPWIDTH / 2, MAPHEIGHT / 2, dis, 1);
+
+    Singleton<ServiceGame>::GetInstance()->fireX = MAPWIDTH / 2;
+    Singleton<ServiceGame>::GetInstance()->fireY = MAPHEIGHT / 2;
+    Singleton<ServiceGame>::GetInstance()->fireXN = MAPWIDTH / 2;
+    Singleton<ServiceGame>::GetInstance()->fireYN = MAPHEIGHT / 2;
+    Singleton<ServiceGame>::GetInstance()->fireDis = dis;
+    Singleton<ServiceGame>::GetInstance()->fireC = 0;
+
+
+    // test
+    // srand(10086);
 
     return true;
 }
 
 void LayerMapMini::setPlayer(float x, float y)
 {
+    x /= MAPWIDTH;
+    y /= MAPHEIGHT;
+    x -= 0.5;
+    y -= 0.5;
+    x = this->centerPoint.x + x * this->mapMiniSize.width;
+    y = this->centerPoint.y + y * this->mapMiniSize.height;
+
     if (player != nullptr) player->removeFromParentAndCleanup(true);
     player = Sprite::create("Graphics/System/playerPoint.png");
-    float xBegin = 828;
-    float yBegin = 622;
-    x = xBegin + x * 193;
-    y = yBegin + y * 137;
+    
     player->setPosition(Vec2(x, y));
     this->addChild(player, 20);
 }
 
 
-void LayerMapMini::setMap(float x, float y, float pre)
+void LayerMapMini::setMap(float x, float y, float dis, int type)
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
-    if (clipper != nullptr) clipper->removeFromParentAndCleanup(true);
     //自画一个形状来录stencil
     auto stencil = DrawNode::create();
     stencil->setAnchorPoint(Vec2(0.5, 0.5));
     //多边形定点个数;
     Vec2 points[720];
     //圆心，相对坐标;
-    float xBegin = 0;
-    float yBegin = 0;
-    x = xBegin + (x - 0.5) * 193;
-    y = yBegin + (y - 0.5) * 137;
+    x = (x / MAPWIDTH - 0.5) * this->mapMiniSize.width;
+    y = (y / MAPHEIGHT - 0.5) * this->mapMiniSize.height;
     Vec2 center(x, y);
     //半径;
-    float R = 100 * pre;
+    dis *= mapMiniSize.height / MAPHEIGHT;
     for (int i = 0; i < 720; i++)
     {
-        float x = center.x + cos(0.5*i*3.14 / 180) * R;
-        float y = center.y + sin(0.5*i*3.14 / 180) * R;
+        float x = center.x + cos(0.5*i*3.14 / 180) * dis;
+        float y = center.y + sin(0.5*i*3.14 / 180) * dis;
         points[i] = Vec2(x, y);
     }
     //画多边形;
     stencil->drawPolygon(points, sizeof(points) / sizeof(points[0]), Color4F(0, 1, 0, 0), 1, Color4F(1, 0, 0, 1));
     //裁剪node
-    clipper = ClippingNode::create();
-    clipper->setAnchorPoint(Point(0.5, 0.5));
-    clipper->setStencil(stencil);
-    clipper->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 80));
-    this->addChild(clipper, 10);
 
-    Sprite *sp = Sprite::create("Map/minimap.png");
-    sp->setScale(0.3);
-    clipper->addChild(sp, 10);
+    if (type == 0) {
+        if (circleBig != nullptr) circleBig->removeFromParentAndCleanup(true);
+        auto map = Sprite::create("Map/miniMap.png");
+        map->setScale(SCALESIZE);
+        circleBig = ClippingNode::create();
+        circleBig->setStencil(stencil);
+        circleBig->setPosition(centerPoint);
+        circleBig->addChild(map, 10);
+        this->addChild(circleBig, 10);
+    }
+    else {
+        if (circleSmall != nullptr) circleSmall->removeFromParentAndCleanup(true);
+        auto mapLight = Sprite::create("Map/miniMapLight.png");
+        mapLight->setScale(SCALESIZE);
+        circleSmall = ClippingNode::create();
+        circleSmall->setStencil(stencil);
+        circleSmall->setPosition(centerPoint);
+        circleSmall->addChild(mapLight, 10);
+        this->addChild(circleSmall, 20);
+    }
+
 }

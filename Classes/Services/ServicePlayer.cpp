@@ -110,6 +110,26 @@ void ServicePlayer::MovePlayer(int dir)
     }
 }
 
+void ServicePlayer::SetData(vector<frameState> data)
+{
+    mtx.lock();
+    for (auto& f : data) {
+        frameData.push_back(f);
+    }
+    mtx.unlock();
+}
+
+void ServicePlayer::DealData() {
+    mtx.lock();
+    while (frameData.size()) {
+        frameState fs = frameData.front();
+        frameData.pop_front();
+        MoveOthers(fs.commands);
+        OthersAttack(fs.commands);
+    }
+    mtx.unlock();
+}
+
 void ServicePlayer::MoveOthers(vector<frameCommand> fcv)
 {
     for (auto &fc : fcv)
@@ -208,6 +228,9 @@ void ServicePlayer::OthersAttack(vector<frameCommand> fcv)
                 {
                     p.hp--;
                 }
+            }
+            if (fc.userId == Player.Id) {
+                Player.hp--;
             }
         }
     }

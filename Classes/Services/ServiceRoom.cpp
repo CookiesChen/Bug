@@ -58,6 +58,7 @@ bool ServiceRoom::refreshInfo()
     room.MaxPalyer = roomData["maxPlayer"].GetInt();
     room.fireX = roomData["fireX"].GetInt();
     room.fireY = roomData["fireY"].GetInt();
+    room.randSeed = roomData["randSeed"].GetInt();
     room.Mode = roomData["mode"].GetString();
     room.Password = roomData["password"].GetString();
     room.Playing = roomData["playing"].GetBool();

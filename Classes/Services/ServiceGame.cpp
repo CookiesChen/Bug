@@ -63,18 +63,17 @@ void ServiceGame::GetFrame(function<void(vector<frameState>)> callBack)
     while (true)
     {
         string res(Singleton<Net>::GetInstance()->GetState());
-        log("%s\n", res.c_str());
         if (res == "join") {
             this->isJoin = true;
             continue;
         }
         if (res == "out") {
             this->isOut = true;
-            continue;
+            break;
         }
         rapidjson::Document d;
         d.Parse<0>(res.c_str());
-        if (!d["d"].IsNull() && !d["d"].IsArray()) continue;
+        if (d["d"].IsNull() || !d["d"].IsArray()) continue;
         int maxFrame = frame;
         vector<frameState> data;
         for (auto& f : d["d"].GetArray())

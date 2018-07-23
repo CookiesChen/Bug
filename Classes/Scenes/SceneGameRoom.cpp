@@ -8,6 +8,7 @@
 #include "SceneGameRoom.h"
 #include "ServiceGame.h"
 #include "ServicePlayer.h"
+#include "SceneMenu.h"
 
 
 Scene* SceneGameRoom::createPhysicsScene()
@@ -35,10 +36,26 @@ bool SceneGameRoom::init()
     addKeyboardListener();
 
 
+    // 菜单
+    menu = Menu::create();
+    menu->setPosition(origin);
+    // 返回菜单
+    auto buttonBack = MenuItemImage::create("Graphics/System/BtnBack.png", "Graphics/System/BtnBack_click.png", CC_CALLBACK_1(SceneGameRoom::backMenu, this));
+    buttonBack->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+    menu->addChild(buttonBack, 1);
+    menu->setVisible(false);
+
+    this->addChild(menu, 1);
+
+
     msgLabel = Label::createWithTTF("", "Fonts/arial.ttf", 30);
     msgLabel->setAnchorPoint(Vec2::ZERO);
     msgLabel->setPosition(Vec2::ZERO);
     this->addChild(msgLabel, 99);
+
+    gameOverLabel = Label::createWithTTF("", "Fonts/arial.ttf", 50);
+    gameOverLabel->setPosition(Vec2(visibleSize.width /2, visibleSize.height / 2 + 100));
+    this->addChild(gameOverLabel, 99);
 
     schedule(schedule_selector(SceneGameRoom::JoinGame), 1.0f, kRepeatForever, 0);
 
@@ -97,42 +114,87 @@ bool SceneGameRoom::init()
     return true;
 }
 
+void SceneGameRoom::backMenu(Ref* pSender)
+{
+    Director::getInstance()->replaceScene(SceneMenu::createScene());
+}
+
+
+void SceneGameRoom::setNextFire() {
+    float fireX = Singleton<ServiceGame>::GetInstance()->fireX;
+    float fireY = Singleton<ServiceGame>::GetInstance()->fireY;
+    float fireDis = Singleton<ServiceGame>::GetInstance()->fireDis;
+
+    int range = (int)(fireDis * (1 - FIREFACTOR) * sqrt(2));
+
+    int nextX = range / 2 - rand() % range + MAPWIDTH / 2;
+    int nextY = range / 2 - rand() % range + MAPHEIGHT / 2;
+
+    Singleton<ServiceGame>::GetInstance()->fireX = Singleton<ServiceGame>::GetInstance()->fireXN;
+    Singleton<ServiceGame>::GetInstance()->fireY = Singleton<ServiceGame>::GetInstance()->fireYN;
+    Singleton<ServiceGame>::GetInstance()->fireXN = nextX;
+    Singleton<ServiceGame>::GetInstance()->fireYN = nextY;
+
+    Singleton<ServiceGame>::GetInstance()->fireDis = (int)(fireDis * FIREFACTOR);
+    Singleton<ServiceGame>::GetInstance()->fireC++;
+
+    ((LayerMapMini*)layerMapMini)->setMap(nextX, nextY, fireDis * FIREFACTOR, 1);
+}
+
 void SceneGameRoom::updateMiniMap(float dt)
 {
+    // test
+    // Singleton<ServiceGame>::GetInstance()->frame++;
+
     int frame = Singleton<ServiceGame>::GetInstance()->frame;
-    if (frame < 10000) {
-        float fx = (Singleton<ServiceGame>::GetInstance())->fireX;
-        float fy = (Singleton<ServiceGame>::GetInstance())->fireY;
-        float dis = 2.0f - (frame / 5000.0f);
-        (Singleton<ServiceGame>::GetInstance())->fireDis = dis;
-        log("%f", dis);
-        float px = Singleton<ServicePlayer>::GetInstance()->GetPlayer().x;
-        float py = Singleton<ServicePlayer>::GetInstance()->GetPlayer().y;
-        px = px / 5120.0f;
-        py = py / 3840.0f;
-        px = px - 0.5f;
-        py = py - 0.5f;
-        if ((px - fx)  * (px - fx) + (py - fy) * (py - fy) > dis) {
-            auto p = Singleton<ServicePlayer>::GetInstance()->GetPlayer();
-            p.hp--;
-            Singleton<ServiceGame>::GetInstance()->SendInput(2, 0, 0, 0);
-            Singleton<ServicePlayer>::GetInstance()->SetPlayer(p);
+    log("%d", frame);
+
+    float fireX = Singleton<ServiceGame>::GetInstance()->fireX;
+    float fireY = Singleton<ServiceGame>::GetInstance()->fireY;
+    float fireXN = Singleton<ServiceGame>::GetInstance()->fireXN;
+    float fireYN = Singleton<ServiceGame>::GetInstance()->fireYN;
+    float fireDis = Singleton<ServiceGame>::GetInstance()->fireDis;
+
+    int classInterval = FIREINTERVAL + FIREDOWN;
+    if (frame > classInterval && frame < classInterval * FIRECLASS) {
+        int fireClass = Singleton<ServiceGame>::GetInstance()->fireC;
+        while (fireClass < (frame / classInterval)) {
+            setNextFire();
+            fireClass = Singleton<ServiceGame>::GetInstance()->fireC;
+            fireXN = Singleton<ServiceGame>::GetInstance()->fireXN;
+            fireYN = Singleton<ServiceGame>::GetInstance()->fireYN;
+            fireX = Singleton<ServiceGame>::GetInstance()->fireX;
+            fireY = Singleton<ServiceGame>::GetInstance()->fireY;
+            fireDis = Singleton<ServiceGame>::GetInstance()->fireDis;
         }
-        ((LayerMapMini*)layerMapMini)->setMap(fx, fy, dis);
+        if (((frame - FIREINTERVAL) / classInterval) >= fireClass) {
+            // 收缩时间
+            float pre = ((classInterval * (fireClass + 1) - frame) / (float)FIREDOWN);
+            fireDis += pre * (fireDis / (float)FIREFACTOR - fireDis);
+            fireX += (fireXN - fireX) * (1-pre);
+            fireY += (fireYN - fireY) * (1-pre);
+        }
+        else {
+            fireDis = fireDis / (float)FIREFACTOR ;
+        }
+        ((LayerMapMini*)layerMapMini)->setMap(fireX, fireY, fireDis, 0);
     }
-    float x = layermap->player->getPosition().x - layermap->map->getPosition().x;
-    float y = layermap->player->getPosition().y - layermap->map->getPosition().y;
-    ((LayerMapMini*)layerMapMini)->setPlayer(x / 5120.0f, y / 3840.0f);
+    // 扣血
+    auto p = Singleton<ServicePlayer>::GetInstance()->GetPlayer();
+    if ((p.x - fireX) * (p.x - fireX) + (p.y - fireY) * (p.y - fireY) > fireDis * fireDis) {
+        Singleton<ServiceGame>::GetInstance()->SendInput(2, 0, 0, 0);
+        Singleton<ServicePlayer>::GetInstance()->SetPlayer(p);
+    }
+    // 人物位置
+    float x = layermap->player->getPosition().x;
+    float y = layermap->player->getPosition().y;
+    ((LayerMapMini*)layerMapMini)->setPlayer(x, y);
 }
 
 void SceneGameRoom::GetState()
 {
     Singleton<ServiceGame>::GetInstance()->GetFrame([&](vector<frameState> fsv) -> void {
-        for (auto &fs : fsv)
-        {
-            Singleton<ServicePlayer>::GetInstance()->MoveOthers(fs.commands);
-            Singleton<ServicePlayer>::GetInstance()->OthersAttack(fs.commands);
-        }
+        Singleton<ServicePlayer>::GetInstance()->SetData(fsv);
     });
 }
 
@@ -315,6 +377,7 @@ int SceneGameRoom::move()
 
 void SceneGameRoom::update(float time)
 {
+    Singleton<ServicePlayer>::GetInstance()->DealData();
     Vec2 layerPoint;
     float randomx = layermap->player->getPosition().x;
     float randomy = layermap->player->getPosition().y;
@@ -347,18 +410,33 @@ void SceneGameRoom::update(float time)
     layerPoint.y = layerPoint.y - visibleSize.height / 2;
     layermap->setPosition(-layerPoint);
 
+    bool isWin = true;
     for (auto &p : Singleton<ServicePlayer>::GetInstance()->GetOtherPlayer())
     {
+        if (!p.dead) {
+            isWin = false;
+        }
         if (!p.dead && p.hp <= 0) {
             msgLabel->setString(p.userName + " deads.");
             Singleton<ServicePlayer>::GetInstance()->SetDeadPlayerById(p.Id);
         }
     }
+
     auto p = Singleton<ServicePlayer>::GetInstance()->GetPlayer();
     if (!p.dead && p.hp <= 0)
     {
+        isWin = false;
         Singleton<ServicePlayer>::GetInstance()->SetDeadPlayerById(p.Id);
+        Singleton<ServiceGame>::GetInstance()->OutRoom();
         this->getEventDispatcher()->removeEventListener(keyboardListener);
-        this->dialog("You die.");
+        gameOverLabel->setString("You die.");
+        menu->setVisible(true);
+    }
+    if (isWin) {
+        Singleton<ServiceGame>::GetInstance()->OutRoom();
+        this->getEventDispatcher()->removeEventListener(keyboardListener);
+        this->unscheduleUpdate();
+        gameOverLabel->setString("You Win!");
+        menu->setVisible(true);
     }
 }

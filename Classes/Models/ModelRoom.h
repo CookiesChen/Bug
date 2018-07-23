@@ -23,6 +23,7 @@ class ModelRoom final
 public:
     int fireX;
     int fireY;
+    int randSeed;
     int Id;
     string OwnId;
     string OwnName;
